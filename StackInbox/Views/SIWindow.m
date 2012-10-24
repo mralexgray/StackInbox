@@ -10,10 +10,10 @@
 
 @implementation SIWindow
 @synthesize titlebarRefreshSpinner;
--(void)keyUp:(NSEvent *)theEvent {
+- (void)keyUp:(NSEvent *)theEvent {
     NSLog(@"%@", self.delegate);
 }
--(void)awakeFromNib {
+- (void)awakeFromNib {
     self.delegate = self;
     self.titleBarHeight = 46;
     NSProgressIndicator *refreshSpinner = [[NSProgressIndicator alloc] initWithFrame:NSMakeRect(self.titleBarView.bounds.size.width - 30,
@@ -42,7 +42,7 @@
     [self.titleBarView addSubview:titleText];
     [titleText release];
 }
--(NSRect)window:(NSWindow *)window willPositionSheet:(NSWindow *)sheet usingRect:(NSRect)rect {
+- (NSRect)window:(NSWindow *)window willPositionSheet:(NSWindow *)sheet usingRect:(NSRect)rect {
     rect.origin.y -= 24;
     return rect;
 }

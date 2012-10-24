@@ -11,7 +11,7 @@
 
 
 @protocol SILoginViewControllerDelegate <NSObject>
--(void)loginButtonPressed;
+- (void)loginButtonPressed;
 @end
 
 @interface SILoginViewController : SIViewController
@@ -20,5 +20,5 @@
 @property (assign) IBOutlet NSProgressIndicator *progressBar;
 @property (assign) id<SILoginViewControllerDelegate> delegate;
 - (IBAction)login:(NSButton *)sender;
--(void)setLoginState:(BOOL)loggingIn;
+- (void)setLoginState:(BOOL)loggingIn;
 @end

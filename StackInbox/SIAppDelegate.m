@@ -19,13 +19,13 @@
 
 
 @interface SIAppDelegate ()
--(void)setupViewControllers;
--(void)setupDataControllers;
--(void)startTimer;
--(void)stopTimer;
--(void)showBarItem;
--(void)hideBarItem;
--(void)setIndicatorsRead;
+- (void)setupViewControllers;
+- (void)setupDataControllers;
+- (void)startTimer;
+- (void)stopTimer;
+- (void)showBarItem;
+- (void)hideBarItem;
+- (void)setIndicatorsRead;
 @end
 
 @implementation SIAppDelegate
@@ -116,7 +116,7 @@
 
 #pragma mark - Controllers
 
--(void)switchToViewController:(SIViewController *)viewController {
+- (void)switchToViewController:(SIViewController *)viewController {
     if (self.currentViewController == viewController) {
         return;
     }
@@ -135,7 +135,7 @@
     [self.window.contentView addSubview:viewController.view];
     [viewController setIsCurrent:YES];
 }
--(void)setupViewControllers {
+- (void)setupViewControllers {
     SILoginViewController *loginVC = [[SILoginViewController alloc] init];
     [loginVC setDelegate:self];
     [self setLoginViewController:loginVC];
@@ -153,7 +153,7 @@
     [self setInboxViewController:inboxVC];
     [inboxVC release];
 }
--(void)setupDataControllers {
+- (void)setupDataControllers {
     SIInboxDownloader *inboxDownloader = [[SIInboxDownloader alloc] init];
     [inboxDownloader setDelegate:self];
     [self setDownloader:inboxDownloader];
@@ -165,32 +165,32 @@
     [authCont release];
 }
 #pragma mark - Timer
--(void)startTimer {
+- (void)startTimer {
     [self.timer invalidate];
     self.timer = [NSTimer scheduledTimerWithTimeInterval:2 MINUTES target:self selector:@selector(timerFire) userInfo:nil repeats:YES];
     [self.timer fire];
 }
--(void)stopTimer {
+- (void)stopTimer {
     [self.timer invalidate];
     self.timer = nil;
 }
--(void)timerFire {
+- (void)timerFire {
     [self.downloader startDownloadWithAccessToken:self.authController.accessToken];
 }
 
 #pragma mark - MenuItem
 
--(void)menuItemClicked {
+- (void)menuItemClicked {
     [[NSApplication sharedApplication] activateIgnoringOtherApps:YES];
     [self.window makeKeyAndOrderFront:nil];
 }
--(void)setIndicatorsRead {
+- (void)setIndicatorsRead {
     [[NSApp dockTile] setBadgeLabel:nil];
     NSImage *icon = [NSImage imageNamed:@"StackInbox"];
     [icon setSize:NSMakeSize([[NSStatusBar systemStatusBar] thickness]-4, [[NSStatusBar systemStatusBar] thickness] -4 )];
     [self.statusItem setImage:icon];
 }
--(void)showBarItem {
+- (void)showBarItem {
     self.statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:[[NSStatusBar systemStatusBar] thickness]];
     NSImage *icon = [NSImage imageNamed:@"StackInboxRead"];
     if ([[[NSApp dockTile] badgeLabel] isEqualToString:@"★"]) {
@@ -203,10 +203,10 @@
     [statusItem setAction:@selector(menuItemClicked)];
     
 }
--(void)hideBarItem {
+- (void)hideBarItem {
     [[NSStatusBar systemStatusBar] removeStatusItem:self.statusItem];
 }
--(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString:@"SIShowStatusItem"]) {
         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"SIShowStatusItem"]) {
             [self showBarItem];
@@ -220,13 +220,13 @@
 #pragma mark - Delegation 
 #pragma mark LoginViewController
 
--(void)loginButtonPressed {
+- (void)loginButtonPressed {
     [self.authController startAuth];
 }
 
 #pragma mark Growl
 
--(void)growlNotificationWasClicked:(id)clickContext {
+- (void)growlNotificationWasClicked:(id)clickContext {
     NSDictionary *context = clickContext;
     NSString *link = [context objectForKey:@"link"];
     NSInteger count = [[context objectForKey:@"count"] integerValue];
@@ -241,11 +241,11 @@
 
 
 #pragma mark Auth
--(void)authPercentageProgressChanged:(float)percent{
+- (void)authPercentageProgressChanged:(float)percent{
     [self.loginViewController.progressBar setIndeterminate:NO];
     [self.loginViewController.progressBar setDoubleValue:percent];
 }
--(void)authCompletedSuccessfully{
+- (void)authCompletedSuccessfully{
     //as a user it has always bugged me when progress bars never fill up
     [self.loginViewController.progressBar setDoubleValue:100];
     double delayInSeconds = 2.0;
@@ -254,19 +254,19 @@
         [self.downloader startDownloadWithAccessToken:self.authController.accessToken];
     });
 }
--(void)authFailed{
+- (void)authFailed{
     //why?
 }
 
 #pragma mark Download
 
 
--(void)updateProgressWithDecimalPercent:(float)percent {
+- (void)updateProgressWithDecimalPercent:(float)percent {
     [self.downloadingViewController.progressBar setDoubleValue:percent];
 }
 
 
--(void)newItemsFound:(NSArray *)newItems {
+- (void)newItemsFound:(NSArray *)newItems {
     
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"ShowCountInBadge"]) {
         [[NSApplication sharedApplication].dockTile setBadgeLabel:[NSString stringWithFormat:@"%i", newItems.count]];        
@@ -293,7 +293,7 @@
     [self.statusItem setImage:newImage];
 }
 
--(void)finishedDownloadingJSON:(NSDictionary *)jsonObject {
+- (void)finishedDownloadingJSON:(NSDictionary *)jsonObject {
     [self.window.titlebarRefreshSpinner stopAnimation:nil];
     [self.window.titlebarRefreshSpinner setHidden:YES];
     NSInteger lastDD = [[[NSUserDefaults standardUserDefaults] objectForKey:@"LastDD"] integerValue];
@@ -338,7 +338,7 @@
 }
 #pragma mark - Menu Actions
 
--(IBAction)logout:(id)sender {
+- (IBAction)logout:(id)sender {
     NSAlert *logoutAlert = [NSAlert alertWithMessageText:@"Logout?" defaultButton:@"Yes" alternateButton:@"No" otherButton:nil informativeTextWithFormat:@"Are you sure you want to log out? This will remove your details from this app, and you will have to log in again to start with the newest 30 items in your inbox. \n\n This will not log you out in Safari or anywhere else"];
     if ([logoutAlert runModal] == NSAlertAlternateReturn) {
         return;
@@ -364,7 +364,7 @@
     }
 }
 
--(IBAction)markAllRead:(id)sender {
+- (IBAction)markAllRead:(id)sender {
     [self setIndicatorsRead];
     [self.inboxViewController.itemsToList makeObjectsPerformSelector:@selector(setRead)];
     [self.inboxViewController.listView reloadData];
@@ -372,7 +372,7 @@
 - (IBAction)reportBug:(id)sender {
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://stackapps.com/questions/2872"]];//TODO link to app
 }
--(IBAction)login:(id)sender {
+- (IBAction)login:(id)sender {
     [self.authController startAuth];
 }
 @end

@@ -15,7 +15,7 @@
 @implementation SIAuthController
 @synthesize accessToken, delegate;
 @synthesize window, webView;
--(id)init {
+- (id)init {
     if (self = [super init]) {
         NSWindow *twindow = [[NSWindow alloc] init];
         [twindow setFrame:NSMakeRect(0, 0, [[[NSApp delegate] window] frame].size.width, 300) display:YES];
@@ -36,11 +36,11 @@
     return self;
 }
 
--(BOOL)hasAccessToken {
+- (BOOL)hasAccessToken {
     return (self.accessToken && ![self.accessToken isEqualToString:@""]);
 }
 
--(void)startAuth {
+- (void)startAuth {
     NSString *scope = @"read_inbox";
     [[NSNotificationCenter defaultCenter] postNotificationName:@"SIStartAuth" object:nil];
     NSString *temp = [NSString stringWithFormat:@"https://stackexchange.com/oauth/dialog?client_id=%@&scope=%@&redirect_uri=%@", ClientID, scope, RedirectURI];
@@ -48,14 +48,14 @@
     NSLog(@"set frame %@", temp);
 }
 
--(void)authProgressChanged:(NSNotification *)note {
+- (void)authProgressChanged:(NSNotification *)note {
     if ([self.delegate respondsToSelector:@selector(authPercentageProgressChanged:)]) {
         WebView *webview = [note object];
         [self.delegate authPercentageProgressChanged:webview.estimatedProgress * 100];
     }
 }
 
--(void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame {
+- (void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame {
     NSString *frameURL = [[sender mainFrameURL] copy];
     NSLog(@"lgo url %@", frameURL);
     if (![frameURL hasPrefix:RedirectURI]) { 

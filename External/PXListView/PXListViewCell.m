@@ -147,7 +147,7 @@
 
 #pragma mark layout
 
--(void)layoutSubviews;
+- (void)layoutSubviews;
 {
     
 }
@@ -155,7 +155,7 @@
 #pragma mark -
 #pragma mark Accessibility
 
--(NSArray*)	accessibilityAttributeNames
+- (NSArray*)	accessibilityAttributeNames
 {
 	NSMutableArray*	attribs = [[[super accessibilityAttributeNames] mutableCopy] autorelease];
 	
@@ -165,7 +165,7 @@
 	return attribs;
 }
 
--(BOOL)	accessibilityIsAttributeSettable: (NSString *)attribute
+- (BOOL)	accessibilityIsAttributeSettable: (NSString *)attribute
 {
 	if( [attribute isEqualToString: NSAccessibilityRoleAttribute]
 		or [attribute isEqualToString: NSAccessibilityEnabledAttribute] )
@@ -176,7 +176,7 @@
 		return [super accessibilityIsAttributeSettable: attribute];
 }
 
--(id)	accessibilityAttributeValue: (NSString *)attribute
+- (id)	accessibilityAttributeValue: (NSString *)attribute
 {
 	if( [attribute isEqualToString: NSAccessibilityRoleAttribute] )
 	{
@@ -191,19 +191,19 @@
 }
 
 
--(NSArray *)	accessibilityActionNames
+- (NSArray *)	accessibilityActionNames
 {
 	return [NSArray arrayWithObjects: NSAccessibilityPressAction, nil];
 }
 
 
--(NSString *)	accessibilityActionDescription: (NSString *)action
+- (NSString *)	accessibilityActionDescription: (NSString *)action
 {
 	return NSAccessibilityActionDescription(action);
 }
 
 
--(void)	accessibilityPerformAction: (NSString *)action
+- (void)	accessibilityPerformAction: (NSString *)action
 {
 	if( [action isEqualToString: NSAccessibilityPressAction] )
 	{
@@ -212,7 +212,7 @@
 }
 
 
--(BOOL)	accessibilityIsIgnored
+- (BOOL)	accessibilityIsIgnored
 {
 	return NO;
 }

@@ -9,11 +9,15 @@
 #import <Foundation/Foundation.h>
 
 @interface SIAppCookieJar : NSObject
-- (id)initSingleton; // <= add these to the interface
-+ (SIAppCookieJar *)sharedSIAppCookieJar;  // <= where Foo is the class name
-- (NSString *) pathForCookieJar;
-@property (nonatomic, retain)NSMutableArray *cookieStore;
-- (void)setCookie:(NSHTTPCookie *)cookie;
-- (void)removeExpiredCookies;
--(void)removeAllCookies;
+
+@property (nonatomic, retain) NSMutableArray *cookieStore;
+
+- (id) 				initSingleton; 				// <= add these to the interface
++ (SIAppCookieJar*) sharedSIAppCookieJar;  		// <= where Foo is the class name
+- (NSString *) 		pathForCookieJar;
+
+- (void) setCookie: (NSHTTPCookie*)cookie;
+- (void) removeExpiredCookies;
+- (void) removeAllCookies;
+
 @end

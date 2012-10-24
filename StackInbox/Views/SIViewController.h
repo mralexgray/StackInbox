@@ -9,8 +9,8 @@
 #define performDelegateSelector(sel) if ([delegate respondsToSelector:sel]) { [delegate performSelector:sel]; }
 @class SIAppDelegate;
 @interface SIViewController : NSViewController
--(id)init;
+- (id)init;
 @property (assign) SIAppDelegate *parentContainer;
 @property (assign) BOOL isCurrent;
--(void)viewControllerWillMoveFromParent;
+- (void)viewControllerWillMoveFromParent;
 @end

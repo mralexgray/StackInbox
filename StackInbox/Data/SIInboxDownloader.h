@@ -10,18 +10,22 @@
 #import <WebKit/WebKit.h>
 
 
-@protocol SIInboxDownloaderDelegate 
--(void)finishedDownloadingJSON:(NSDictionary *)jsonObject;
--(void)updateProgressWithDecimalPercent:(float)percent;
+@protocol SIInboxDownloaderDelegate
+
+- (void) finishedDownloadingJSON: (NSDictionary *)jsonObject;
+- (void) updateProgressWithDecimalPercent: (float)percent;
 @optional
--(void)downloadNotStarted:(NSUInteger)seconds;
+- (void) downloadNotStarted: (NSUInteger)seconds;
+
 @end
 
 @interface SIInboxDownloader : NSObject  
+
 @property (nonatomic, retain) NSString *json;
 @property (nonatomic, assign) id <SIInboxDownloaderDelegate>delegate;
-@property (assign) NSTimeInterval lastDownload;
--(void)startDownloadWithAccessToken:(NSString *)accessToken;
+@property (assign) 			  NSTimeInterval lastDownload;
 
--(BOOL)canStartDownload;
+- (void) startDownloadWithAccessToken: (NSString *)accessToken;
+- (BOOL) canStartDownload;
+
 @end

@@ -263,7 +263,7 @@ static PXIsDragStartResult PXIsDragStart( NSEvent *startEvent, NSTimeInterval th
 	return NO;
 }
 
--(NSImage*)	dragImageForRowsWithIndexes: (NSIndexSet *)dragRows event: (NSEvent*)dragEvent clickedCell: (PXListViewCell*)clickedCell offset: (NSPointPointer)dragImageOffset
+- (NSImage*)	dragImageForRowsWithIndexes: (NSIndexSet *)dragRows event: (NSEvent*)dragEvent clickedCell: (PXListViewCell*)clickedCell offset: (NSPointPointer)dragImageOffset
 {
 #pragma unused(dragEvent)
 	CGFloat		minX = CGFLOAT_MAX, maxX = CGFLOAT_MIN,
@@ -328,13 +328,13 @@ static PXIsDragStartResult PXIsDragStart( NSEvent *startEvent, NSTimeInterval th
 }
 
 
--(void)	setShowsDropHighlight: (BOOL)inState
+- (void)	setShowsDropHighlight: (BOOL)inState
 {
 	[[self documentView] setDropHighlight: (inState ? PXListViewDropOn : PXListViewDropNowhere)];
 }
 
 
--(NSUInteger)	indexOfRowAtPoint: (NSPoint)pos returningProposedDropHighlight: (PXListViewDropHighlight*)outDropHighlight
+- (NSUInteger)	indexOfRowAtPoint: (NSPoint)pos returningProposedDropHighlight: (PXListViewDropHighlight*)outDropHighlight
 {
 	*outDropHighlight = PXListViewDropOn;
 	
@@ -398,7 +398,7 @@ static PXIsDragStartResult PXIsDragStart( NSEvent *startEvent, NSTimeInterval th
 }
 
 
--(PXListViewCell*)	cellForDropHighlight: (PXListViewDropHighlight*)dhl row: (NSUInteger*)idx
+- (PXListViewCell*)	cellForDropHighlight: (PXListViewDropHighlight*)dhl row: (NSUInteger*)idx
 {
 	PXListViewCell*		newCell = nil;
 	if( (*idx) >= _numberOfRows && _numberOfRows > 0 )
@@ -538,7 +538,7 @@ static PXIsDragStartResult PXIsDragStart( NSEvent *startEvent, NSTimeInterval th
 }
 
 
--(void)setDropRow:(NSUInteger)row dropHighlight: (PXListViewDropHighlight)dropHighlight
+- (void)setDropRow:(NSUInteger)row dropHighlight: (PXListViewDropHighlight)dropHighlight
 {
 	_dropRow = row;
 	_dropHighlight = dropHighlight;

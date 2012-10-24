@@ -11,10 +11,10 @@
 @implementation SIViewController
 @synthesize parentContainer;
 @synthesize isCurrent;
--(id)init {
+- (id)init {
     return [self initWithNibName:NSStringFromClass([self class]) bundle:nil];
 }
--(void)viewControllerWillMoveFromParent {
+- (void)viewControllerWillMoveFromParent {
     //override
 }
 @end

@@ -22,25 +22,25 @@
     
     return self;
 }
--(void)awakeFromNib {
+- (void)awakeFromNib {
     [self.listView setPostsBoundsChangedNotifications:YES];
     [self.listView setDelegate:self];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(boundsDidChange:) name:NSViewBoundsDidChangeNotification object:nil];
 }
 
--(void)boundsDidChange:(NSNotification *)note {
+- (void)boundsDidChange:(NSNotification *)note {
     if (self.listView.contentView.bounds.origin.y < 10) {
         [[NSApplication sharedApplication].dockTile setBadgeLabel:nil];        
     }
 }
 
 
--(NSUInteger)numberOfRowsInListView:(PXListView *)aListView {
+- (NSUInteger)numberOfRowsInListView:(PXListView *)aListView {
     return [self.itemsToList count];
 }
 
 
--(PXListViewCell *)listView:(PXListView *)aListView cellForRow:(NSUInteger)row {
+- (PXListViewCell *)listView:(PXListView *)aListView cellForRow:(NSUInteger)row {
     SIListViewCell *cell = (SIListViewCell *)[aListView dequeueCellWithReusableIdentifier:@"CellID"];
     if (cell == nil) {
         cell = [SIListViewCell cellLoadedFromNibNamed:@"CellNib" reusableIdentifier:@"CellID"];
@@ -67,11 +67,11 @@
     }
     return cell;
 }
--(CGFloat)listView:(PXListView *)aListView heightOfRow:(NSUInteger)row {
+- (CGFloat)listView:(PXListView *)aListView heightOfRow:(NSUInteger)row {
     return 65;
 }
 
--(void)listViewSelectionDidChange:(NSNotification *)aNotification {
+- (void)listViewSelectionDidChange:(NSNotification *)aNotification {
     SIInboxModel *item = [self.itemsToList objectAtIndex:self.listView.selectedRow];
     
     [[NSWorkspace sharedWorkspace] openURL:item.linkURL];

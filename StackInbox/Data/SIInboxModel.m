@@ -17,13 +17,13 @@ NSString * const SIInboxItemTypeMetaQuestion = @"meta_question";
 
 @implementation SIInboxModel
 @synthesize title, body, creationDate, link, isUnread, siteIconLink, siteName, type, isAPIUnread;
--(NSNumber *)creationTINumber {
+- (NSNumber *)creationTINumber {
     return [NSNumber numberWithDouble:[self.creationDate timeIntervalSince1970]];
 }
--(NSURL *)siteIconURL {
+- (NSURL *)siteIconURL {
     return [NSURL URLWithString:self.siteIconLink];
 }
--(NSURL *)linkURL {
+- (NSURL *)linkURL {
     return [NSURL URLWithString:self.link];
 }
 +(SIInboxModel *)inboxItemUsingDictionary:(NSDictionary *)dict {
@@ -38,7 +38,7 @@ NSString * const SIInboxItemTypeMetaQuestion = @"meta_question";
     retItem.type = [dict objectForKey:@"type"];
     return [retItem autorelease];
 }
--(void)encodeWithCoder:(NSCoder *)aCoder {
+- (void)encodeWithCoder:(NSCoder *)aCoder {
     [aCoder encodeObject:self.title forKey:@"title"];
     [aCoder encodeObject:self.body forKey:@"body"];
     [aCoder encodeObject:self.creationDate forKey:@"creationDate"];
@@ -49,7 +49,7 @@ NSString * const SIInboxItemTypeMetaQuestion = @"meta_question";
     [aCoder encodeObject:self.siteName forKey:@"siteName"];
     [aCoder encodeObject:self.type forKey:@"type"];
 }
--(id)initWithCoder:(NSCoder *)aDecoder {
+- (id)initWithCoder:(NSCoder *)aDecoder {
     if (self = [self init]) {
         self.title = [aDecoder decodeObjectForKey:@"title"];
         self.body = [aDecoder decodeObjectForKey:@"body"];
@@ -63,7 +63,7 @@ NSString * const SIInboxItemTypeMetaQuestion = @"meta_question";
     }
     return self;
 }
--(void)dealloc {
+- (void)dealloc {
     [title release];
     [body release];
     [creationDate release];
@@ -73,10 +73,10 @@ NSString * const SIInboxItemTypeMetaQuestion = @"meta_question";
     [type release];
     [super dealloc];
 }
--(void)setUnread {
+- (void)setUnread {
     self.isUnread = YES;
 }
--(void)setRead {
+- (void)setRead {
     self.isUnread = NO;
 }
 @end

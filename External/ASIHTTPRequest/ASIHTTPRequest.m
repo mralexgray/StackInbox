@@ -1809,7 +1809,7 @@ static NSOperationQueue *sharedQueue = nil;
 }
 
 
--(void)removeUploadProgressSoFar
+- (void)removeUploadProgressSoFar
 {
 	long long progressToRemove = -[self totalBytesSent];
 	[ASIHTTPRequest performSelector:@selector(request:didSendBytes:) onTarget:&queue withObject:self amount:&progressToRemove callerToRetain:self];

@@ -14,7 +14,7 @@
 @implementation SIInboxDownloader
 @synthesize json, delegate, lastDownload;
 
--(void)startDownloadWithAccessToken:(NSString *)accessToken {
+- (void)startDownloadWithAccessToken:(NSString *)accessToken {
 #warning This is StackInbox's key, if you use this code for another app you need to use your own key
     NSString *key = @"PMk2uCNoN*jdo8tdz2nwCg((";
     NSString *filter = @")w_hKtV2*GAyeu2mT7_";
@@ -79,7 +79,7 @@
     self.lastDownload = [[NSDate date] timeIntervalSince1970];
 }
 
--(BOOL)canStartDownload {    
+- (BOOL)canStartDownload {    
     NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
     if (now - lastDownload <= 60) {
         return NO;

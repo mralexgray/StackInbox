@@ -23,7 +23,7 @@
     
     return self;
 }
--(void)switchToLoggingInState:(BOOL)loggingIn {
+- (void)switchToLoggingInState:(BOOL)loggingIn {
     [self setLoginState:loggingIn];
     if (loggingIn) {
         [loginButton setEnabled:NO];
@@ -37,16 +37,16 @@
         [progressBar setIndeterminate:NO];
     }
 }
--(void)awakeFromNib {
+- (void)awakeFromNib {
     [self switchToLoggingInState:self.loginState];
 }
 - (IBAction)login:(NSButton *)sender {
     [self switchToLoggingInState:YES];
     performDelegateSelector(@selector(loginButtonPressed))
 }
--(void)viewControllerWillMoveFromParent {
+- (void)viewControllerWillMoveFromParent {
     [self switchToLoggingInState:NO];
 }
--(void)dealloc {
+- (void)dealloc {
 }
 @end

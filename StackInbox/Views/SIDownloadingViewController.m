@@ -22,10 +22,10 @@
     return self;
 }
 
--(void)awakeFromNib {
+- (void)awakeFromNib {
     [self.activity startAnimation:nil];
 }
--(void)viewControllerWillMoveFromParent {
+- (void)viewControllerWillMoveFromParent {
     [self.progressBar setDoubleValue:0];
 }
 @end

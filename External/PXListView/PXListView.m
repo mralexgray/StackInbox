@@ -109,7 +109,7 @@ NSString * const PXListViewSelectionDidChange = @"PXListViewSelectionDidChange";
     }
 }
 
--(void)reloadRowAtIndex:(NSInteger)inIndex;
+- (void)reloadRowAtIndex:(NSInteger)inIndex;
 {
     [self cacheCellLayout];
     [self layoutCells];
@@ -157,7 +157,7 @@ NSString * const PXListViewSelectionDidChange = @"PXListViewSelectionDidChange";
 #pragma mark -
 #pragma mark Cell Handling
 
--(void)enqueueCell:(PXListViewCell*)cell
+- (void)enqueueCell:(PXListViewCell*)cell
 {
 	[_reusableCells addObject:cell];
 	[_visibleCells removeObject:cell];
@@ -246,7 +246,7 @@ NSString * const PXListViewSelectionDidChange = @"PXListViewSelectionDidChange";
 	return outCell;
 }
 
--(PXListViewCell *)cellForRowAtIndex:(NSUInteger)inIndex
+- (PXListViewCell *)cellForRowAtIndex:(NSUInteger)inIndex
 {
     return [self visibleCellForRow:inIndex];
 }
@@ -618,7 +618,7 @@ NSString * const PXListViewSelectionDidChange = @"PXListViewSelectionDidChange";
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowSizing:) name:NSSplitViewDidResizeSubviewsNotification object:self.superview];
 }
 
--(void)layoutCellsForResizeEvent 
+- (void)layoutCellsForResizeEvent 
 {
     //Change the layout of the cells
     [_visibleCells removeAllObjects];
@@ -648,7 +648,7 @@ NSString * const PXListViewSelectionDidChange = @"PXListViewSelectionDidChange";
     _currentRange = [self visibleRange];
 }
 
--(void)viewDidEndLiveResize
+- (void)viewDidEndLiveResize
 {
     [super viewDidEndLiveResize];
     
@@ -661,7 +661,7 @@ NSString * const PXListViewSelectionDidChange = @"PXListViewSelectionDidChange";
         [[NSNotificationCenter defaultCenter] removeObserver:self name:NSSplitViewDidResizeSubviewsNotification object:self.superview];
 }
 
--(void)windowSizing:(NSNotification *)inNot
+- (void)windowSizing:(NSNotification *)inNot
 {
     [self layoutCellsForResizeEvent];
 }
@@ -669,7 +669,7 @@ NSString * const PXListViewSelectionDidChange = @"PXListViewSelectionDidChange";
 #pragma mark -
 #pragma mark Accessibility
 
--(NSArray*)	accessibilityAttributeNames
+- (NSArray*)	accessibilityAttributeNames
 {
 	NSMutableArray*	attribs = [[[super accessibilityAttributeNames] mutableCopy] autorelease];
 	
@@ -699,7 +699,7 @@ NSString * const PXListViewSelectionDidChange = @"PXListViewSelectionDidChange";
 }
 
 
--(id)	accessibilityAttributeValue: (NSString *)attribute
+- (id)	accessibilityAttributeValue: (NSString *)attribute
 {
 	if( [attribute isEqualToString: NSAccessibilityRoleAttribute] )
 	{
@@ -728,7 +728,7 @@ NSString * const PXListViewSelectionDidChange = @"PXListViewSelectionDidChange";
 }
 
 
--(BOOL)	accessibilityIsIgnored
+- (BOOL)	accessibilityIsIgnored
 {
 	return NO;
 }

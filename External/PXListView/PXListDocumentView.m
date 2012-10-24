@@ -28,7 +28,7 @@
 }
 
 
--(void)	drawRect: (NSRect)dirtyRect
+- (void)	drawRect: (NSRect)dirtyRect
 {
 #pragma unused(dirtyRect)
 	//NSLog( @"drawRect %lu", _dropHighlight );
@@ -60,7 +60,7 @@
 	}
 }
 
--(void)	setDropHighlight: (PXListViewDropHighlight)inState
+- (void)	setDropHighlight: (PXListViewDropHighlight)inState
 {
 	_dropHighlight = inState;
 	//NSLog( @"setDropHighlight %lu", _dropHighlight );

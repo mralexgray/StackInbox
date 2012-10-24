@@ -810,7 +810,7 @@ CannotBeginFetch:
   }
 }
 
--(void)connection:(NSURLConnection *)connection
+- (void)connection:(NSURLConnection *)connection
        didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {
 
   if ([challenge previousFailureCount] <= 2) {

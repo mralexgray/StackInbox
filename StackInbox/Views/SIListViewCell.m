@@ -13,7 +13,7 @@
 @synthesize timeField;
 @synthesize textLabel, imageView, backgroundColor;
 
--(void)dealloc {
+- (void)dealloc {
     [textLabel release];
     textLabel = nil;
     [imageView release];
@@ -22,7 +22,7 @@
     detailTextLabel = nil;
     [super dealloc];
 }
--(void)setBackgroundColor:(NSColor *)new_value {
+- (void)setBackgroundColor:(NSColor *)new_value {
     if (new_value != backgroundColor) {
         [backgroundColor release];
         backgroundColor = [new_value retain];
@@ -31,11 +31,11 @@
 }
 
 
--(void)prepareForReuse {
+- (void)prepareForReuse {
     [self setBackgroundColor:nil];
     [super prepareForReuse];
 }
--(void)drawRect:(NSRect)dirtyRect {
+- (void)drawRect:(NSRect)dirtyRect {
 
     if (self.backgroundColor != nil) {
         [self.backgroundColor setFill];

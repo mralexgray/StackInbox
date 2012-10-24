@@ -9,15 +9,15 @@
 #import <Foundation/Foundation.h>
 #import "IGIsolatedCookieWebView.h"
 @protocol SIAuthControllerDelegate <NSObject>
--(void)authPercentageProgressChanged:(float)percent;
--(void)authCompletedSuccessfully;
--(void)authFailed;
+- (void)authPercentageProgressChanged:(float)percent;
+- (void)authCompletedSuccessfully;
+- (void)authFailed;
 @end
 
 @interface SIAuthController : NSObject
 @property (nonatomic, retain) NSString *accessToken;
 @property (assign) id<SIAuthControllerDelegate> delegate;
 
--(void)startAuth;
--(BOOL)hasAccessToken;
+- (void)startAuth;
+- (BOOL)hasAccessToken;
 @end
