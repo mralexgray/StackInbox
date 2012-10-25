@@ -64,7 +64,7 @@
 	return nil;
 }
 
-- (NSData *)uncompressBytes:(Bytef *)bytes length:(NSUInteger)length error:(NSError **)err
+- (NSData *)uncompressBytes:(Bytef *)bytes length:(NSUI)length error:(NSError **)err
 {
 	if (length == 0) return nil;
 
@@ -118,7 +118,7 @@
 	return outputData;
 }
 
-+ (BOOL)uncompressDataFromFile:(NSString *)sourcePath toFile:(NSString *)destinationPath error:(NSError **)err
++ (BOOL)uncompressDataFromFile:(NSS *)sourcePath toFile:(NSS *)destinationPath error:(NSError **)err
 {
 	NSFileManager *fileManager = [[NSFileManager alloc] init];
 

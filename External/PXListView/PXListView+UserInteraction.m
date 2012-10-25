@@ -11,7 +11,7 @@
 #import "PXListView+UserInteraction.h"
 #import "PXListView+Private.h"
 
-// Apple sadly doesn't provide CGFloat variants of these:
+// Apple sadly doesn't provide CGF  variants of these:
 #if CGFLOAT_IS_DOUBLE
 #define CGFLOATABS(n)	fabs(n)
 #else
@@ -334,7 +334,7 @@ static PXIsDragStartResult PXIsDragStart( NSEvent *startEvent, NSTimeInterval th
 }
 
 
-- (NSUInteger)	indexOfRowAtPoint: (NSPoint)pos returningProposedDropHighlight: (PXListViewDropHighlight*)outDropHighlight
+- (NSUI)	indexOfRowAtPoint: (NSPoint)pos returningProposedDropHighlight: (PXListViewDropHighlight*)outDropHighlight
 {
 	*outDropHighlight = PXListViewDropOn;
 	
@@ -538,7 +538,7 @@ static PXIsDragStartResult PXIsDragStart( NSEvent *startEvent, NSTimeInterval th
 }
 
 
-- (void)setDropRow:(NSUInteger)row dropHighlight: (PXListViewDropHighlight)dropHighlight
+- (void)setDropRow:(NSUI)row dropHighlight: (PXListViewDropHighlight)dropHighlight
 {
 	_dropRow = row;
 	_dropHighlight = dropHighlight;

@@ -6,7 +6,7 @@
 	return [[self expiresDate] timeIntervalSinceNow] < 0;
 }
 
-- (BOOL)isForHost:(NSString *)host
+- (BOOL)isForHost:(NSS *)host
 {
 	return ([[self domain] isEqualToString:host]
 			|| ([[self domain] hasPrefix:@"."]
@@ -14,7 +14,7 @@
 			);
 }
 
-- (BOOL)isForPath:(NSString *)path;
+- (BOOL)isForPath:(NSS *)path;
 {
 	return (path
 			&& [path hasPrefix:[self path]]

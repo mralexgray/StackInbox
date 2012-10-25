@@ -26,7 +26,7 @@
 
 @class ASIDataDecompressor;
 
-extern NSString *ASIHTTPRequestVersion;
+extern NSS *ASIHTTPRequestVersion;
 
 // Make targeting different platforms more reliable
 // See: http://www.blumtnwerx.com/blog/2009/06/cross-sdk-code-hygiene-in-xcode/
@@ -101,7 +101,7 @@ typedef void (^ASIDataBlock)(NSData *data);
 	id <ASIHTTPRequestDelegate, ASIProgressDelegate> queue;
 	
 	// HTTP method to use (eg: GET / POST / PUT / DELETE / HEAD etc). Defaults to GET
-	NSString *requestMethod;
+	NSS *requestMethod;
 	
 	// Request body - only used when the whole body is stored in memory (shouldStreamPostDataFromDisk is false)
 	NSMutableData *postBody;
@@ -115,10 +115,10 @@ typedef void (^ASIDataBlock)(NSData *data);
 	
 	// Path to file used to store post body (when shouldStreamPostDataFromDisk is true)
 	// You can set this yourself - useful if you want to PUT a file from local disk 
-	NSString *postBodyFilePath;
+	NSS *postBodyFilePath;
 	
 	// Path to a temporary file used to store a deflated post body (when shouldCompressPostBody is YES)
-	NSString *compressedPostBodyFilePath;
+	NSS *compressedPostBodyFilePath;
 	
 	// Set to true when ASIHTTPRequest automatically created a temporary file containing the request body (when true, the file at postBodyFilePath will be deleted at the end of the request)
 	BOOL didCreateTemporaryPostDataFile;
@@ -162,13 +162,13 @@ typedef void (^ASIDataBlock)(NSData *data);
 	
 	// When downloadDestinationPath is set, the result of this request will be downloaded to the file at this location
 	// If downloadDestinationPath is not set, download data will be stored in memory
-	NSString *downloadDestinationPath;
+	NSS *downloadDestinationPath;
 	
 	// The location that files will be downloaded to. Once a download is complete, files will be decompressed (if necessary) and moved to downloadDestinationPath
-	NSString *temporaryFileDownloadPath;
+	NSS *temporaryFileDownloadPath;
 	
 	// If the response is gzipped and shouldWaitToInflateCompressedResponses is NO, a file will be created at this path containing the inflated response as it comes in
-	NSString *temporaryUncompressedDataDownloadPath;
+	NSS *temporaryUncompressedDataDownloadPath;
 	
 	// Used for writing data to a file when downloadDestinationPath is set
 	NSOutputStream *fileDownloadOutputStream;
@@ -189,21 +189,21 @@ typedef void (^ASIDataBlock)(NSData *data);
 	NSError *error;
 	
 	// Username and password used for authentication
-	NSString *username;
-	NSString *password;
+	NSS *username;
+	NSS *password;
 	
 	// User-Agent for this request
-	NSString *userAgent;
+	NSS *userAgent;
 	
 	// Domain used for NTLM authentication
-	NSString *domain;
+	NSS *domain;
 	
 	// Username and password used for proxy authentication
-	NSString *proxyUsername;
-	NSString *proxyPassword;
+	NSS *proxyUsername;
+	NSS *proxyPassword;
 	
 	// Domain used for NTLM proxy authentication
-	NSString *proxyDomain;
+	NSS *proxyDomain;
 	
 	// Delegate for displaying upload progress (usually an NSProgressIndicator, but you can supply a different object and handle this yourself)
 	id <ASIProgressDelegate> uploadProgressDelegate;
@@ -229,11 +229,11 @@ typedef void (^ASIDataBlock)(NSData *data);
 	int authenticationRetryCount;
 	
 	// Authentication scheme (Basic, Digest, NTLM)
-	// If you are using Basic authentication and want to force ASIHTTPRequest to send an authorization header without waiting for a 401, you must set this to (NSString *)kCFHTTPAuthenticationSchemeBasic
-	NSString *authenticationScheme;
+	// If you are using Basic authentication and want to force ASIHTTPRequest to send an authorization header without waiting for a 401, you must set this to (NSS *)kCFHTTPAuthenticationSchemeBasic
+	NSS *authenticationScheme;
 	
 	// Realm for authentication when credentials are required
-	NSString *authenticationRealm;
+	NSS *authenticationRealm;
 	
 	// When YES, ASIHTTPRequest will present a dialog allowing users to enter credentials when no-matching credentials were found for a server that requires authentication
 	// The dialog will not be shown if your delegate responds to authenticationNeededForRequest:
@@ -253,16 +253,16 @@ typedef void (^ASIDataBlock)(NSData *data);
 	int proxyAuthenticationRetryCount;
 	
 	// Authentication scheme for the proxy (Basic, Digest, NTLM)
-	NSString *proxyAuthenticationScheme;	
+	NSS *proxyAuthenticationScheme;	
 	
 	// Realm for proxy authentication when credentials are required
-	NSString *proxyAuthenticationRealm;
+	NSS *proxyAuthenticationRealm;
 	
 	// HTTP status code, eg: 200 = OK, 404 = Not found etc
 	int responseStatusCode;
 	
 	// Description of the HTTP status code
-	NSString *responseStatusMessage;
+	NSS *responseStatusMessage;
 	
 	// Size of the response
 	unsigned long long contentLength;
@@ -371,12 +371,12 @@ typedef void (^ASIDataBlock)(NSData *data);
 	NSArray *clientCertificates;
 	
 	// Details on the proxy to use - you could set these yourself, but it's probably best to let ASIHTTPRequest detect the system proxy settings
-	NSString *proxyHost;
+	NSS *proxyHost;
 	int proxyPort;
 	
 	// ASIHTTPRequest will assume kCFProxyTypeHTTP if the proxy type could not be automatically determined
 	// Set to kCFProxyTypeSOCKS if you are manually configuring a SOCKS proxy
-	NSString *proxyType;
+	NSS *proxyType;
 
 	// URL for a PAC (Proxy Auto Configuration) file. If you want to set this yourself, it's probably best if you use a local file
 	NSURL *PACurl;
@@ -389,7 +389,7 @@ typedef void (^ASIDataBlock)(NSData *data);
 	// Set to NO to only present credentials when explicitly asked for them
 	// This only affects credentials stored in the session cache when useSessionPersistence is YES. Credentials from the keychain are never presented unless the server asks for them
 	// Default is YES
-	// For requests using Basic authentication, set authenticationScheme to (NSString *)kCFHTTPAuthenticationSchemeBasic, and credentials can be sent on the very first request when shouldPresentCredentialsBeforeChallenge is YES
+	// For requests using Basic authentication, set authenticationScheme to (NSS *)kCFHTTPAuthenticationSchemeBasic, and credentials can be sent on the very first request when shouldPresentCredentialsBeforeChallenge is YES
 	BOOL shouldPresentCredentialsBeforeChallenge;
 	
 	// YES when the request hasn't finished yet. Will still be YES even if the request isn't doing anything (eg it's waiting for delegate authentication). READ-ONLY
@@ -444,7 +444,7 @@ typedef void (^ASIDataBlock)(NSData *data);
 	NSNumber *requestID;
 	
 	// Will be ASIHTTPRequestRunLoopMode for synchronous requests, NSDefaultRunLoopMode for all other requests
-	NSString *runLoopMode;
+	NSS *runLoopMode;
 	
 	// This timer checks up on the request every 0.25 seconds, and updates progress
 	NSTimer *statusTimer;
@@ -569,7 +569,7 @@ typedef void (^ASIDataBlock)(NSData *data);
 #pragma mark setup request
 
 // Add a custom header to the request
-- (void)addRequestHeader:(NSString *)header value:(NSString *)value;
+- (void)addRequestHeader:(NSS *)header value:(NSS *)value;
 
 // Called during buildRequestHeaders and after a redirect to create a cookie header from request cookies and the global store
 - (void)applyCookieHeader;
@@ -586,12 +586,12 @@ typedef void (^ASIDataBlock)(NSData *data);
 
 // Called to add data to the post body. Will append to postBody when shouldStreamPostDataFromDisk is false, or write to postBodyWriteStream when true
 - (void)appendPostData:(NSData *)data;
-- (void)appendPostDataFromFile:(NSString *)file;
+- (void)appendPostDataFromFile:(NSS *)file;
 
 #pragma mark get information about this request
 
 // Returns the contents of the result as an NSString (not appropriate for binary data - used responseData instead)
-- (NSString *)responseString;
+- (NSS *)responseString;
 
 // Response data, automatically uncompressed where appropriate
 - (NSData *)responseData;
@@ -675,7 +675,7 @@ typedef void (^ASIDataBlock)(NSData *data);
 // Attempts to set the correct encoding by looking at the Content-Type header, if this is one
 - (void)parseStringEncodingFromHeaders;
 
-+ (void)parseMimeType:(NSString **)mimeType andResponseEncoding:(NSStringEncoding *)stringEncoding fromContentType:(NSString *)contentType;
++ (void)parseMimeType:(NSS **)mimeType andResponseEncoding:(NSStringEncoding *)stringEncoding fromContentType:(NSS *)contentType;
 
 #pragma mark http authentication stuff
 
@@ -705,7 +705,7 @@ typedef void (^ASIDataBlock)(NSData *data);
 
 // Construct a basic authentication header from the username and password supplied, and add it to the request headers
 // Used when shouldPresentCredentialsBeforeChallenge is YES
-- (void)addBasicAuthenticationHeaderWithUsername:(NSString *)theUsername andPassword:(NSString *)thePassword;
+- (void)addBasicAuthenticationHeaderWithUsername:(NSS *)theUsername andPassword:(NSS *)thePassword;
 
 #pragma mark stream status handlers
 
@@ -736,7 +736,7 @@ typedef void (^ASIDataBlock)(NSData *data);
 - (BOOL)removeTemporaryCompressedUploadFile;
 
 // Remove a file on disk, returning NO and populating the passed error pointer if it fails
-+ (BOOL)removeFileAtPath:(NSString *)path error:(NSError **)err;
++ (BOOL)removeFileAtPath:(NSS *)path error:(NSError **)err;
 
 #pragma mark persistent connections
 
@@ -775,16 +775,16 @@ typedef void (^ASIDataBlock)(NSData *data);
 - (void)saveCredentialsToKeychain:(NSDictionary *)newCredentials;
 
 // Save credentials to the keychain
-+ (void)saveCredentials:(NSURLCredential *)credentials forHost:(NSString *)host port:(int)port protocol:(NSString *)protocol realm:(NSString *)realm;
-+ (void)saveCredentials:(NSURLCredential *)credentials forProxy:(NSString *)host port:(int)port realm:(NSString *)realm;
++ (void)saveCredentials:(NSURLCredential *)credentials forHost:(NSS *)host port:(int)port protocol:(NSS *)protocol realm:(NSS *)realm;
++ (void)saveCredentials:(NSURLCredential *)credentials forProxy:(NSS *)host port:(int)port realm:(NSS *)realm;
 
 // Return credentials from the keychain
-+ (NSURLCredential *)savedCredentialsForHost:(NSString *)host port:(int)port protocol:(NSString *)protocol realm:(NSString *)realm;
-+ (NSURLCredential *)savedCredentialsForProxy:(NSString *)host port:(int)port protocol:(NSString *)protocol realm:(NSString *)realm;
++ (NSURLCredential *)savedCredentialsForHost:(NSS *)host port:(int)port protocol:(NSS *)protocol realm:(NSS *)realm;
++ (NSURLCredential *)savedCredentialsForProxy:(NSS *)host port:(int)port protocol:(NSS *)protocol realm:(NSS *)realm;
 
 // Remove credentials from the keychain
-+ (void)removeCredentialsForHost:(NSString *)host port:(int)port protocol:(NSString *)protocol realm:(NSString *)realm;
-+ (void)removeCredentialsForProxy:(NSString *)host port:(int)port realm:(NSString *)realm;
++ (void)removeCredentialsForHost:(NSS *)host port:(int)port protocol:(NSS *)protocol realm:(NSS *)realm;
++ (void)removeCredentialsForProxy:(NSS *)host port:(int)port realm:(NSS *)realm;
 
 // We keep track of any cookies we accept, so that we can remove them from the persistent store later
 + (void)setSessionCookies:(NSMutableArray *)newSessionCookies;
@@ -800,13 +800,13 @@ typedef void (^ASIDataBlock)(NSData *data);
 
 // Will be used as a user agent if requests do not specify a custom user agent
 // Is only used when you have specified a Bundle Display Name (CFDisplayBundleName) or Bundle Name (CFBundleName) in your plist
-+ (NSString *)defaultUserAgentString;
-+ (void)setDefaultUserAgentString:(NSString *)agent;
++ (NSS *)defaultUserAgentString;
++ (void)setDefaultUserAgentString:(NSS *)agent;
 
 #pragma mark mime-type detection
 
 // Return the mime type for a file
-+ (NSString *)mimeTypeForFileAtPath:(NSString *)path;
++ (NSS *)mimeTypeForFileAtPath:(NSS *)path;
 
 #pragma mark bandwidth measurement / throttling
 
@@ -871,7 +871,7 @@ typedef void (^ASIDataBlock)(NSData *data);
 
 // Used for generating Authorization header when using basic authentication when shouldPresentCredentialsBeforeChallenge is true
 // And also by ASIS3Request
-+ (NSString *)base64forData:(NSData *)theData;
++ (NSS *)base64forData:(NSData *)theData;
 
 // Returns the expiration date for the request.
 // Calculated from the Expires response header property, unless maxAge is non-zero or
@@ -879,7 +879,7 @@ typedef void (^ASIDataBlock)(NSData *data);
 + (NSDate *)expiryDateForRequest:(ASIHTTPRequest *)request maxAge:(NSTimeInterval)maxAge;
 
 // Returns a date from a string in RFC1123 format
-+ (NSDate *)dateFromRFC1123String:(NSString *)string;
++ (NSDate *)dateFromRFC1123String:(NSS *)string;
 
 
 // Used for detecting multitasking support at runtime (for backgrounding requests)
@@ -901,18 +901,18 @@ typedef void (^ASIDataBlock)(NSData *data);
 
 #pragma mark ===
 
-@property (retain) NSString *username;
-@property (retain) NSString *password;
-@property (retain) NSString *userAgent;
-@property (retain) NSString *domain;
+@property (retain) NSS *username;
+@property (retain) NSS *password;
+@property (retain) NSS *userAgent;
+@property (retain) NSS *domain;
 
-@property (retain) NSString *proxyUsername;
-@property (retain) NSString *proxyPassword;
-@property (retain) NSString *proxyDomain;
+@property (retain) NSS *proxyUsername;
+@property (retain) NSS *proxyPassword;
+@property (retain) NSS *proxyDomain;
 
-@property (retain) NSString *proxyHost;
+@property (retain) NSS *proxyHost;
 @property (assign) int proxyPort;
-@property (retain) NSString *proxyType;
+@property (retain) NSS *proxyType;
 
 @property (retain,setter=setURL:, nonatomic) NSURL *url;
 @property (retain) NSURL *originalURL;
@@ -922,17 +922,17 @@ typedef void (^ASIDataBlock)(NSData *data);
 @property (assign, nonatomic) id downloadProgressDelegate;
 @property (assign) BOOL useKeychainPersistence;
 @property (assign) BOOL useSessionPersistence;
-@property (retain) NSString *downloadDestinationPath;
-@property (retain) NSString *temporaryFileDownloadPath;
-@property (retain) NSString *temporaryUncompressedDataDownloadPath;
+@property (retain) NSS *downloadDestinationPath;
+@property (retain) NSS *temporaryFileDownloadPath;
+@property (retain) NSS *temporaryUncompressedDataDownloadPath;
 @property (assign) SEL didStartSelector;
 @property (assign) SEL didReceiveResponseHeadersSelector;
 @property (assign) SEL willRedirectSelector;
 @property (assign) SEL didFinishSelector;
 @property (assign) SEL didFailSelector;
 @property (assign) SEL didReceiveDataSelector;
-@property (retain,readonly) NSString *authenticationRealm;
-@property (retain,readonly) NSString *proxyAuthenticationRealm;
+@property (retain,readonly) NSS *authenticationRealm;
+@property (retain,readonly) NSS *proxyAuthenticationRealm;
 @property (retain) NSError *error;
 @property (assign,readonly) BOOL complete;
 @property (retain) NSDictionary *responseHeaders;
@@ -943,10 +943,10 @@ typedef void (^ASIDataBlock)(NSData *data);
 @property (retain) NSDictionary *requestCredentials;
 @property (retain) NSDictionary *proxyCredentials;
 @property (assign,readonly) int responseStatusCode;
-@property (retain,readonly) NSString *responseStatusMessage;
+@property (retain,readonly) NSS *responseStatusMessage;
 @property (retain) NSMutableData *rawResponseData;
 @property (assign) NSTimeInterval timeOutSeconds;
-@property (retain, nonatomic) NSString *requestMethod;
+@property (retain, nonatomic) NSS *requestMethod;
 @property (retain) NSMutableData *postBody;
 @property (assign) unsigned long long contentLength;
 @property (assign) unsigned long long postLength;
@@ -962,7 +962,7 @@ typedef void (^ASIDataBlock)(NSData *data);
 @property (assign) BOOL allowResumeForFileDownloads;
 @property (retain) NSDictionary *userInfo;
 @property (assign) NSInteger tag;
-@property (retain) NSString *postBodyFilePath;
+@property (retain) NSS *postBodyFilePath;
 @property (assign) BOOL shouldStreamPostDataFromDisk;
 @property (assign) BOOL didCreateTemporaryPostDataFile;
 @property (assign) BOOL useHTTPVersionOne;
@@ -971,8 +971,8 @@ typedef void (^ASIDataBlock)(NSData *data);
 @property (assign) BOOL validatesSecureCertificate;
 @property (assign) BOOL shouldCompressRequestBody;
 @property (retain) NSURL *PACurl;
-@property (retain) NSString *authenticationScheme;
-@property (retain) NSString *proxyAuthenticationScheme;
+@property (retain) NSS *authenticationScheme;
+@property (retain) NSS *proxyAuthenticationScheme;
 @property (assign) BOOL shouldPresentAuthenticationDialog;
 @property (assign) BOOL shouldPresentProxyAuthenticationDialog;
 @property (assign, readonly) ASIAuthenticationState authenticationNeeded;

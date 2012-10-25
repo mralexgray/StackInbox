@@ -14,7 +14,7 @@
 @implementation SIInboxListViewController
 @synthesize listView, itemsToList;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)initWithNibName:(NSS *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
 	self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
 	if (self) {
@@ -26,7 +26,7 @@
 - (void)awakeFromNib {
 	[self.listView setPostsBoundsChangedNotifications:YES];
 	[self.listView setDelegate:self];
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(boundsDidChange:) name:NSViewBoundsDidChangeNotification object:nil];
+	[AZNOTCENTER addObserver:self selector:@selector(boundsDidChange:) name:NSViewBoundsDidChangeNotification object:nil];
 }
 
 - (void)boundsDidChange:(NSNotification *)note {
@@ -35,16 +35,16 @@
 }
 
 
-- (NSUInteger)numberOfRowsInListView:(PXListView *)aListView {	return [self.itemsToList count]; }
+- (NSUI)numberOfRowsInListView:(PXListView *)aListView {	return [self.itemsToList count]; }
 
-- (PXListViewCell *)listView:(PXListView *)aListView cellForRow:(NSUInteger)row
+- (PXListViewCell *)listView:(PXListView *)aListView cellForRow:(NSUI)row
 {
 	SIListViewCell *cell 	= (SIListViewCell *)[aListView dequeueCellWithReusableIdentifier:@"CellID"] ?:
 					    [SIListViewCell cellLoadedFromNibNamed:@"CellNib" reusableIdentifier:@"CellID"];
 
 	SIInboxModel *item 		= self.itemsToList[row];
 	
-	NSString *str 			= item.title;
+	NSS *str 			= item.title;
 	str	 					= item.type == SIInboxItemTypeComment ? [NSString stringWithFormat:@"comment on %@", item.title] :
 
 	item.type == SIInboxItemTypeNewAnswer ? [NSString stringWithFormat:@"new answer on %@", item.title] : str;
@@ -57,7 +57,7 @@
 	cell.backgroundColor = item.isUnread ? [NSColor colorWithDeviceRed:0.739 green:0.900 blue:0.000 alpha:1.000] : cell.backgroundColor;
 	return cell;
 }
-- (CGFloat)listView:(PXListView *)aListView heightOfRow:(NSUInteger)row {
+- (CGFloat)listView:(PXListView *)aListView heightOfRow:(NSUI)row {
 	return 65;
 }
 

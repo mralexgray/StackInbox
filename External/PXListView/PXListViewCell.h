@@ -14,7 +14,7 @@
 
 @interface PXListViewCell : NSView
 {
-	NSString *_reusableIdentifier;
+	NSS *_reusableIdentifier;
 	
 	PXListView *__unsafe_unretained _listView;
 	NSUInteger _row;
@@ -23,16 +23,16 @@
 
 @property (nonatomic, unsafe_unretained) PXListView *listView;
 
-@property (readonly, copy) NSString *reusableIdentifier;
+@property (readonly, copy) NSS *reusableIdentifier;
 @property (readonly) NSUInteger row;
 
 @property (readonly,getter=isSelected) BOOL selected;
 @property (nonatomic ,assign) PXListViewDropHighlight dropHighlight;
 
-+ (id)cellLoadedFromNibNamed:(NSString*)nibName reusableIdentifier:(NSString*)identifier;
-+ (id)cellLoadedFromNibNamed:(NSString*)nibName bundle:(NSBundle*)bundle reusableIdentifier:(NSString*)identifier;
++ (id)cellLoadedFromNibNamed: (NSS*)nibName reusableIdentifier: (NSS*)identifier;
++ (id)cellLoadedFromNibNamed: (NSS*)nibName bundle:(NSBundle*)bundle reusableIdentifier: (NSS*)identifier;
 
-- (id)initWithReusableIdentifier:(NSString*)identifier;
+- (id)initWithReusableIdentifier: (NSS*)identifier;
 - (void)prepareForReuse;
 
 - (void)layoutSubviews;

@@ -8,34 +8,30 @@
 
 #import "SIInboxModel.h"
 #import "GTMNSString+HTML.h"
-NSString * const SIInboxItemTypeComment = @"comment";
-NSString * const SIInboxItemTypeChatMessage = @"chat_message";
-NSString * const SIInboxItemTypeNewAnswer = @"new_answer";
-NSString * const SIInboxItemTypeCareersMessage = @"careers_message";
-NSString * const SIInboxItemTypeCareersInvites = @"careers_invitations";
-NSString * const SIInboxItemTypeMetaQuestion = @"meta_question";
+NSS * const SIInboxItemTypeComment 			= @"comment";
+NSS * const SIInboxItemTypeChatMessage 		= @"chat_message";
+NSS * const SIInboxItemTypeNewAnswer 		= @"new_answer";
+NSS * const SIInboxItemTypeCareersMessage 	= @"careers_message";
+NSS * const SIInboxItemTypeCareersInvites 	= @"careers_invitations";
+NSS * const SIInboxItemTypeMetaQuestion 	= @"meta_question";
 
 @implementation SIInboxModel
 @synthesize title, body, creationDate, link, isUnread, siteIconLink, siteName, type, isAPIUnread;
-- (NSNumber *)creationTINumber {
-	return @([self.creationDate timeIntervalSince1970]);
-}
-- (NSURL *)siteIconURL {
-	return [NSURL URLWithString:self.siteIconLink];
-}
-- (NSURL *)linkURL {
-	return [NSURL URLWithString:self.link];
-}
+
+- (NSNumber *)creationTINumber {	return @([self.creationDate timeIntervalSince1970]); }
+- (NSURL *)siteIconURL {			return [NSURL URLWithString:self.siteIconLink];	 	 }
+- (NSURL *)linkURL {				return [NSURL URLWithString:self.link]; 			 }
+
 +(SIInboxModel *)inboxItemUsingDictionary:(NSDictionary *)dict {
 	SIInboxModel *retItem = [[SIInboxModel alloc] init];
-	retItem.title = dict[@"title"];
-	retItem.body = [dict[@"body"] gtm_stringByUnescapingFromHTML];
-	retItem.creationDate = [NSDate dateWithTimeIntervalSince1970:[dict[@"creation_date"] doubleValue]];
-	retItem.link = dict[@"link"];
-	retItem.isAPIUnread = [dict[@"is_unread"] boolValue];
-	retItem.siteIconLink = dict[@"site"][@"icon_url"];
-	retItem.siteName = dict[@"site"][@"name"];
-	retItem.type = dict[@"type"];
+	retItem.title 		  =  dict[@"title"];
+	retItem.body 		  = [dict[@"body"] gtm_stringByUnescapingFromHTML];
+	retItem.creationDate  = [NSDate dateWithTimeIntervalSince1970:[dict[@"creation_date"] doubleValue]];
+	retItem.link	 	  =  dict[@"link"];
+	retItem.isAPIUnread   = [dict[@"is_unread"] boolValue];
+	retItem.siteIconLink  =  dict[@"site"][@"icon_url"];
+	retItem.siteName 	  =  dict[@"site"][@"name"];
+	retItem.type 		  =  dict[@"type"];
 	return retItem;
 }
 - (void)encodeWithCoder:(NSCoder *)aCoder {

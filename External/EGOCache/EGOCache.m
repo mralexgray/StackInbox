@@ -54,7 +54,7 @@ static inline NSString* cachePathForKey(NSString* key) {
 static EGOCache* __instance;
 
 @interface EGOCache ()
-- (void)removeItemFromCache:(NSString*)key;
+- (void)removeItemFromCache: (NSS*)key;
 - (void)performDiskWriteOperation:(NSInvocation *)invoction;
 - (void)saveCacheDictionary;
 @end
@@ -111,14 +111,14 @@ static EGOCache* __instance;
 	[self saveCacheDictionary];
 }
 
-- (void)removeCacheForKey:(NSString*)key {
+- (void)removeCacheForKey: (NSS*)key {
 	CHECK_FOR_EGOCACHE_PLIST();
 
 	[self removeItemFromCache:key];
 	[self saveCacheDictionary];
 }
 
-- (void)removeItemFromCache:(NSString*)key {
+- (void)removeItemFromCache: (NSS*)key {
 	__unsafe_unretained NSString* cachePath = cachePathForKey(key);
 	
 	NSInvocation* deleteInvocation = [NSInvocation invocationWithMethodSignature:[self methodSignatureForSelector:@selector(deleteDataAtPath:)]];
@@ -130,7 +130,7 @@ static EGOCache* __instance;
 	[cacheDictionary removeObjectForKey:key];
 }
 
-- (BOOL)hasCacheForKey:(NSString*)key {
+- (BOOL)hasCacheForKey: (NSS*)key {
 	NSDate* date = cacheDictionary[key];
 	if(!date) return NO;
 	if([[[NSDate date] earlierDate:date] isEqualToDate:date]) return NO;
@@ -140,11 +140,11 @@ static EGOCache* __instance;
 #pragma mark -
 #pragma mark Copy file methods
 
-- (void)copyFilePath:(NSString*)filePath asKey:(NSString*)key {
+- (void)copyFilePath: (NSS*)filePath asKey: (NSS*)key {
 	[self copyFilePath:filePath asKey:key withTimeoutInterval:self.defaultTimeoutInterval];
 }
 
-- (void)copyFilePath:(NSString*)filePath asKey:(NSString*)key withTimeoutInterval:(NSTimeInterval)timeoutInterval {
+- (void)copyFilePath: (NSS*)filePath asKey: (NSS*)key withTimeoutInterval:(NSTimeInterval)timeoutInterval {
 	[[NSFileManager defaultManager] copyItemAtPath:filePath toPath:cachePathForKey(key) error:NULL];
 	cacheDictionary[key] = [NSDate dateWithTimeIntervalSinceNow:timeoutInterval];
 	[self performSelectorOnMainThread:@selector(saveAfterDelay) withObject:nil waitUntilDone:YES];
@@ -153,11 +153,11 @@ static EGOCache* __instance;
 #pragma mark -
 #pragma mark Data methods
 
-- (void)setData:(NSData*)data forKey:(NSString*)key {
+- (void)setData:(NSData*)data forKey: (NSS*)key {
 	[self setData:data forKey:key withTimeoutInterval:self.defaultTimeoutInterval];
 }
 
-- (void)setData:(NSData*)data forKey:(NSString*)key withTimeoutInterval:(NSTimeInterval)timeoutInterval {
+- (void)setData:(NSData*)data forKey: (NSS*)key withTimeoutInterval:(NSTimeInterval)timeoutInterval {
 	CHECK_FOR_EGOCACHE_PLIST();
 	
 	__unsafe_unretained NSString* cachePath = cachePathForKey(key);
@@ -178,7 +178,7 @@ static EGOCache* __instance;
 	[self performSelector:@selector(saveCacheDictionary) withObject:nil afterDelay:0.3];
 }
 
-- (NSData*)dataForKey:(NSString*)key {
+- (NSData*)dataForKey: (NSS*)key {
 	if([self hasCacheForKey:key]) {
 		return [NSData dataWithContentsOfFile:cachePathForKey(key) options:0 error:NULL];
 	} else {
@@ -186,11 +186,11 @@ static EGOCache* __instance;
 	}
 }
 
-- (void)writeData:(NSData*)data toPath:(NSString *)path; {
+- (void)writeData:(NSData*)data toPath:(NSS *)path; {
 	[data writeToFile:path atomically:YES];
 } 
 
-- (void)deleteDataAtPath:(NSString *)path {
+- (void)deleteDataAtPath:(NSS *)path {
 	[[NSFileManager defaultManager] removeItemAtPath:path error:NULL];
 }
 
@@ -203,15 +203,15 @@ static EGOCache* __instance;
 #pragma mark -
 #pragma mark String methods
 
-- (NSString*)stringForKey:(NSString*)key {
+- (NSString*)stringForKey: (NSS*)key {
 	return [[[NSString alloc] initWithData:[self dataForKey:key] encoding:NSUTF8StringEncoding] autorelease];
 }
 
-- (void)setString:(NSString*)aString forKey:(NSString*)key {
+- (void)setString: (NSS*)aString forKey: (NSS*)key {
 	[self setString:aString forKey:key withTimeoutInterval:self.defaultTimeoutInterval];
 }
 
-- (void)setString:(NSString*)aString forKey:(NSString*)key withTimeoutInterval:(NSTimeInterval)timeoutInterval {
+- (void)setString: (NSS*)aString forKey: (NSS*)key withTimeoutInterval:(NSTimeInterval)timeoutInterval {
 	[self setData:[aString dataUsingEncoding:NSUTF8StringEncoding] forKey:key withTimeoutInterval:timeoutInterval];
 }
 
@@ -220,30 +220,30 @@ static EGOCache* __instance;
 
 #if TARGET_OS_IPHONE
 
-- (UIImage*)imageForKey:(NSString*)key {
+- (UIImage*)imageForKey: (NSS*)key {
 	return [UIImage imageWithContentsOfFile:cachePathForKey(key)];
 }
 
-- (void)setImage:(UIImage*)anImage forKey:(NSString*)key {
+- (void)setImage:(UIImage*)anImage forKey: (NSS*)key {
 	[self setImage:anImage forKey:key withTimeoutInterval:self.defaultTimeoutInterval];
 }
 
-- (void)setImage:(UIImage*)anImage forKey:(NSString*)key withTimeoutInterval:(NSTimeInterval)timeoutInterval {
+- (void)setImage:(UIImage*)anImage forKey: (NSS*)key withTimeoutInterval:(NSTimeInterval)timeoutInterval {
 	[self setData:UIImagePNGRepresentation(anImage) forKey:key withTimeoutInterval:timeoutInterval];
 }
 
 
 #else
 
-- (NSImage*)imageForKey:(NSString*)key {
+- (NSImage*)imageForKey: (NSS*)key {
 	return [[[NSImage alloc] initWithData:[self dataForKey:key]] autorelease];
 }
 
-- (void)setImage:(NSImage*)anImage forKey:(NSString*)key {
+- (void)setImage:(NSImage*)anImage forKey: (NSS*)key {
 	[self setImage:anImage forKey:key withTimeoutInterval:self.defaultTimeoutInterval];
 }
 
-- (void)setImage:(NSImage*)anImage forKey:(NSString*)key withTimeoutInterval:(NSTimeInterval)timeoutInterval {
+- (void)setImage:(NSImage*)anImage forKey: (NSS*)key withTimeoutInterval:(NSTimeInterval)timeoutInterval {
 	[self setData:[[anImage representations][0] representationUsingType:NSPNGFileType properties:nil]
 		   forKey:key withTimeoutInterval:timeoutInterval];
 }
@@ -253,7 +253,7 @@ static EGOCache* __instance;
 #pragma mark -
 #pragma mark Property List methods
 
-- (NSData*)plistForKey:(NSString*)key; {  
+- (NSData*)plistForKey: (NSS*)key; {  
 	NSData* plistData = [self dataForKey:key];
 	
 	return [NSPropertyListSerialization propertyListFromData:plistData
@@ -262,11 +262,11 @@ static EGOCache* __instance;
 											errorDescription:nil];
 }
 
-- (void)setPlist:(id)plistObject forKey:(NSString*)key; {
+- (void)setPlist:(id)plistObject forKey: (NSS*)key; {
 	[self setPlist:plistObject forKey:key withTimeoutInterval:self.defaultTimeoutInterval];
 }
 
-- (void)setPlist:(id)plistObject forKey:(NSString*)key withTimeoutInterval:(NSTimeInterval)timeoutInterval; {
+- (void)setPlist:(id)plistObject forKey: (NSS*)key withTimeoutInterval:(NSTimeInterval)timeoutInterval; {
 	// Binary plists are used over XML for better performance
 	NSData* plistData = [NSPropertyListSerialization dataFromPropertyList:plistObject 
 																   format:NSPropertyListBinaryFormat_v1_0

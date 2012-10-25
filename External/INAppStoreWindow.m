@@ -49,14 +49,14 @@
 #define IN_COLOR_NOTMAIN_BOTTOM_L [NSColor colorWithDeviceWhite:0.655 alpha:1.0]
 
 /** Corner clipping radius **/
-const CGFloat INCornerClipRadius = 4.0;
-const CGFloat INButtonTopOffset = 3.0;
+const CGF  INCornerClipRadius = 4.0;
+const CGF  INButtonTopOffset = 3.0;
 
-NS_INLINE CGFloat INMidHeight(NSRect aRect) {
+NS_INLINE CGF  INMidHeight(NSRect aRect) {
 	return (aRect.size.height * (CGFloat)0.5);
 }
 
-static CGImageRef createNoiseImageRef(NSUInteger width, NSUInteger height, CGFloat factor)
+static CGImageRef createNoiseImageRef(NSUInteger width, NSUInteger height, CGF  factor)
 {
 	NSUInteger size = width*height;
 	char *rgba = (char *)malloc(size); srand(124);
@@ -72,7 +72,7 @@ static CGImageRef createNoiseImageRef(NSUInteger width, NSUInteger height, CGFlo
 }
 
 @interface INAppStoreWindow ()
-@property (INAppStoreWindowCopy) NSString *windowMenuTitle;
+@property (INAppStoreWindowCopy) NSS *windowMenuTitle;
 - (void)_doInitialWindowSetup;
 - (void)_createTitlebarView;
 - (void)_setupTrafficLightsTrackingArea;
@@ -154,7 +154,7 @@ static CGImageRef createNoiseImageRef(NSUInteger width, NSUInteger height, CGFlo
 - (void)mouseUp:(NSEvent *)theEvent {
 	if ([theEvent clickCount] == 2) {
 		// Get settings from "System Preferences" >  "Appearance" > "Double-click on windows title bar to minimize"
-		NSString *const MDAppleMiniaturizeOnDoubleClickKey = @"AppleMiniaturizeOnDoubleClick";
+		NSS *const MDAppleMiniaturizeOnDoubleClickKey = @"AppleMiniaturizeOnDoubleClick";
 		NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
 		[userDefaults addSuiteNamed:NSGlobalDomain];
 		BOOL shouldMiniaturize = [[userDefaults objectForKey:MDAppleMiniaturizeOnDoubleClickKey] boolValue];
@@ -174,7 +174,7 @@ static CGImageRef createNoiseImageRef(NSUInteger width, NSUInteger height, CGFlo
 #pragma mark -
 #pragma mark Initialization
 
-- (id)initWithContentRect:(NSRect)contentRect styleMask:(NSUInteger)aStyle backing:(NSBackingStoreType)bufferingType defer:(BOOL)flag
+- (id)initWithContentRect:(NSRect)contentRect styleMask:(NSUI)aStyle backing:(NSBackingStoreType)bufferingType defer:(BOOL)flag
 {
 	if ((self = [super initWithContentRect:contentRect styleMask:aStyle backing:bufferingType defer:flag])) {
 		[self _doInitialWindowSetup];
@@ -182,7 +182,7 @@ static CGImageRef createNoiseImageRef(NSUInteger width, NSUInteger height, CGFlo
 	return self;
 }
 
-- (id)initWithContentRect:(NSRect)contentRect styleMask:(NSUInteger)aStyle backing:(NSBackingStoreType)bufferingType defer:(BOOL)flag screen:(NSScreen *)screen
+- (id)initWithContentRect:(NSRect)contentRect styleMask:(NSUI)aStyle backing:(NSBackingStoreType)bufferingType defer:(BOOL)flag screen:(NSScreen *)screen
 {
 	if ((self = [super initWithContentRect:contentRect styleMask:aStyle backing:bufferingType defer:flag screen:screen])) {
 		[self _doInitialWindowSetup];
@@ -195,7 +195,7 @@ static CGImageRef createNoiseImageRef(NSUInteger width, NSUInteger height, CGFlo
 
 - (void)dealloc
 {
-	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	[AZNOTCENTER removeObserver:self];
 	#if !__has_feature(objc_arc)
 	[_titleBarView release];
 	[_windowMenuTitle release];
@@ -213,7 +213,7 @@ static CGImageRef createNoiseImageRef(NSUInteger width, NSUInteger height, CGFlo
 	return @"";
 }
 
-- (void)setTitle:(NSString*)title
+- (void)setTitle: (NSS*)title
 {
 	self.windowMenuTitle = title;
 	if ( ![self isExcludedFromWindowsMenu] )
@@ -332,7 +332,7 @@ static CGImageRef createNoiseImageRef(NSUInteger width, NSUInteger height, CGFlo
 	 - The window automatically does layout every time its moved or resized, which means that the traffic lights and content view get reset at the original positions, so we need to put them back in place
 	 - NSWindow is hardcoded to redraw the traffic lights in a specific rect, so when they are moved down, only part of the buttons get redrawn, causing graphical artifacts. Therefore, the window must be force redrawn every time it becomes key/resigns key
 	 ----------------------------------------- **/
-	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+	NSNotificationCenter *nc = AZNOTCENTER;
 	[nc addObserver:self selector:@selector(_layoutTrafficLightsAndContent) name:NSWindowDidResizeNotification object:self];
 	[nc addObserver:self selector:@selector(_layoutTrafficLightsAndContent) name:NSWindowDidMoveNotification object:self];
 	[nc addObserver:self selector:@selector(_displayWindowAndTitlebar) name:NSWindowDidResignKeyNotification object:self];
@@ -428,7 +428,7 @@ static CGImageRef createNoiseImageRef(NSUInteger width, NSUInteger height, CGFlo
 
 - (CGFloat)_minimumTitlebarHeight
 {
-	static CGFloat minTitleHeight = 0.0;
+	static CGF  minTitleHeight = 0.0;
 	if (!minTitleHeight) {
 		NSRect frameRect = [self frame];
 		NSRect contentRect = [self contentRectForFrameRect:frameRect];

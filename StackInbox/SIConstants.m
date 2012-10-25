@@ -8,16 +8,16 @@
 
 #import "SIConstants.h"
 
-NSString * const SIAuthWindowShown 	= @"SIAuthWindowShown"								;
-NSString * const SIAuthWindowClosed = @"SIAuthWindowClosed"								;
-NSString * const SIAuthSuccessful 	= @"SIAuthSuccessful"								;
-NSString * const ClientID 			= @"23"												;
-NSString * const RedirectURI 		= @"https://stackexchange.com/oauth/login_success"	;
+NSS * const SIAuthWindowShown 	= @"SIAuthWindowShown"								;
+NSS * const SIAuthWindowClosed = @"SIAuthWindowClosed"								;
+NSS * const SIAuthSuccessful 	= @"SIAuthSuccessful"								;
+NSS * const ClientID 			= @"23"												;
+NSS * const RedirectURI 		= @"https://stackexchange.com/oauth/login_success"	;
 
 NSString* appPath()
 {
 	NSFileManager *fileManager 		= [NSFileManager defaultManager];
-	NSString *folder 				= [@"~/Library/Application Support/StackInbox/" stringByExpandingTildeInPath];
+	NSS *folder 				= [@"~/Library/Application Support/StackInbox/" stringByExpandingTildeInPath];
 	if ( [fileManager fileExistsAtPath:folder] == NO ) [fileManager createDirectoryAtPath:folder withIntermediateDirectories:YES attributes:nil error:nil];
 	return [folder stringByAppendingPathComponent: @"cache"]; 
 }

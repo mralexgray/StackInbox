@@ -60,14 +60,14 @@
 
 #if __EGOIL_USE_BLOCKS
 - (void)loadImageForURL:(NSURL*)aURL completion:(void (^)(UIImage* image, NSURL* imageURL, NSError* error))completion;
-- (void)loadImageForURL:(NSURL*)aURL style:(NSString*)style styler:(UIImage* (^)(UIImage* image))styler completion:(void (^)(UIImage* image, NSURL* imageURL, NSError* error))completion;
+- (void)loadImageForURL:(NSURL*)aURL style: (NSS*)style styler:(UIImage* (^)(UIImage* image))styler completion:(void (^)(UIImage* image, NSURL* imageURL, NSError* error))completion;
 #endif
 
 - (BOOL)hasLoadedImageURL:(NSURL*)aURL;
 - (void)cancelLoadForURL:(NSURL*)aURL;
 
 - (void)clearCacheForURL:(NSURL*)aURL;
-- (void)clearCacheForURL:(NSURL*)aURL style:(NSString*)style;
+- (void)clearCacheForURL:(NSURL*)aURL style: (NSS*)style;
 
 @property(nonatomic,strong) NSDictionary* currentConnections;
 @end

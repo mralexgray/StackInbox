@@ -37,34 +37,34 @@
 + (EGOCache*)currentCache;
 
 - (void)clearCache;
-- (void)removeCacheForKey:(NSString*)key;
+- (void)removeCacheForKey: (NSS*)key;
 
-- (BOOL)hasCacheForKey:(NSString*)key;
+- (BOOL)hasCacheForKey: (NSS*)key;
 
-- (NSData*)dataForKey:(NSString*)key;
-- (void)setData:(NSData*)data forKey:(NSString*)key;
-- (void)setData:(NSData*)data forKey:(NSString*)key withTimeoutInterval:(NSTimeInterval)timeoutInterval;
+- (NSData*)dataForKey: (NSS*)key;
+- (void)setData:(NSData*)data forKey: (NSS*)key;
+- (void)setData:(NSData*)data forKey: (NSS*)key withTimeoutInterval:(NSTimeInterval)timeoutInterval;
 
-- (NSString*)stringForKey:(NSString*)key;
-- (void)setString:(NSString*)aString forKey:(NSString*)key;
-- (void)setString:(NSString*)aString forKey:(NSString*)key withTimeoutInterval:(NSTimeInterval)timeoutInterval;
+- (NSString*)stringForKey: (NSS*)key;
+- (void)setString: (NSS*)aString forKey: (NSS*)key;
+- (void)setString: (NSS*)aString forKey: (NSS*)key withTimeoutInterval:(NSTimeInterval)timeoutInterval;
 
 #if TARGET_OS_IPHONE
-- (UIImage*)imageForKey:(NSString*)key;
-- (void)setImage:(UIImage*)anImage forKey:(NSString*)key;
-- (void)setImage:(UIImage*)anImage forKey:(NSString*)key withTimeoutInterval:(NSTimeInterval)timeoutInterval;
+- (UIImage*)imageForKey: (NSS*)key;
+- (void)setImage:(UIImage*)anImage forKey: (NSS*)key;
+- (void)setImage:(UIImage*)anImage forKey: (NSS*)key withTimeoutInterval:(NSTimeInterval)timeoutInterval;
 #else
-- (NSImage*)imageForKey:(NSString*)key;
-- (void)setImage:(NSImage*)anImage forKey:(NSString*)key;
-- (void)setImage:(NSImage*)anImage forKey:(NSString*)key withTimeoutInterval:(NSTimeInterval)timeoutInterval;
+- (NSImage*)imageForKey: (NSS*)key;
+- (void)setImage:(NSImage*)anImage forKey: (NSS*)key;
+- (void)setImage:(NSImage*)anImage forKey: (NSS*)key withTimeoutInterval:(NSTimeInterval)timeoutInterval;
 #endif
 
-- (NSData*)plistForKey:(NSString*)key;
-- (void)setPlist:(id)plistObject forKey:(NSString*)key;
-- (void)setPlist:(id)plistObject forKey:(NSString*)key withTimeoutInterval:(NSTimeInterval)timeoutInterval;
+- (NSData*)plistForKey: (NSS*)key;
+- (void)setPlist:(id)plistObject forKey: (NSS*)key;
+- (void)setPlist:(id)plistObject forKey: (NSS*)key withTimeoutInterval:(NSTimeInterval)timeoutInterval;
 
-- (void)copyFilePath:(NSString*)filePath asKey:(NSString*)key;
-- (void)copyFilePath:(NSString*)filePath asKey:(NSString*)key withTimeoutInterval:(NSTimeInterval)timeoutInterval;	
+- (void)copyFilePath: (NSS*)filePath asKey: (NSS*)key;
+- (void)copyFilePath: (NSS*)filePath asKey: (NSS*)key withTimeoutInterval:(NSTimeInterval)timeoutInterval;	
 
 @property(nonatomic,assign) NSTimeInterval defaultTimeoutInterval; // Default is 1 day
 @end

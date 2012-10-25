@@ -17,35 +17,20 @@
 
 #define  MINUTES * 60
 
-
 @interface SIAppDelegate ()
-- (void)setupViewControllers;
-- (void)setupDataControllers;
-- (void)startTimer;
-- (void)stopTimer;
-- (void)showBarItem;
-- (void)hideBarItem;
-- (void)setIndicatorsRead;
+- (void) setupViewControllers;
+- (void) setupDataControllers;
+- (void) startTimer;
+- (void) stopTimer;
+- (void) showBarItem;
+- (void) hideBarItem;
+- (void) setIndicatorsRead;
 @end
 
 @implementation SIAppDelegate
-
-@synthesize window = _window;
-
-@synthesize prefsWindow;
-
-@synthesize loginViewController;
-@synthesize downloadingViewController;
-@synthesize noInternetViewController;
-@synthesize inboxViewController;
-@synthesize currentViewController;
-
-@synthesize downloader;
-@synthesize authController;
-
-@synthesize timer;
-
-@synthesize statusItem;
+@synthesize window = _window, prefsWindow;
+@synthesize loginViewController, downloadingViewController, noInternetViewController;
+@synthesize inboxViewController, currentViewController, downloader, authController, timer, statusItem;
 
 #pragma mark - App Lifecycle
 
@@ -73,19 +58,19 @@
 	}
 	
 	[GrowlApplicationBridge setGrowlDelegate:self];
-	[[NSNotificationCenter defaultCenter] addObserverForName:PXListViewSelectionDidChange object:nil queue:nil usingBlock:^(NSNotification *note) {
+	[AZNOTCENTER addObserverForName:PXListViewSelectionDidChange object:nil queue:nil usingBlock:^(NSNotification *note) {
 		[self setIndicatorsRead];
 	}];
-	[[NSNotificationCenter defaultCenter] addObserverForName:@"SIStartAuth" object:nil queue:nil usingBlock:^(NSNotification *note) {
+	[AZNOTCENTER addObserverForName:@"SIStartAuth" object:nil queue:nil usingBlock:^(NSNotification *note) {
 		[self stopTimer];
 		if (!self.inboxViewController.itemsToList || [self.inboxViewController.itemsToList count] == 0) {
 			[self switchToViewController:self.loginViewController];
 		}
 	}];
-	[[NSNotificationCenter defaultCenter] addObserverForName:SIAuthSuccessful object:nil queue:nil usingBlock:^(NSNotification *note) {
+	[AZNOTCENTER addObserverForName:SIAuthSuccessful object:nil queue:nil usingBlock:^(NSNotification *note) {
 		[self startTimer]; 
 	}];
-	[[NSNotificationCenter defaultCenter] addObserverForName:@"SIStartedDownloading" object:nil queue:nil usingBlock:^(NSNotification *note) {
+	[AZNOTCENTER addObserverForName:@"SIStartedDownloading" object:nil queue:nil usingBlock:^(NSNotification *note) {
 		if (self.currentViewController != self.downloadingViewController) {
 			[self.window.titlebarRefreshSpinner setHidden:NO];
 			[self.window.titlebarRefreshSpinner startAnimation:nil];
@@ -117,23 +102,23 @@
 #pragma mark - Controllers
 
 - (void)switchToViewController:(SIViewController *)viewController {
-	if (self.currentViewController == viewController) {
-		return;
-	}
+	if (self.currentViewController == viewController) return;
+
 	if (viewController == self.downloadingViewController) {
 		[self.window.titlebarRefreshSpinner stopAnimation:nil];
 		[self.window.titlebarRefreshSpinner setHidden:YES];
 	}
 	if (self.currentViewController) {
-		[self.currentViewController viewControllerWillMoveFromParent];
+		[self.currentViewController 	 viewControllerWillMoveFromParent];
 		[self.currentViewController.view removeFromSuperview];
-		[self.currentViewController setIsCurrent:NO];
+		[self.currentViewController 	 setIsCurrent:NO];
 	}
-	[self setCurrentViewController:viewController];
-	[viewController.view setFrame:NSMakeRect(0, 0, ((NSView*)self.window.contentView).frame.size.width, ((NSView*)self.window.contentView).frame.size.height)];
-	[viewController.view setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
-	[self.window.contentView addSubview:viewController.view];
-	[viewController setIsCurrent:YES];
+
+	self.currentViewController	= viewController;
+	viewController.view.frame	= AZMakeRectFromSize([(NSView*)self.window.contentView frame].size);
+	viewController.view.arMASK  = NSSIZEABLE;
+	[self.window.contentView addSubview:   viewController.view];
+	[viewController 		 setIsCurrent: YES];
 }
 - (void)setupViewControllers {
 	SILoginViewController *loginVC = [[SILoginViewController alloc] init];
@@ -170,13 +155,9 @@
 	self.timer = [NSTimer scheduledTimerWithTimeInterval:2 MINUTES target:self selector:@selector(timerFire) userInfo:nil repeats:YES];
 	[self.timer fire];
 }
-- (void)stopTimer {
-	[self.timer invalidate];
-	self.timer = nil;
-}
-- (void)timerFire {
-	[self.downloader startDownloadWithAccessToken:self.authController.accessToken];
-}
+- (void)stopTimer {	[self.timer invalidate];  self.timer = nil; }
+
+- (void)timerFire {	[self.downloader startDownloadWithAccessToken:self.authController.accessToken]; }
 
 #pragma mark - MenuItem
 
@@ -206,7 +187,7 @@
 - (void)hideBarItem {
 	[[NSStatusBar systemStatusBar] removeStatusItem:self.statusItem];
 }
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+- (void)observeValueForKeyPath:(NSS *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 	if ([keyPath isEqualToString:@"SIShowStatusItem"]) {
 		if ([[NSUserDefaults standardUserDefaults] boolForKey:@"SIShowStatusItem"]) {
 			[self showBarItem];
@@ -228,7 +209,7 @@
 
 - (void)growlNotificationWasClicked:(id)clickContext {
 	NSDictionary *context = clickContext;
-	NSString *link = context[@"link"];
+	NSS *link = context[@"link"];
 	NSInteger count = [context[@"count"] integerValue];
 	
 	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:link]];
@@ -269,11 +250,11 @@
 - (void)newItemsFound:(NSArray *)newItems {
 	
 	[[NSUserDefaults standardUserDefaults] boolForKey:@"ShowCountInBadge"] ?
-	[[NSApplication sharedApplication].dockTile setBadgeLabel:[NSString stringWithFormat:@"%ld", newItems.count]] :
+	[[NSApplication sharedApplication].dockTile setBadgeLabel:AZString(newItems.count)] :
 	[[NSApplication sharedApplication].dockTile setBadgeLabel:@"★"];
 
 	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"PostGrowlNotfications"]) {
-		NSString *link = ((SIInboxModel *)newItems[0]).link;
+		NSS *link = ((SIInboxModel *)newItems[0]).link;
 		NSMD *dict = [NSMD dictionary];
 		dict[@"link"] = link;
 		NSNumber *numb = [NSNumber numberWithInteger:[newItems count]];
@@ -370,7 +351,6 @@
 - (IBAction)reportBug:(id)sender {
 	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://stackapps.com/questions/2872"]];//TODO link to app
 }
-- (IBAction)login:(id)sender {
-	[self.authController startAuth];
-}
+- (IBAction)login:(id)sender {	[self.authController startAuth]; }
+
 @end

@@ -339,7 +339,7 @@ void GTMAssertSelectorNilOrImplementedWithArgs(id obj, SEL sel, ...);
 
 - (BOOL)isAuthorizedRequest:(NSURLRequest *)request;
 
-- (NSString *)userEmail;
+- (NSS *)userEmail;
 
 @optional
 @property (assign) id <GTMHTTPFetcherServiceProtocol> fetcherService; // WEAK
@@ -355,8 +355,8 @@ void GTMAssertSelectorNilOrImplementedWithArgs(id obj, SEL sel, ...);
   NSMutableURLRequest *request_;
   NSURLConnection *connection_;
   NSMutableData *downloadedData_;
-  NSString *downloadPath_;
-  NSString *temporaryDownloadPath_;
+  NSS *downloadPath_;
+  NSS *temporaryDownloadPath_;
   NSFileHandle *downloadFileHandle_;
   unsigned long long downloadedLength_;
   NSURLCredential *credential_;	 // username & password
@@ -400,7 +400,7 @@ void GTMAssertSelectorNilOrImplementedWithArgs(id obj, SEL sel, ...);
 
   // the service object that created and monitors this fetcher, if any
   id <GTMHTTPFetcherServiceProtocol> service_;
-  NSString *serviceHost_;
+  NSS *serviceHost_;
   NSInteger servicePriority_;
   NSThread *thread_;
 
@@ -414,8 +414,8 @@ void GTMAssertSelectorNilOrImplementedWithArgs(id obj, SEL sel, ...);
   NSTimeInterval lastRetryInterval_;
   BOOL hasAttemptedAuthRefresh_;
 
-  NSString *comment_;			   // comment for log
-  NSString *log_;
+  NSS *comment_;			   // comment for log
+  NSS *log_;
 }
 
 // Create a fetcher
@@ -428,7 +428,7 @@ void GTMAssertSelectorNilOrImplementedWithArgs(id obj, SEL sel, ...);
 
 // Convenience methods that make a request, like +fetcherWithRequest
 + (GTMHTTPFetcher *)fetcherWithURL:(NSURL *)requestURL;
-+ (GTMHTTPFetcher *)fetcherWithURLString:(NSString *)requestURLString;
++ (GTMHTTPFetcher *)fetcherWithURLString:(NSS *)requestURLString;
 
 // Designated initializer
 - (id)initWithRequest:(NSURLRequest *)request;
@@ -468,7 +468,7 @@ void GTMAssertSelectorNilOrImplementedWithArgs(id obj, SEL sel, ...);
 @property (retain) id <GTMHTTPFetcherServiceProtocol> service;
 
 // The host, if any, used to classify this fetcher in the fetcher service
-@property (copy) NSString *serviceHost;
+@property (copy) NSS *serviceHost;
 
 // The priority, if any, used for starting fetchers in the fetcher service
 //
@@ -612,7 +612,7 @@ void GTMAssertSelectorNilOrImplementedWithArgs(id obj, SEL sel, ...);
 // The path must be set before fetching begins.  The download file handle
 // will be created for the path, and can be used to monitor progress. If a file
 // already exists at the path, it will be overwritten.
-@property (copy) NSString *downloadPath;
+@property (copy) NSS *downloadPath;
 
 // If downloadFileHandle is set, data received is immediately appended to
 // the file handle rather than being accumulated in the downloadedData property
@@ -635,18 +635,18 @@ void GTMAssertSelectorNilOrImplementedWithArgs(id obj, SEL sel, ...);
 // Stored property values are retained for the convenience of the caller
 @property (copy) NSMD *properties;
 
-- (void)setProperty:(id)obj forKey:(NSString *)key; // pass nil obj to remove property
-- (id)propertyForKey:(NSString *)key;
+- (void)setProperty:(id)obj forKey:(NSS *)key; // pass nil obj to remove property
+- (id)propertyForKey:(NSS *)key;
 
 - (void)addPropertiesFromDictionary:(NSDictionary *)dict;
 
 // Comments are useful for logging
-@property (copy) NSString *comment;
+@property (copy) NSS *comment;
 
 - (void)setCommentWithFormat:(id)format, ...;
 
 // Log of request and response, if logging is enabled
-@property (copy) NSString *log;
+@property (copy) NSS *log;
 
 // Using the fetcher while a modal dialog is displayed requires setting the
 // run-loop modes to include NSModalPanelRunLoopMode

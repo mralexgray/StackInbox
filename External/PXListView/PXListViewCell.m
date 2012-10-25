@@ -24,12 +24,12 @@
 @synthesize row = _row;
 @synthesize dropHighlight = _dropHighlight;
 
-+ (id)cellLoadedFromNibNamed:(NSString*)nibName reusableIdentifier:(NSString*)identifier
++ (id)cellLoadedFromNibNamed: (NSS*)nibName reusableIdentifier: (NSS*)identifier
 {
 	return [self cellLoadedFromNibNamed:nibName bundle:nil reusableIdentifier:identifier];
 }
 
-+ (id)cellLoadedFromNibNamed:(NSString*)nibName bundle:(NSBundle*)bundle reusableIdentifier:(NSString*)identifier
++ (id)cellLoadedFromNibNamed: (NSS*)nibName bundle:(NSBundle*)bundle reusableIdentifier: (NSS*)identifier
 {
 	NSNib *cellNib = [[NSNib alloc] initWithNibNamed:nibName bundle:bundle];
 	NSArray *objects = nil;
@@ -52,7 +52,7 @@
 #pragma mark -
 #pragma mark Init/Dealloc
 
-- (id)initWithReusableIdentifier:(NSString*)identifier
+- (id)initWithReusableIdentifier: (NSS*)identifier
 {
 	if((self = [super initWithFrame: NSZeroRect]))
 	{
@@ -149,7 +149,7 @@
 #pragma mark -
 #pragma mark Accessibility
 
-- (NSArray*)	accessibilityAttributeNames
+- (NSA*) 	accessibilityAttributeNames
 {
 	NSMutableArray*	attribs = [[super accessibilityAttributeNames] mutableCopy];
 	
@@ -159,7 +159,7 @@
 	return attribs;
 }
 
-- (BOOL)	accessibilityIsAttributeSettable: (NSString *)attribute
+- (BOOL)	accessibilityIsAttributeSettable: (NSS *)attribute
 {
 	if( [attribute isEqualToString: NSAccessibilityRoleAttribute]
 		or [attribute isEqualToString: NSAccessibilityEnabledAttribute] )
@@ -170,7 +170,7 @@
 		return [super accessibilityIsAttributeSettable: attribute];
 }
 
-- (id)	accessibilityAttributeValue: (NSString *)attribute
+- (id)	accessibilityAttributeValue: (NSS *)attribute
 {
 	if( [attribute isEqualToString: NSAccessibilityRoleAttribute] )
 	{
@@ -191,13 +191,13 @@
 }
 
 
-- (NSString *)	accessibilityActionDescription: (NSString *)action
+- (NSS *)	accessibilityActionDescription: (NSS *)action
 {
 	return NSAccessibilityActionDescription(action);
 }
 
 
-- (void)	accessibilityPerformAction: (NSString *)action
+- (void)	accessibilityPerformAction: (NSS *)action
 {
 	if( [action isEqualToString: NSAccessibilityPressAction] )
 	{

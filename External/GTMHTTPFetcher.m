@@ -40,7 +40,7 @@ const NSTimeInterval kDefaultMaxUploadRetryInterval = 60.0 * 10.;
 
 @interface GTMHTTPFetcher ()
 
-@property (copy) NSString *temporaryDownloadPath;
+@property (copy) NSS *temporaryDownloadPath;
 @property (retain) id <GTMCookieStorageProtocol> cookieStorage;
 @property (readwrite, retain) NSData *downloadedData;
 #if NS_BLOCKS_AVAILABLE
@@ -61,7 +61,7 @@ const NSTimeInterval kDefaultMaxUploadRetryInterval = 60.0 * 10.;
 		   request:(NSMutableURLRequest *)request
  finishedWithError:(NSError *)error;
 
-- (NSString *)createTempDownloadFilePathForPath:(NSString *)targetPath;
+- (NSS *)createTempDownloadFilePathForPath:(NSS *)targetPath;
 - (NSFileManager *)fileManager;
 - (void)stopFetchReleasingCallbacks:(BOOL)shouldReleaseCallbacks;
 - (BOOL)shouldReleaseCallbacksUponCompletion;
@@ -105,7 +105,7 @@ const NSTimeInterval kDefaultMaxUploadRetryInterval = 60.0 * 10.;
   return [self fetcherWithRequest:[NSURLRequest requestWithURL:requestURL]];
 }
 
-+ (GTMHTTPFetcher *)fetcherWithURLString:(NSString *)requestURLString {
++ (GTMHTTPFetcher *)fetcherWithURLString:(NSS *)requestURLString {
   return [self fetcherWithURL:[NSURL URLWithString:requestURLString]];
 }
 
@@ -148,7 +148,7 @@ const NSTimeInterval kDefaultMaxUploadRetryInterval = 60.0 * 10.;
   return nil;
 }
 
-- (NSString *)description {
+- (NSS *)description {
   return [NSString stringWithFormat:@"%@ %p (%@)",
 		  [self class], self, [self.mutableRequest URL]];
 }
@@ -251,7 +251,7 @@ const NSTimeInterval kDefaultMaxUploadRetryInterval = 60.0 * 10.;
 	}
   }
 
-  NSString *effectiveHTTPMethod = [request_ valueForHTTPHeaderField:@"X-HTTP-Method-Override"];
+  NSS *effectiveHTTPMethod = [request_ valueForHTTPHeaderField:@"X-HTTP-Method-Override"];
   if (effectiveHTTPMethod == nil) {
 	effectiveHTTPMethod = [request_ HTTPMethod];
   }
@@ -302,7 +302,7 @@ const NSTimeInterval kDefaultMaxUploadRetryInterval = 60.0 * 10.;
   if (downloadPath_ != nil) {
 	// downloading to a path, so create a temporary file and a file handle for
 	// downloading
-	NSString *tempPath = [self createTempDownloadFilePathForPath:downloadPath_];
+	NSS *tempPath = [self createTempDownloadFilePathForPath:downloadPath_];
 
 	BOOL didCreate = [[NSData data] writeToFile:tempPath
 										options:0
@@ -341,7 +341,7 @@ const NSTimeInterval kDefaultMaxUploadRetryInterval = 60.0 * 10.;
 	connection_ = [[connectionClass alloc] initWithRequest:request_
 												  delegate:self
 										  startImmediately:NO];
-	for (NSString *mode in runLoopModes) {
+	for (NSS *mode in runLoopModes) {
 	  [connection_ scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:mode];
 	}
 	[connection_ start];
@@ -383,7 +383,7 @@ const NSTimeInterval kDefaultMaxUploadRetryInterval = 60.0 * 10.;
 
   // once connection_ is non-nil we can send the start notification
   isStopNotificationNeeded_ = YES;
-  NSNotificationCenter *defaultNC = [NSNotificationCenter defaultCenter];
+  NSNotificationCenter *defaultNC = AZNOTCENTER;
   [defaultNC postNotificationName:kGTMHTTPFetcherStartedNotification
 						   object:self];
   return YES;
@@ -490,8 +490,8 @@ CannotBeginFetch:
 }
 #endif
 
-- (NSString *)createTempDownloadFilePathForPath:(NSString *)targetPath {
-  NSString *tempDir = nil;
+- (NSS *)createTempDownloadFilePathForPath:(NSS *)targetPath {
+  NSS *tempDir = nil;
 
 #if (!TARGET_OS_IPHONE && (MAC_OS_X_VERSION_MAX_ALLOWED >= 1060))
   // find an appropriate directory for the download, ideally on the same disk
@@ -524,9 +524,9 @@ CannotBeginFetch:
   }
 
   static unsigned int counter = 0;
-  NSString *name = [NSString stringWithFormat:@"gtmhttpfetcher_%u_%u",
+  NSS *name = [NSString stringWithFormat:@"gtmhttpfetcher_%u_%u",
 						++counter, (unsigned int) arc4random()];
-  NSString *result = [tempDir stringByAppendingPathComponent:name];
+  NSS *result = [tempDir stringByAppendingPathComponent:name];
   return result;
 }
 
@@ -540,7 +540,7 @@ CannotBeginFetch:
 	if ([cookies count] > 0) {
 
 	  NSDictionary *headerFields = [NSHTTPCookie requestHeaderFieldsWithCookies:cookies];
-	  NSString *cookieHeader = headerFields[@"Cookie"]; // key used in header dictionary
+	  NSS *cookieHeader = headerFields[@"Cookie"]; // key used in header dictionary
 	  if (cookieHeader) {
 		[request addValue:cookieHeader forHTTPHeaderField:@"Cookie"]; // header name
 	  }
@@ -657,7 +657,7 @@ CannotBeginFetch:
   if (isStopNotificationNeeded_) {
 	isStopNotificationNeeded_ = NO;
 
-	NSNotificationCenter *defaultNC = [NSNotificationCenter defaultCenter];
+	NSNotificationCenter *defaultNC = AZNOTCENTER;
 	[defaultNC postNotificationName:kGTMHTTPFetcherStoppedNotification
 							 object:self];
   }
@@ -727,9 +727,9 @@ CannotBeginFetch:
 	NSURL *url = [newRequest URL];
 
 	// disallow scheme changes (say, from https to http)
-	NSString *redirectScheme = [url scheme];
-	NSString *newScheme = [redirectURL scheme];
-	NSString *newResourceSpecifier = [redirectURL resourceSpecifier];
+	NSS *redirectScheme = [url scheme];
+	NSS *newScheme = [redirectURL scheme];
+	NSS *newResourceSpecifier = [redirectURL resourceSpecifier];
 
 	if ([redirectScheme caseInsensitiveCompare:@"http"] == NSOrderedSame
 		&& newScheme != nil
@@ -739,7 +739,7 @@ CannotBeginFetch:
 	  redirectScheme = newScheme;
 	}
 
-	NSString *newUrlString = [NSString stringWithFormat:@"%@:%@",
+	NSS *newUrlString = [NSString stringWithFormat:@"%@:%@",
 	  redirectScheme, newResourceSpecifier];
 
 	NSURL *newURL = [NSURL URLWithString:newUrlString];
@@ -747,8 +747,8 @@ CannotBeginFetch:
 
 	// any headers in the redirect override headers in the original.
 	NSDictionary *redirectHeaders = [redirectRequest allHTTPHeaderFields];
-	for (NSString *key in redirectHeaders) {
-	  NSString *value = redirectHeaders[key];
+	for (NSS *key in redirectHeaders) {
+	  NSS *value = redirectHeaders[key];
 	  [newRequest setValue:value forHTTPHeaderField:key];
 	}
 
@@ -1162,7 +1162,7 @@ totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite {
 - (BOOL)isRetryError:(NSError *)error {
 
   struct retryRecord {
-	NSString *const domain;
+	NSS *const domain;
 	int code;
   };
 
@@ -1267,7 +1267,7 @@ totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite {
 								 repeats:NO];
   [retryTimer_ retain];
 
-  NSNotificationCenter *defaultNC = [NSNotificationCenter defaultCenter];
+  NSNotificationCenter *defaultNC = AZNOTCENTER;
   [defaultNC postNotificationName:kGTMHTTPFetcherRetryDelayStartedNotification
 						   object:self];
 }
@@ -1287,13 +1287,13 @@ totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite {
 	[retryTimer_ autorelease];
 	retryTimer_ = nil;
 
-	NSNotificationCenter *defaultNC = [NSNotificationCenter defaultCenter];
+	NSNotificationCenter *defaultNC = AZNOTCENTER;
 	[defaultNC postNotificationName:kGTMHTTPFetcherRetryDelayStoppedNotification
 							 object:self];
   }
 }
 
-- (NSUInteger)retryCount {
+- (NSUI)retryCount {
   return retryCount_;
 }
 
@@ -1496,14 +1496,14 @@ totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite {
   return properties_;
 }
 
-- (void)setProperty:(id)obj forKey:(NSString *)key {
+- (void)setProperty:(id)obj forKey:(NSS *)key {
   if (properties_ == nil && obj != nil) {
 	[self setProperties:[NSMD dictionary]];
   }
   [properties_ setValue:obj forKey:key];
 }
 
-- (id)propertyForKey:(NSString *)key {
+- (id)propertyForKey:(NSS *)key {
   return properties_[key];
 }
 
@@ -1517,7 +1517,7 @@ totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite {
 
 - (void)setCommentWithFormat:(id)format, ... {
 #if !STRIP_GTM_FETCH_LOGGING
-  NSString *result = format;
+  NSS *result = format;
   if (format) {
 	va_list argList;
 	va_start(argList, format);

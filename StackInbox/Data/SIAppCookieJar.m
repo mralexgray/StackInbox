@@ -30,10 +30,10 @@
 //	return self;
 }
 
-- (NSString *) pathForCookieJar
+- (NSS *) pathForCookieJar
 {
 	NSFileManager *fileManager = [NSFileManager defaultManager];
-	NSString *folder = [@"~/Library/Application Support/StackInbox/" stringByExpandingTildeInPath];
+	NSS *folder = [@"~/Library/Application Support/StackInbox/" stringByExpandingTildeInPath];
 	if ([fileManager fileExistsAtPath: folder] == NO)
 		[fileManager createDirectoryAtPath:folder withIntermediateDirectories:YES attributes:nil error:nil];
 	return [folder stringByAppendingPathComponent: @"cookies"];

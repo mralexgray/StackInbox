@@ -22,13 +22,13 @@
 + (id)decompressor;
 
 // Uncompress the passed chunk of data
-- (NSData *)uncompressBytes:(Bytef *)bytes length:(NSUInteger)length error:(NSError **)err;
+- (NSData *)uncompressBytes:(Bytef *)bytes length:(NSUI)length error:(NSError **)err;
 
 // Convenience method - pass it some deflated data, and you'll get inflated data back
 + (NSData *)uncompressData:(NSData*)compressedData error:(NSError **)err;
 
 // Convenience method - pass it a file containing deflated data in sourcePath, and it will write inflated data to destinationPath
-+ (BOOL)uncompressDataFromFile:(NSString *)sourcePath toFile:(NSString *)destinationPath error:(NSError **)err;
++ (BOOL)uncompressDataFromFile:(NSS *)sourcePath toFile:(NSS *)destinationPath error:(NSError **)err;
 
 // Sets up zlib to handle the inflating. You only need to call this yourself if you aren't using the convenience constructor 'decompressor'
 - (NSError *)setupStream;

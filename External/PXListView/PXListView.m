@@ -13,7 +13,7 @@
 #import "PXListViewCell+Private.h"
 #import "PXListView+UserInteraction.h"
 
-NSString * const PXListViewSelectionDidChange = @"PXListViewSelectionDidChange";
+NSS * const PXListViewSelectionDidChange = @"PXListViewSelectionDidChange";
 
 
 @implementation PXListView
@@ -63,7 +63,7 @@ NSString * const PXListViewSelectionDidChange = @"PXListViewSelectionDidChange";
 	NSClipView *contentView = [self contentView];
 	[contentView setPostsBoundsChangedNotifications: YES];
 	
-	[[NSNotificationCenter defaultCenter] addObserver:self
+	[AZNOTCENTER addObserver:self
 											 selector:@selector(contentViewBoundsDidChange:)
 												 name:NSViewBoundsDidChangeNotification
 											   object:contentView];
@@ -76,7 +76,7 @@ NSString * const PXListViewSelectionDidChange = @"PXListViewSelectionDidChange";
 - (void)dealloc
 {
 	[self setDelegate:nil]; // otherwise delegate is left observing notifications from deallocated PXListView
-	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	[AZNOTCENTER removeObserver:self];
 	
 	[_reusableCells release], _reusableCells = nil;
 	[_visibleCells release], _visibleCells = nil;
@@ -95,14 +95,14 @@ NSString * const PXListViewSelectionDidChange = @"PXListViewSelectionDidChange";
 
 - (void)setDelegate:(id<PXListViewDelegate>)delegate
 {
-	[[NSNotificationCenter defaultCenter] removeObserver:_delegate
+	[AZNOTCENTER removeObserver:_delegate
 													name:PXListViewSelectionDidChange
 												  object:self];
 	 
 	_delegate = delegate;
 	
 	if([_delegate respondsToSelector:@selector(listViewSelectionDidChange:)]) {
-		[[NSNotificationCenter defaultCenter] addObserver:_delegate
+		[AZNOTCENTER addObserver:_delegate
 												 selector:@selector(listViewSelectionDidChange:)
 													 name:PXListViewSelectionDidChange
 												   object:self];
@@ -149,7 +149,7 @@ NSString * const PXListViewSelectionDidChange = @"PXListViewSelectionDidChange";
 //	/[self setNeedsDisplay:YES];
 }
 
-- (NSUInteger)numberOfRows
+- (NSUI)numberOfRows
 {
 	return _numberOfRows;
 }
@@ -190,7 +190,7 @@ NSString * const PXListViewSelectionDidChange = @"PXListViewSelectionDidChange";
 	return nil;
 }
 
-- (NSArray*)visibleCells
+- (NSA*) visibleCells
 {
 	return [[_visibleCells copy] autorelease];
 }
@@ -230,7 +230,7 @@ NSString * const PXListViewSelectionDidChange = @"PXListViewSelectionDidChange";
 	return NSMakeRange(startRow, endRow-startRow);
 }
 
-- (PXListViewCell*)visibleCellForRow:(NSUInteger)row
+- (PXListViewCell*)visibleCellForRow:(NSUI)row
 {
 	PXListViewCell *outCell = nil;
 	
@@ -246,12 +246,12 @@ NSString * const PXListViewSelectionDidChange = @"PXListViewSelectionDidChange";
 	return outCell;
 }
 
-- (PXListViewCell *)cellForRowAtIndex:(NSUInteger)inIndex
+- (PXListViewCell *)cellForRowAtIndex:(NSUI)inIndex
 {
 	return [self visibleCellForRow:inIndex];
 }
 
-- (NSArray*)visibleCellsForRowIndexes:(NSIndexSet*)rows
+- (NSA*) visibleCellsForRowIndexes:(NSIndexSet*)rows
 {
 	NSMutableArray *theCells = [NSMutableArray array];
 	
@@ -364,13 +364,13 @@ NSString * const PXListViewSelectionDidChange = @"PXListViewSelectionDidChange";
 	[self setSelectedRows:[NSIndexSet indexSet]];
 }
 
-- (void)setSelectedRow:(NSUInteger)row
+- (void)setSelectedRow:(NSUI)row
 {
 	[self selectRowIndexes:[NSIndexSet indexSetWithIndex:row] byExtendingSelection: NO];
 }
 
 
-- (NSUInteger)selectedRow
+- (NSUI)selectedRow
 {
 	if( [_selectedRows count] == 1 ) {
 		return [_selectedRows firstIndex];
@@ -438,7 +438,7 @@ NSString * const PXListViewSelectionDidChange = @"PXListViewSelectionDidChange";
 - (void)postSelectionDidChangeNotification
 {
 	if ([self numberOfRows] > 0) {
-		[[NSNotificationCenter defaultCenter] postNotificationName:PXListViewSelectionDidChange object:self];
+		[AZNOTCENTER postNotificationName:PXListViewSelectionDidChange object:self];
 	}
 }
 
@@ -458,7 +458,7 @@ NSString * const PXListViewSelectionDidChange = @"PXListViewSelectionDidChange";
 	return NSMakeRect(0.0f, 0.0f, availableSize.width, availableSize.height);
 }
 
-- (NSRect)rectOfRow:(NSUInteger)row
+- (NSRect)rectOfRow:(NSUI)row
 {
 	id <PXListViewDelegate> delegate = [self delegate];
 	
@@ -522,7 +522,7 @@ NSString * const PXListViewSelectionDidChange = @"PXListViewSelectionDidChange";
 	[[self documentView] setFrame:NSMakeRect(0.0f, 0.0f, NSWidth([self contentViewRect]), documentHeight)];
 }
 
-- (void)layoutCell:(PXListViewCell*)cell atRow:(NSUInteger)row
+- (void)layoutCell:(PXListViewCell*)cell atRow:(NSUI)row
 {
 	[[self documentView] addSubview:cell];
 	[cell setFrame:[self rectOfRow:row]];
@@ -561,7 +561,7 @@ NSString * const PXListViewSelectionDidChange = @"PXListViewSelectionDidChange";
 	[self updateCells];
 }
 
-- (void)scrollToRow:(NSUInteger)row
+- (void)scrollToRow:(NSUI)row
 {
 	if(row >= _numberOfRows) {
 		return;
@@ -582,7 +582,7 @@ NSString * const PXListViewSelectionDidChange = @"PXListViewSelectionDidChange";
 	[self reflectScrolledClipView:[self contentView]];
 }
 
-- (void)scrollRowToVisible:(NSUInteger)row
+- (void)scrollRowToVisible:(NSUI)row
 {
 	if(row >= _numberOfRows) {
 		return;
@@ -615,7 +615,7 @@ NSString * const PXListViewSelectionDidChange = @"PXListViewSelectionDidChange";
 {
 	_widthPriorToResize = NSWidth([self contentViewRect]);
 	if([self usesLiveResize])
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowSizing:) name:NSSplitViewDidResizeSubviewsNotification object:self.superview];
+		[AZNOTCENTER addObserver:self selector:@selector(windowSizing:) name:NSSplitViewDidResizeSubviewsNotification object:self.superview];
 }
 
 - (void)layoutCellsForResizeEvent 
@@ -658,7 +658,7 @@ NSString * const PXListViewSelectionDidChange = @"PXListViewSelectionDidChange";
 		[self layoutCellsForResizeEvent];
 	}
 	if ([self usesLiveResize])
-		[[NSNotificationCenter defaultCenter] removeObserver:self name:NSSplitViewDidResizeSubviewsNotification object:self.superview];
+		[AZNOTCENTER removeObserver:self name:NSSplitViewDidResizeSubviewsNotification object:self.superview];
 }
 
 - (void)windowSizing:(NSNotification *)inNot
@@ -669,7 +669,7 @@ NSString * const PXListViewSelectionDidChange = @"PXListViewSelectionDidChange";
 #pragma mark -
 #pragma mark Accessibility
 
-- (NSArray*)	accessibilityAttributeNames
+- (NSA*) 	accessibilityAttributeNames
 {
 	NSMutableArray*	attribs = [[[super accessibilityAttributeNames] mutableCopy] autorelease];
 	
@@ -682,7 +682,7 @@ NSString * const PXListViewSelectionDidChange = @"PXListViewSelectionDidChange";
 	return attribs;
 }
 
-- (BOOL)accessibilityIsAttributeSettable:(NSString *)attribute
+- (BOOL)accessibilityIsAttributeSettable:(NSS *)attribute
 {
 	if( [attribute isEqualToString: NSAccessibilityRoleAttribute]
 		|| [attribute isEqualToString: NSAccessibilityVisibleChildrenAttribute]
@@ -699,7 +699,7 @@ NSString * const PXListViewSelectionDidChange = @"PXListViewSelectionDidChange";
 }
 
 
-- (id)	accessibilityAttributeValue: (NSString *)attribute
+- (id)	accessibilityAttributeValue: (NSS *)attribute
 {
 	if( [attribute isEqualToString: NSAccessibilityRoleAttribute] )
 	{

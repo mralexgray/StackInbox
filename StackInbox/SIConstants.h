@@ -8,6 +8,7 @@
 
 #define performDelegateSelector(sel) if ([delegate respondsToSelector:sel]) { [delegate performSelector:sel]; }
 
+
 extern NSString * const SIAuthWindowShown;
 extern NSString * const SIAuthWindowClosed;
 extern NSString * const SIAuthSuccessful;

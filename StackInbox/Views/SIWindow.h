@@ -10,5 +10,7 @@
 #import "INAppStoreWindow.h"
 
 @interface SIWindow : INAppStoreWindow <NSWindowDelegate>
-@property (nonatomic, strong)NSProgressIndicator *titlebarRefreshSpinner;
+
+@property (nonatomic, strong) NSProgressIndicator *titlebarRefreshSpinner;
+
 @end

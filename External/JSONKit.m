@@ -566,7 +566,7 @@ static JKHashTableEntry *_JKDictionaryHashTableEntryForKey(JKDictionary *diction
 
 static void _JSONDecoderCleanup(JSONDecoder *decoder);
 
-static id _NSStringObjectFromJSONString(NSString *jsonString, JKParseOptionFlags parseOptionFlags, NSError **error, BOOL mutableCollection);
+static id _NSStringObjectFromJSONString(NSS *jsonString, JKParseOptionFlags parseOptionFlags, NSError **error, BOOL mutableCollection);
 
 
 static void jk_managedBuffer_release(JKManagedBuffer *managedBuffer);
@@ -576,14 +576,14 @@ static void jk_objectStack_release(JKObjectStack *objectStack);
 static void jk_objectStack_setToStackBuffer(JKObjectStack *objectStack, void **objects, void **keys, CFHashCode *cfHashes, size_t count);
 static int  jk_objectStack_resize(JKObjectStack *objectStack, size_t newCount);
 
-static void   jk_error(JKParseState *parseState, NSString *format, ...);
+static void   jk_error(JKParseState *parseState, NSS *format, ...);
 static int	jk_parse_string(JKParseState *parseState);
 static int	jk_parse_number(JKParseState *parseState);
 static size_t jk_parse_is_newline(JKParseState *parseState, const unsigned char *atCharacterPtr);
 JK_STATIC_INLINE int jk_parse_skip_newline(JKParseState *parseState);
 JK_STATIC_INLINE void jk_parse_skip_whitespace(JKParseState *parseState);
 static int	jk_parse_next_token(JKParseState *parseState);
-static void   jk_error_parse_accept_or3(JKParseState *parseState, int state, NSString *or1String, NSString *or2String, NSString *or3String);
+static void   jk_error_parse_accept_or3(JKParseState *parseState, int state, NSS *or1String, NSS *or2String, NSS *or3String);
 static void  *jk_create_dictionary(JKParseState *parseState, size_t startingObjectIndex);
 static void  *jk_parse_dictionary(JKParseState *parseState);
 static void  *jk_parse_array(JKParseState *parseState);
@@ -593,7 +593,7 @@ JK_STATIC_INLINE void jk_cache_age(JKParseState *parseState);
 JK_STATIC_INLINE void jk_set_parsed_token(JKParseState *parseState, const unsigned char *ptr, size_t length, JKTokenType type, size_t advanceBy);
 
 
-static void jk_encode_error(JKEncodeState *encodeState, NSString *format, ...);
+static void jk_encode_error(JKEncodeState *encodeState, NSS *format, ...);
 static int jk_encode_printf(JKEncodeState *encodeState, JKEncodeCache *cacheSlot, size_t startingAtIndex, id object, const char *format, ...);
 static int jk_encode_write(JKEncodeState *encodeState, JKEncodeCache *cacheSlot, size_t startingAtIndex, id object, const char *format);
 static int jk_encode_writePrettyPrintWhiteSpace(JKEncodeState *encodeState);
@@ -733,7 +733,7 @@ static void _JKArrayRemoveObjectAtIndex(JKArray *array, NSUInteger objectIndex) 
   [super dealloc];
 }
 
-- (NSUInteger)count
+- (NSUI)count
 {
   NSParameterAssert((objects != NULL) && (count <= capacity));
   return(count);
@@ -747,14 +747,14 @@ static void _JKArrayRemoveObjectAtIndex(JKArray *array, NSUInteger objectIndex) 
   memcpy(objectsPtr, objects + range.location, range.length * sizeof(id));
 }
 
-- (id)objectAtIndex:(NSUInteger)objectIndex
+- (id)objectAtIndex:(NSUI)objectIndex
 {
   if(objectIndex >= count) { [NSException raise:NSRangeException format:@"*** -[%@ %@]: index (%lu) beyond bounds (%lu)", NSStringFromClass([self class]), NSStringFromSelector(_cmd), objectIndex, count]; }
   NSParameterAssert((objects != NULL) && (count <= capacity) && (objects[objectIndex] != NULL));
   return(objects[objectIndex]);
 }
 
-- (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state objects:(id *)stackbuf count:(NSUInteger)len
+- (NSUI)countByEnumeratingWithState:(NSFastEnumerationState *)state objects:(id *)stackbuf count:(NSUI)len
 {
   NSParameterAssert((state != NULL) && (stackbuf != NULL) && (len > 0UL) && (objects != NULL) && (count <= capacity));
   if(JK_EXPECT_F(state->state == 0UL))   { state->mutationsPtr = (unsigned long *)&mutations; state->itemsPtr = stackbuf; }
@@ -766,7 +766,7 @@ static void _JKArrayRemoveObjectAtIndex(JKArray *array, NSUInteger objectIndex) 
   return(enumeratedCount);
 }
 
-- (void)insertObject:(id)anObject atIndex:(NSUInteger)objectIndex
+- (void)insertObject:(id)anObject atIndex:(NSUI)objectIndex
 {
   if(mutations   == 0UL)   { [NSException raise:NSInternalInconsistencyException format:@"*** -[%@ %@]: mutating method sent to immutable object", NSStringFromClass([self class]), NSStringFromSelector(_cmd)]; }
   if(anObject	== NULL)  { [NSException raise:NSInvalidArgumentException	   format:@"*** -[%@ %@]: attempt to insert nil",					NSStringFromClass([self class]), NSStringFromSelector(_cmd)]; }
@@ -780,7 +780,7 @@ static void _JKArrayRemoveObjectAtIndex(JKArray *array, NSUInteger objectIndex) 
   mutations = (mutations == NSUIntegerMax) ? 1UL : mutations + 1UL;
 }
 
-- (void)removeObjectAtIndex:(NSUInteger)objectIndex
+- (void)removeObjectAtIndex:(NSUI)objectIndex
 {
   if(mutations   == 0UL)   { [NSException raise:NSInternalInconsistencyException format:@"*** -[%@ %@]: mutating method sent to immutable object", NSStringFromClass([self class]), NSStringFromSelector(_cmd)]; }
   if(objectIndex >= count) { [NSException raise:NSRangeException				 format:@"*** -[%@ %@]: index (%lu) beyond bounds (%lu)",		  NSStringFromClass([self class]), NSStringFromSelector(_cmd), objectIndex, count]; }
@@ -788,7 +788,7 @@ static void _JKArrayRemoveObjectAtIndex(JKArray *array, NSUInteger objectIndex) 
   mutations = (mutations == NSUIntegerMax) ? 1UL : mutations + 1UL;
 }
 
-- (void)replaceObjectAtIndex:(NSUInteger)objectIndex withObject:(id)anObject
+- (void)replaceObjectAtIndex:(NSUI)objectIndex withObject:(id)anObject
 {
   if(mutations   == 0UL)   { [NSException raise:NSInternalInconsistencyException format:@"*** -[%@ %@]: mutating method sent to immutable object", NSStringFromClass([self class]), NSStringFromSelector(_cmd)]; }
   if(anObject	== NULL)  { [NSException raise:NSInvalidArgumentException	   format:@"*** -[%@ %@]: attempt to insert nil",					NSStringFromClass([self class]), NSStringFromSelector(_cmd)]; }
@@ -896,7 +896,7 @@ static const NSUInteger jk_dictionaryCapacities[] = {
 };
 
 static NSUInteger _JKDictionaryCapacityForCount(NSUInteger count) {
-  NSUInteger bottom = 0UL, top = sizeof(jk_dictionaryCapacities) / sizeof(NSUInteger), mid = 0UL, tableSize = lround(floor((count) * 1.33));
+  NSUInteger bottom = 0UL, top = sizeof(jk_dictionaryCapacities) / sizeof(NSUI), mid = 0UL, tableSize = lround(floor((count) * 1.33));
   while(top > bottom) { mid = (top + bottom) / 2UL; if(jk_dictionaryCapacities[mid] < tableSize) { bottom = mid + 1UL; } else { top = mid; } }
   return(jk_dictionaryCapacities[bottom]);
 }
@@ -1008,7 +1008,7 @@ static void _JKDictionaryAddObject(JKDictionary *dictionary, NSUInteger keyHash,
   CFRelease(object);
 }
 
-- (NSUInteger)count
+- (NSUI)count
 {
   return(count);
 }
@@ -1047,7 +1047,7 @@ static JKHashTableEntry *_JKDictionaryHashTableEntryForKey(JKDictionary *diction
   }
 }
 
-- (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state objects:(id *)stackbuf count:(NSUInteger)len
+- (NSUI)countByEnumeratingWithState:(NSFastEnumerationState *)state objects:(id *)stackbuf count:(NSUI)len
 {
   NSParameterAssert((state != NULL) && (stackbuf != NULL) && (len > 0UL) && (entry != NULL) && (count <= capacity));
   if(JK_EXPECT_F(state->state == 0UL))	  { state->mutationsPtr = (unsigned long *)&mutations; state->itemsPtr = stackbuf; }
@@ -1113,12 +1113,12 @@ JK_STATIC_INLINE size_t jk_max(size_t a, size_t b) { return((a > b) ? a : b); }
 
 JK_STATIC_INLINE JKHash calculateHash(JKHash currentHash, unsigned char c) { return(((currentHash << 5) + currentHash) + c); }
 
-static void jk_error(JKParseState *parseState, NSString *format, ...) {
+static void jk_error(JKParseState *parseState, NSS *format, ...) {
   NSCParameterAssert((parseState != NULL) && (format != NULL));
 
   va_list varArgsList;
   va_start(varArgsList, format);
-  NSString *formatString = [[[NSString alloc] initWithFormat:format arguments:varArgsList] autorelease];
+  NSS *formatString = [[[NSString alloc] initWithFormat:format arguments:varArgsList] autorelease];
   va_end(varArgsList);
 
 #if 0
@@ -1128,7 +1128,7 @@ static void jk_error(JKParseState *parseState, NSString *format, ...) {
 
   for(atCharacterPtr = lineStart; atCharacterPtr < JK_END_STRING_PTR(parseState); atCharacterPtr++) { lineEnd = atCharacterPtr; if(jk_parse_is_newline(parseState, atCharacterPtr)) { break; } }
 
-  NSString *lineString = @"", *carretString = @"";
+  NSS *lineString = @"", *carretString = @"";
   if(lineStart < JK_END_STRING_PTR(parseState)) {
 	lineString   = [[[NSString alloc] initWithBytes:lineStart length:(lineEnd - lineStart) encoding:NSUTF8StringEncoding] autorelease];
 	carretString = [NSString stringWithFormat:@"%*.*s^", (int)(parseState->atIndex - parseState->lineStartIndex), (int)(parseState->atIndex - parseState->lineStartIndex), " "];
@@ -1809,8 +1809,8 @@ static int jk_parse_next_token(JKParseState *parseState) {
   return(stopParsing);
 }
 
-static void jk_error_parse_accept_or3(JKParseState *parseState, int state, NSString *or1String, NSString *or2String, NSString *or3String) {
-  NSString *acceptStrings[16];
+static void jk_error_parse_accept_or3(JKParseState *parseState, int state, NSS *or1String, NSS *or2String, NSS *or3String) {
+  NSS *acceptStrings[16];
   int acceptIdx = 0;
   if(state & JKParseAcceptValue) { acceptStrings[acceptIdx++] = or1String; }
   if(state & JKParseAcceptComma) { acceptStrings[acceptIdx++] = or2String; }
@@ -2225,12 +2225,12 @@ static id _JKParseUTF8String(JKParseState *parseState, BOOL mutableCollections, 
 #pragma mark Methods that return immutable collection objects
 ////////////
 
-- (id)objectWithUTF8String:(const unsigned char *)string length:(NSUInteger)length
+- (id)objectWithUTF8String:(const unsigned char *)string length:(NSUI)length
 {
   return([self objectWithUTF8String:string length:length error:NULL]);
 }
 
-- (id)objectWithUTF8String:(const unsigned char *)string length:(NSUInteger)length error:(NSError **)error
+- (id)objectWithUTF8String:(const unsigned char *)string length:(NSUI)length error:(NSError **)error
 {
   if(parseState == NULL) { [NSException raise:NSInternalInconsistencyException format:@"parseState is NULL."];		  }
   if(string	 == NULL) { [NSException raise:NSInvalidArgumentException	   format:@"The string argument is NULL."]; }
@@ -2253,12 +2253,12 @@ static id _JKParseUTF8String(JKParseState *parseState, BOOL mutableCollections, 
 #pragma mark Methods that return mutable collection objects
 ////////////
 
-- (id)mutableObjectWithUTF8String:(const unsigned char *)string length:(NSUInteger)length
+- (id)mutableObjectWithUTF8String:(const unsigned char *)string length:(NSUI)length
 {
   return([self mutableObjectWithUTF8String:string length:length error:NULL]);
 }
 
-- (id)mutableObjectWithUTF8String:(const unsigned char *)string length:(NSUInteger)length error:(NSError **)error
+- (id)mutableObjectWithUTF8String:(const unsigned char *)string length:(NSUI)length error:(NSError **)error
 {
   if(parseState == NULL) { [NSException raise:NSInternalInconsistencyException format:@"parseState is NULL."];		  }
   if(string	 == NULL) { [NSException raise:NSInvalidArgumentException	   format:@"The string argument is NULL."]; }
@@ -2316,7 +2316,7 @@ static id _JKParseUTF8String(JKParseState *parseState, BOOL mutableCollections, 
 
 @implementation NSString (JSONKitDeserializing)
 
-static id _NSStringObjectFromJSONString(NSString *jsonString, JKParseOptionFlags parseOptionFlags, NSError **error, BOOL mutableCollection) {
+static id _NSStringObjectFromJSONString(NSS *jsonString, JKParseOptionFlags parseOptionFlags, NSError **error, BOOL mutableCollection) {
   id				returnObject = NULL;
   CFMutableDataRef  mutableData  = NULL;
   JSONDecoder	  *decoder	  = NULL;
@@ -2324,11 +2324,11 @@ static id _NSStringObjectFromJSONString(NSString *jsonString, JKParseOptionFlags
   CFIndex	stringLength	 = CFStringGetLength((CFStringRef)jsonString);
   NSUInteger stringUTF8Length = [jsonString lengthOfBytesUsingEncoding:NSUTF8StringEncoding];
   
-  if((mutableData = (CFMutableDataRef)[(id)CFDataCreateMutable(NULL, (NSUInteger)stringUTF8Length) autorelease]) != NULL) {
+  if((mutableData = (CFMutableDataRef)[(id)CFDataCreateMutable(NULL, (NSUI)stringUTF8Length) autorelease]) != NULL) {
 	UInt8   *utf8String = CFDataGetMutableBytePtr(mutableData);
 	CFIndex  usedBytes  = 0L, convertedCount = 0L;
 	
-	convertedCount = CFStringGetBytes((CFStringRef)jsonString, CFRangeMake(0L, stringLength), kCFStringEncodingUTF8, '?', NO, utf8String, (NSUInteger)stringUTF8Length, &usedBytes);
+	convertedCount = CFStringGetBytes((CFStringRef)jsonString, CFRangeMake(0L, stringLength), kCFStringEncodingUTF8, '?', NO, utf8String, (NSUI)stringUTF8Length, &usedBytes);
 	if(JK_EXPECT_F(convertedCount != stringLength) || JK_EXPECT_F(usedBytes < 0L)) { if(error != NULL) { *error = [NSError errorWithDomain:@"JKErrorDomain" code:-1L userInfo:@{NSLocalizedDescriptionKey: @"An error occurred converting the contents of a NSString to UTF8."}]; } goto exitNow; }
 	
 	if(mutableCollection == NO) { returnObject = [(decoder = [JSONDecoder decoderWithParseOptions:parseOptionFlags])		objectWithUTF8String:(const unsigned char *)utf8String length:(size_t)usedBytes error:error]; }
@@ -2419,12 +2419,12 @@ exitNow:
 #pragma mark -
 #pragma mark Encoding / deserializing functions
 
-static void jk_encode_error(JKEncodeState *encodeState, NSString *format, ...) {
+static void jk_encode_error(JKEncodeState *encodeState, NSS *format, ...) {
   NSCParameterAssert((encodeState != NULL) && (format != NULL));
 
   va_list varArgsList;
   va_start(varArgsList, format);
-  NSString *formatString = [[[NSString alloc] initWithFormat:format arguments:varArgsList] autorelease];
+  NSS *formatString = [[[NSString alloc] initWithFormat:format arguments:varArgsList] autorelease];
   va_end(varArgsList);
 
   if(encodeState->error == NULL) {
@@ -2587,7 +2587,7 @@ static int jk_encode_add_atom_to_buffer(JKEncodeState *encodeState, void *object
   // XXX XXX XXX XXX
 
   BOOL workAroundMacOSXABIBreakingBug = NO;
-  if(JK_EXPECT_F(((NSUInteger)object) & 0x1)) { workAroundMacOSXABIBreakingBug = YES; goto slowClassLookup; }
+  if(JK_EXPECT_F(((NSUI)object) & 0x1)) { workAroundMacOSXABIBreakingBug = YES; goto slowClassLookup; }
 
 	   if(JK_EXPECT_T(object->isa == encodeState->fastClassLookup.stringClass))	 { isClass = JKClassString;	 }
   else if(JK_EXPECT_T(object->isa == encodeState->fastClassLookup.numberClass))	 { isClass = JKClassNumber;	 }
@@ -2930,12 +2930,12 @@ errorExit:
 
 // NSString returning methods...
 
-- (NSString *)JSONString
+- (NSS *)JSONString
 {
   return([self JSONStringWithOptions:JKSerializeOptionNone includeQuotes:YES error:NULL]);
 }
 
-- (NSString *)JSONStringWithOptions:(JKSerializeOptionFlags)serializeOptions includeQuotes:(BOOL)includeQuotes error:(NSError **)error
+- (NSS *)JSONStringWithOptions:(JKSerializeOptionFlags)serializeOptions includeQuotes:(BOOL)includeQuotes error:(NSError **)error
 {
   return([JKSerializer serializeObject:self options:serializeOptions encodeOption:(JKEncodeOptionAsString | ((includeQuotes == NO) ? JKEncodeOptionStringObjTrimQuotes : 0UL) | JKEncodeOptionStringObj) block:NULL delegate:NULL selector:NULL error:error]);
 }
@@ -2963,17 +2963,17 @@ errorExit:
 
 // NSString returning methods...
 
-- (NSString *)JSONString
+- (NSS *)JSONString
 {
   return([JKSerializer serializeObject:self options:JKSerializeOptionNone encodeOption:(JKEncodeOptionAsString | JKEncodeOptionCollectionObj) block:NULL delegate:NULL selector:NULL error:NULL]);
 }
 
-- (NSString *)JSONStringWithOptions:(JKSerializeOptionFlags)serializeOptions error:(NSError **)error
+- (NSS *)JSONStringWithOptions:(JKSerializeOptionFlags)serializeOptions error:(NSError **)error
 {
   return([JKSerializer serializeObject:self options:serializeOptions encodeOption:(JKEncodeOptionAsString | JKEncodeOptionCollectionObj) block:NULL delegate:NULL selector:NULL error:error]);
 }
 
-- (NSString *)JSONStringWithOptions:(JKSerializeOptionFlags)serializeOptions serializeUnsupportedClassesUsingDelegate:(id)delegate selector:(SEL)selector error:(NSError **)error
+- (NSS *)JSONStringWithOptions:(JKSerializeOptionFlags)serializeOptions serializeUnsupportedClassesUsingDelegate:(id)delegate selector:(SEL)selector error:(NSError **)error
 {
   return([JKSerializer serializeObject:self options:serializeOptions encodeOption:(JKEncodeOptionAsString | JKEncodeOptionCollectionObj) block:NULL delegate:delegate selector:selector error:error]);
 }
@@ -3001,17 +3001,17 @@ errorExit:
 
 // NSString returning methods...
 
-- (NSString *)JSONString
+- (NSS *)JSONString
 {
   return([JKSerializer serializeObject:self options:JKSerializeOptionNone encodeOption:(JKEncodeOptionAsString | JKEncodeOptionCollectionObj) block:NULL delegate:NULL selector:NULL error:NULL]);
 }
 
-- (NSString *)JSONStringWithOptions:(JKSerializeOptionFlags)serializeOptions error:(NSError **)error
+- (NSS *)JSONStringWithOptions:(JKSerializeOptionFlags)serializeOptions error:(NSError **)error
 {
   return([JKSerializer serializeObject:self options:serializeOptions encodeOption:(JKEncodeOptionAsString | JKEncodeOptionCollectionObj) block:NULL delegate:NULL selector:NULL error:error]);
 }
 
-- (NSString *)JSONStringWithOptions:(JKSerializeOptionFlags)serializeOptions serializeUnsupportedClassesUsingDelegate:(id)delegate selector:(SEL)selector error:(NSError **)error
+- (NSS *)JSONStringWithOptions:(JKSerializeOptionFlags)serializeOptions serializeUnsupportedClassesUsingDelegate:(id)delegate selector:(SEL)selector error:(NSError **)error
 {
   return([JKSerializer serializeObject:self options:serializeOptions encodeOption:(JKEncodeOptionAsString | JKEncodeOptionCollectionObj) block:NULL delegate:delegate selector:selector error:error]);
 }
@@ -3028,7 +3028,7 @@ errorExit:
   return([JKSerializer serializeObject:self options:serializeOptions encodeOption:(JKEncodeOptionAsData | JKEncodeOptionCollectionObj) block:block delegate:NULL selector:NULL error:error]);
 }
 
-- (NSString *)JSONStringWithOptions:(JKSerializeOptionFlags)serializeOptions serializeUnsupportedClassesUsingBlock:(id(^)(id object))block error:(NSError **)error
+- (NSS *)JSONStringWithOptions:(JKSerializeOptionFlags)serializeOptions serializeUnsupportedClassesUsingBlock:(id(^)(id object))block error:(NSError **)error
 {
   return([JKSerializer serializeObject:self options:serializeOptions encodeOption:(JKEncodeOptionAsString | JKEncodeOptionCollectionObj) block:block delegate:NULL selector:NULL error:error]);
 }
@@ -3042,7 +3042,7 @@ errorExit:
   return([JKSerializer serializeObject:self options:serializeOptions encodeOption:(JKEncodeOptionAsData | JKEncodeOptionCollectionObj) block:block delegate:NULL selector:NULL error:error]);
 }
 
-- (NSString *)JSONStringWithOptions:(JKSerializeOptionFlags)serializeOptions serializeUnsupportedClassesUsingBlock:(id(^)(id object))block error:(NSError **)error
+- (NSS *)JSONStringWithOptions:(JKSerializeOptionFlags)serializeOptions serializeUnsupportedClassesUsingBlock:(id(^)(id object))block error:(NSError **)error
 {
   return([JKSerializer serializeObject:self options:serializeOptions encodeOption:(JKEncodeOptionAsString | JKEncodeOptionCollectionObj) block:block delegate:NULL selector:NULL error:error]);
 }

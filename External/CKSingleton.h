@@ -28,7 +28,7 @@ classname *temp = shared##classname; \
 shared##classname = nil; \
 [temp dealloc]; } \
 + (void)registerForCleanup { \
-[[NSNotificationCenter defaultCenter] addObserver:self \
+[AZNOTCENTER addObserver:self \
 selector:@selector(cleanupFromTerminate) \
 name:NSApplicationWillTerminateNotification \
 object:nil]; \
@@ -63,7 +63,7 @@ return temp; \
 } \
 - (id)copyWithZone:(NSZone *)zone { return self; } \
 - (id)retain { return self; } \
-- (NSUInteger)retainCount { return NSUIntegerMax; } \
+- (NSUI)retainCount { return NSUIntegerMax; } \
 - (oneway void)release { } \
 - (id)autorelease { return self; }
 #endif
@@ -117,7 +117,7 @@ return temp; \
 	return self;\
   }\
   \
-  - (NSUInteger)retainCount {\
+  - (NSUI)retainCount {\
 	return NSUIntegerMax;\
   }\
   \
@@ -193,7 +193,7 @@ return temp; \
 //	return self;\
 //  }\
 //  \
-//  - (NSUInteger)retainCount {\
+//  - (NSUI)retainCount {\
 //	return NSUIntegerMax;\
 //  }\
 //  \

@@ -16,7 +16,7 @@
 
 //- (id) 				initSingleton; 				// <= add these to the interface
 + (SIAppCookieJar*) sharedSIAppCookieJar;  		// <= where Foo is the class name
-- (NSString *) 		pathForCookieJar;
+- (NSS *) 		pathForCookieJar;
 
 - (void) setCookie: (NSHTTPCookie*)cookie;
 - (void) removeExpiredCookies;

@@ -156,15 +156,15 @@ typedef struct JKParseState JKParseState; // Opaque internal, private type.
 - (id)parseJSONData:(NSData *)jsonData error:(NSError **)error									JK_DEPRECATED_ATTRIBUTE; // Deprecated in JSONKit v1.4.  Use objectWithData:error:			   instead.
 
 // Methods that return immutable collection objects.
-- (id)objectWithUTF8String:(const unsigned char *)string length:(NSUInteger)length;
-- (id)objectWithUTF8String:(const unsigned char *)string length:(NSUInteger)length error:(NSError **)error;
+- (id)objectWithUTF8String:(const unsigned char *)string length:(NSUI)length;
+- (id)objectWithUTF8String:(const unsigned char *)string length:(NSUI)length error:(NSError **)error;
 // The NSData MUST be UTF8 encoded JSON.
 - (id)objectWithData:(NSData *)jsonData;
 - (id)objectWithData:(NSData *)jsonData error:(NSError **)error;
 
 // Methods that return mutable collection objects.
-- (id)mutableObjectWithUTF8String:(const unsigned char *)string length:(NSUInteger)length;
-- (id)mutableObjectWithUTF8String:(const unsigned char *)string length:(NSUInteger)length error:(NSError **)error;
+- (id)mutableObjectWithUTF8String:(const unsigned char *)string length:(NSUI)length;
+- (id)mutableObjectWithUTF8String:(const unsigned char *)string length:(NSUI)length error:(NSError **)error;
 // The NSData MUST be UTF8 encoded JSON.
 - (id)mutableObjectWithData:(NSData *)jsonData;
 - (id)mutableObjectWithData:(NSData *)jsonData error:(NSError **)error;
@@ -205,38 +205,38 @@ typedef struct JKParseState JKParseState; // Opaque internal, private type.
 // includeQuotes:NO  `a "test"...` -> `a \"test\"...`
 - (NSData *)JSONData;	 // Invokes JSONDataWithOptions:JKSerializeOptionNone   includeQuotes:YES
 - (NSData *)JSONDataWithOptions:(JKSerializeOptionFlags)serializeOptions includeQuotes:(BOOL)includeQuotes error:(NSError **)error;
-- (NSString *)JSONString; // Invokes JSONStringWithOptions:JKSerializeOptionNone includeQuotes:YES
-- (NSString *)JSONStringWithOptions:(JKSerializeOptionFlags)serializeOptions includeQuotes:(BOOL)includeQuotes error:(NSError **)error;
+- (NSS *)JSONString; // Invokes JSONStringWithOptions:JKSerializeOptionNone includeQuotes:YES
+- (NSS *)JSONStringWithOptions:(JKSerializeOptionFlags)serializeOptions includeQuotes:(BOOL)includeQuotes error:(NSError **)error;
 @end
 
 @interface NSArray (JSONKitSerializing)
 - (NSData *)JSONData;
 - (NSData *)JSONDataWithOptions:(JKSerializeOptionFlags)serializeOptions error:(NSError **)error;
 - (NSData *)JSONDataWithOptions:(JKSerializeOptionFlags)serializeOptions serializeUnsupportedClassesUsingDelegate:(id)delegate selector:(SEL)selector error:(NSError **)error;
-- (NSString *)JSONString;
-- (NSString *)JSONStringWithOptions:(JKSerializeOptionFlags)serializeOptions error:(NSError **)error;
-- (NSString *)JSONStringWithOptions:(JKSerializeOptionFlags)serializeOptions serializeUnsupportedClassesUsingDelegate:(id)delegate selector:(SEL)selector error:(NSError **)error;
+- (NSS *)JSONString;
+- (NSS *)JSONStringWithOptions:(JKSerializeOptionFlags)serializeOptions error:(NSError **)error;
+- (NSS *)JSONStringWithOptions:(JKSerializeOptionFlags)serializeOptions serializeUnsupportedClassesUsingDelegate:(id)delegate selector:(SEL)selector error:(NSError **)error;
 @end
 
 @interface NSDictionary (JSONKitSerializing)
 - (NSData *)JSONData;
 - (NSData *)JSONDataWithOptions:(JKSerializeOptionFlags)serializeOptions error:(NSError **)error;
 - (NSData *)JSONDataWithOptions:(JKSerializeOptionFlags)serializeOptions serializeUnsupportedClassesUsingDelegate:(id)delegate selector:(SEL)selector error:(NSError **)error;
-- (NSString *)JSONString;
-- (NSString *)JSONStringWithOptions:(JKSerializeOptionFlags)serializeOptions error:(NSError **)error;
-- (NSString *)JSONStringWithOptions:(JKSerializeOptionFlags)serializeOptions serializeUnsupportedClassesUsingDelegate:(id)delegate selector:(SEL)selector error:(NSError **)error;
+- (NSS *)JSONString;
+- (NSS *)JSONStringWithOptions:(JKSerializeOptionFlags)serializeOptions error:(NSError **)error;
+- (NSS *)JSONStringWithOptions:(JKSerializeOptionFlags)serializeOptions serializeUnsupportedClassesUsingDelegate:(id)delegate selector:(SEL)selector error:(NSError **)error;
 @end
 
 #ifdef __BLOCKS__
 
 @interface NSArray (JSONKitSerializingBlockAdditions)
 - (NSData *)JSONDataWithOptions:(JKSerializeOptionFlags)serializeOptions serializeUnsupportedClassesUsingBlock:(id(^)(id object))block error:(NSError **)error;
-- (NSString *)JSONStringWithOptions:(JKSerializeOptionFlags)serializeOptions serializeUnsupportedClassesUsingBlock:(id(^)(id object))block error:(NSError **)error;
+- (NSS *)JSONStringWithOptions:(JKSerializeOptionFlags)serializeOptions serializeUnsupportedClassesUsingBlock:(id(^)(id object))block error:(NSError **)error;
 @end
 
 @interface NSDictionary (JSONKitSerializingBlockAdditions)
 - (NSData *)JSONDataWithOptions:(JKSerializeOptionFlags)serializeOptions serializeUnsupportedClassesUsingBlock:(id(^)(id object))block error:(NSError **)error;
-- (NSString *)JSONStringWithOptions:(JKSerializeOptionFlags)serializeOptions serializeUnsupportedClassesUsingBlock:(id(^)(id object))block error:(NSError **)error;
+- (NSS *)JSONStringWithOptions:(JKSerializeOptionFlags)serializeOptions serializeUnsupportedClassesUsingBlock:(id(^)(id object))block error:(NSError **)error;
 @end
   
 #endif

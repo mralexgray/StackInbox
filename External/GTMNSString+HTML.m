@@ -21,7 +21,7 @@
 #import "GTMNSString+HTML.h"
 
 typedef struct {
-__unsafe_unretained	NSString *escapeSequence;
+__unsafe_unretained	NSS *escapeSequence;
 	unichar uchar;
 } HTMLEscapeMap;
 
@@ -372,8 +372,8 @@ static int EscapeMapCompare(const void *ucharVoid, const void *mapVoid) {
 
 @implementation NSString (GTMNSStringHTMLAdditions)
 
-- (NSString *)gtm_stringByEscapingHTMLUsingTable:(HTMLEscapeMap*)table 
-										  ofSize:(NSUInteger)size 
+- (NSS *)gtm_stringByEscapingHTMLUsingTable:(HTMLEscapeMap*)table 
+										  ofSize:(NSUI)size 
 								 escapingUnicode:(BOOL)escapeUnicode {  
 	NSUInteger length = [self length];
 	if (!length) {
@@ -441,19 +441,19 @@ static int EscapeMapCompare(const void *ucharVoid, const void *mapVoid) {
 	return finalString;
 }
 
-- (NSString *)gtm_stringByEscapingForHTML {
+- (NSS *)gtm_stringByEscapingForHTML {
 	return [self gtm_stringByEscapingHTMLUsingTable:gUnicodeHTMLEscapeMap 
 											 ofSize:sizeof(gUnicodeHTMLEscapeMap) 
 									escapingUnicode:NO];
 } // gtm_stringByEscapingHTML
 
-- (NSString *)gtm_stringByEscapingForAsciiHTML {
+- (NSS *)gtm_stringByEscapingForAsciiHTML {
 	return [self gtm_stringByEscapingHTMLUsingTable:gAsciiHTMLEscapeMap 
 											 ofSize:sizeof(gAsciiHTMLEscapeMap) 
 									escapingUnicode:YES];
 } // gtm_stringByEscapingAsciiHTML
 
-- (NSString *)gtm_stringByUnescapingFromHTML {
+- (NSS *)gtm_stringByUnescapingFromHTML {
 	NSRange range = NSMakeRange(0, [self length]);
 	NSRange subrange = [self rangeOfString:@"&" options:NSBackwardsSearch range:range];
 	
@@ -469,7 +469,7 @@ static int EscapeMapCompare(const void *ucharVoid, const void *mapVoid) {
 			continue;
 		}
 		NSRange escapeRange = NSMakeRange(subrange.location, semiColonRange.location - subrange.location + 1);
-		NSString *escapeString = [self substringWithRange:escapeRange];
+		NSS *escapeString = [self substringWithRange:escapeRange];
 		NSUInteger length = [escapeString length];
 		// a squence must be longer than 3 (&lt;) and less than 11 (&thetasym;)
 		if (length > 3 && length < 11) {
@@ -477,7 +477,7 @@ static int EscapeMapCompare(const void *ucharVoid, const void *mapVoid) {
 				unichar char2 = [escapeString characterAtIndex:2];
 				if (char2 == 'x' || char2 == 'X') {
 					// Hex escape squences &#xa3;
-					NSString *hexSequence = [escapeString substringWithRange:NSMakeRange(3, length - 4)];
+					NSS *hexSequence = [escapeString substringWithRange:NSMakeRange(3, length - 4)];
 					NSScanner *scanner = [NSScanner scannerWithString:hexSequence];
 					unsigned value;
 					if ([scanner scanHexInt:&value] && 
@@ -485,13 +485,13 @@ static int EscapeMapCompare(const void *ucharVoid, const void *mapVoid) {
 						value > 0 
 						&& [scanner scanLocation] == length - 4) {
 						unichar uchar = value;
-						NSString *charString = [NSString stringWithCharacters:&uchar length:1];
+						NSS *charString = [NSString stringWithCharacters:&uchar length:1];
 						[finalString replaceCharactersInRange:escapeRange withString:charString];
 					}
 					
 				} else {
 					// Decimal Sequences &#123;
-					NSString *numberSequence = [escapeString substringWithRange:NSMakeRange(2, length - 3)];
+					NSS *numberSequence = [escapeString substringWithRange:NSMakeRange(2, length - 3)];
 					NSScanner *scanner = [NSScanner scannerWithString:numberSequence];
 					int value;
 					if ([scanner scanInt:&value] && 
@@ -499,7 +499,7 @@ static int EscapeMapCompare(const void *ucharVoid, const void *mapVoid) {
 						value > 0 
 						&& [scanner scanLocation] == length - 3) {
 						unichar uchar = value;
-						NSString *charString = [NSString stringWithCharacters:&uchar length:1];
+						NSS *charString = [NSString stringWithCharacters:&uchar length:1];
 						[finalString replaceCharactersInRange:escapeRange withString:charString];
 					}
 				}

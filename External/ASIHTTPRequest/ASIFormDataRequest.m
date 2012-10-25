@@ -13,14 +13,14 @@
 @interface ASIFormDataRequest ()
 - (void)buildMultipartFormDataPostBody;
 - (void)buildURLEncodedPostBody;
-- (void)appendPostString:(NSString *)string;
+- (void)appendPostString:(NSS *)string;
 
 @property (strong) NSMutableArray *postData;
 @property (strong) NSMutableArray *fileData;
 
 #if DEBUG_FORM_DATA_REQUEST
-- (void)addToDebugBody:(NSString *)string;
-@property (retain, nonatomic) NSString *debugBodyString;
+- (void)addToDebugBody:(NSS *)string;
+@property (retain, nonatomic) NSS *debugBodyString;
 #endif
 
 @end
@@ -28,12 +28,12 @@
 @implementation ASIFormDataRequest
 
 #pragma mark utilities
-- (NSString*)encodeURL:(NSString *)string
+- (NSString*)encodeURL:(NSS *)string
 {
-	NSString *newString = (__bridge_transfer NSString*) CFURLCreateStringByAddingPercentEscapes(	NULL, (CFStringRef)self, NULL,
+	NSS *newString = (__bridge_transfer NSString*) CFURLCreateStringByAddingPercentEscapes(	NULL, (CFStringRef)self, NULL,
 				(CFStringRef)@"!*'();:@&=+$,/?%#[]", kCFStringEncodingUTF8 );
 
-//	NSString *newString = NSMakeCollectable(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)string, NULL, CFSTR(":/?#[]@!$ &'()*+,;=\"<>%{}|\\^~`"), CFStringConvertNSStringEncodingToEncoding([self stringEncoding])));
+//	NSS *newString = NSMakeCollectable(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)string, NULL, CFSTR(":/?#[]@!$ &'()*+,;=\"<>%{}|\\^~`"), CFStringConvertNSStringEncodingToEncoding([self stringEncoding])));
 	if (newString) {
 		return newString;
 	}
@@ -59,7 +59,7 @@
 
 #pragma mark setup request
 
-- (void)addPostValue:(id <NSObject>)value forKey:(NSString *)key
+- (void)addPostValue:(id <NSObject>)value forKey:(NSS *)key
 {
 	if (!key) {
 		return;
@@ -73,7 +73,7 @@
 	[[self postData] addObject:keyValuePair];
 }
 
-- (void)setPostValue:(id <NSObject>)value forKey:(NSString *)key
+- (void)setPostValue:(id <NSObject>)value forKey:(NSS *)key
 {
 	// Remove any existing value
 	NSUInteger i;
@@ -88,12 +88,12 @@
 }
 
 
-- (void)addFile:(NSString *)filePath forKey:(NSString *)key
+- (void)addFile:(NSS *)filePath forKey:(NSS *)key
 {
 	[self addFile:filePath withFileName:nil andContentType:nil forKey:key];
 }
 
-- (void)addFile:(NSString *)filePath withFileName:(NSString *)fileName andContentType:(NSString *)contentType forKey:(NSString *)key
+- (void)addFile:(NSS *)filePath withFileName:(NSS *)fileName andContentType:(NSS *)contentType forKey:(NSS *)key
 {
 	BOOL isDirectory = NO;
 	BOOL fileExists = [[[NSFileManager alloc] init] fileExistsAtPath:filePath isDirectory:&isDirectory];
@@ -113,12 +113,12 @@
 	[self addData:filePath withFileName:fileName andContentType:contentType forKey:key];
 }
 
-- (void)setFile:(NSString *)filePath forKey:(NSString *)key
+- (void)setFile:(NSS *)filePath forKey:(NSS *)key
 {
 	[self setFile:filePath withFileName:nil andContentType:nil forKey:key];
 }
 
-- (void)setFile:(id)data withFileName:(NSString *)fileName andContentType:(NSString *)contentType forKey:(NSString *)key
+- (void)setFile:(id)data withFileName:(NSS *)fileName andContentType:(NSS *)contentType forKey:(NSS *)key
 {
 	// Remove any existing value
 	NSUInteger i;
@@ -132,12 +132,12 @@
 	[self addFile:data withFileName:fileName andContentType:contentType forKey:key];
 }
 
-- (void)addData:(NSData *)data forKey:(NSString *)key
+- (void)addData:(NSData *)data forKey:(NSS *)key
 {
 	[self addData:data withFileName:@"file" andContentType:nil forKey:key];
 }
 
-- (void)addData:(id)data withFileName:(NSString *)fileName andContentType:(NSString *)contentType forKey:(NSString *)key
+- (void)addData:(id)data withFileName:(NSS *)fileName andContentType:(NSS *)contentType forKey:(NSS *)key
 {
 	if (![self fileData]) {
 		[self setFileData:[NSMutableArray array]];
@@ -155,12 +155,12 @@
 	[[self fileData] addObject:fileInfo];
 }
 
-- (void)setData:(NSData *)data forKey:(NSString *)key
+- (void)setData:(NSData *)data forKey:(NSS *)key
 {
 	[self setData:data withFileName:@"file" andContentType:nil forKey:key];
 }
 
-- (void)setData:(id)data withFileName:(NSString *)fileName andContentType:(NSString *)contentType forKey:(NSString *)key
+- (void)setData:(id)data withFileName:(NSS *)fileName andContentType:(NSS *)contentType forKey:(NSS *)key
 {
 	// Remove any existing value
 	NSUInteger i;
@@ -213,20 +213,20 @@
 	[self addToDebugBody:@"\r\n==== Building a multipart/form-data body ====\r\n"];
 #endif
 	
-	NSString *charset = (NSString *)CFStringConvertEncodingToIANACharSetName(CFStringConvertNSStringEncodingToEncoding([self stringEncoding]));
+	NSS *charset = (NSS *)CFStringConvertEncodingToIANACharSetName(CFStringConvertNSStringEncodingToEncoding([self stringEncoding]));
 	
 	// We don't bother to check if post data contains the boundary, since it's pretty unlikely that it does.
 	CFUUIDRef uuid = CFUUIDCreate(nil);
-	NSString *uuidString = (NSString*)CFBridgingRelease(CFUUIDCreateString(nil, uuid));
+	NSS *uuidString = (NSString*)CFBridgingRelease(CFUUIDCreateString(nil, uuid));
 	CFRelease(uuid);
-	NSString *stringBoundary = [NSString stringWithFormat:@"0xKhTmLbOuNdArY-%@",uuidString];
+	NSS *stringBoundary = [NSString stringWithFormat:@"0xKhTmLbOuNdArY-%@",uuidString];
 	
 	[self addRequestHeader:@"Content-Type" value:[NSString stringWithFormat:@"multipart/form-data; charset=%@; boundary=%@", charset, stringBoundary]];
 	
 	[self appendPostString:[NSString stringWithFormat:@"--%@\r\n",stringBoundary]];
 	
 	// Adds post data
-	NSString *endItemBoundary = [NSString stringWithFormat:@"\r\n--%@\r\n",stringBoundary];
+	NSS *endItemBoundary = [NSString stringWithFormat:@"\r\n--%@\r\n",stringBoundary];
 	NSUInteger i=0;
 	for (NSDictionary *val in [self postData]) {
 		[self appendPostString:[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"\r\n\r\n",val[@"key"]]];
@@ -279,7 +279,7 @@
 #endif
 	
 	
-	NSString *charset = (NSString *)CFStringConvertEncodingToIANACharSetName(CFStringConvertNSStringEncodingToEncoding([self stringEncoding]));
+	NSS *charset = (NSS *)CFStringConvertEncodingToIANACharSetName(CFStringConvertNSStringEncodingToEncoding([self stringEncoding]));
 
 	[self addRequestHeader:@"Content-Type" value:[NSString stringWithFormat:@"application/x-www-form-urlencoded; charset=%@",charset]];
 
@@ -287,7 +287,7 @@
 	NSUInteger i=0;
 	NSUInteger count = [[self postData] count]-1;
 	for (NSDictionary *val in [self postData]) {
-		NSString *data = [NSString stringWithFormat:@"%@=%@%@", [self encodeURL:val[@"key"]], [self encodeURL:val[@"value"]],(i<count ?  @"&" : @"")]; 
+		NSS *data = [NSString stringWithFormat:@"%@=%@%@", [self encodeURL:val[@"key"]], [self encodeURL:val[@"value"]],(i<count ?  @"&" : @"")]; 
 		[self appendPostString:data];
 		i++;
 	}
@@ -296,7 +296,7 @@
 #endif
 }
 
-- (void)appendPostString:(NSString *)string
+- (void)appendPostString:(NSS *)string
 {
 #if DEBUG_FORM_DATA_REQUEST
 	[self addToDebugBody:string];
@@ -311,7 +311,7 @@
 	[super appendPostData:data];
 }
 
-- (void)appendPostDataFromFile:(NSString *)file
+- (void)appendPostDataFromFile:(NSS *)file
 {
 	NSError *err = nil;
 	unsigned long long fileSize = [[[[[[NSFileManager alloc] init] autorelease] attributesOfItemAtPath:file error:&err] objectForKey:NSFileSize] unsignedLongLongValue];
@@ -324,7 +324,7 @@
 	[super appendPostDataFromFile:file];
 }
 
-- (void)addToDebugBody:(NSString *)string
+- (void)addToDebugBody:(NSS *)string
 {
 	if (string) {
 		[self setDebugBodyString:[[self debugBodyString] stringByAppendingString:string]];

@@ -15,17 +15,17 @@
 - (void) finishedDownloadingJSON: (NSDictionary *)jsonObject;
 - (void) updateProgressWithDecimalPercent: (float)percent;
 @optional
-- (void) downloadNotStarted: (NSUInteger)seconds;
+- (void) downloadNotStarted: (NSUI)seconds;
 
 @end
 
 @interface SIInboxDownloader : NSObject  
 
-@property (nonatomic, strong) NSString *json;
+@property (nonatomic, strong) NSS *json;
 @property (nonatomic, unsafe_unretained) id <SIInboxDownloaderDelegate>delegate;
 @property (assign) 			  NSTimeInterval lastDownload;
 
-- (void) startDownloadWithAccessToken: (NSString *)accessToken;
+- (void) startDownloadWithAccessToken: (NSS *)accessToken;
 - (BOOL) canStartDownload;
 
 @end

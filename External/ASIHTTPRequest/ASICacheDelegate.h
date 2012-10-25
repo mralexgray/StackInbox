@@ -86,16 +86,16 @@ typedef enum _ASICacheStoragePolicy {
 - (NSData *)cachedResponseDataForURL:(NSURL *)url;
 
 // Returns a path to the cached response data, if it exists
-- (NSString *)pathToCachedResponseDataForURL:(NSURL *)url;
+- (NSS *)pathToCachedResponseDataForURL:(NSURL *)url;
 
 // Returns a path to the cached response headers, if they url
-- (NSString *)pathToCachedResponseHeadersForURL:(NSURL *)url;
+- (NSS *)pathToCachedResponseHeadersForURL:(NSURL *)url;
 
 // Returns the location to use to store cached response headers for a particular request
-- (NSString *)pathToStoreCachedResponseHeadersForRequest:(ASIHTTPRequest *)request;
+- (NSS *)pathToStoreCachedResponseHeadersForRequest:(ASIHTTPRequest *)request;
 
 // Returns the location to use to store a cached response body for a particular request
-- (NSString *)pathToStoreCachedResponseDataForRequest:(ASIHTTPRequest *)request;
+- (NSS *)pathToStoreCachedResponseDataForRequest:(ASIHTTPRequest *)request;
 
 // Clear cached data stored for the passed storage policy
 - (void)clearCachedResponsesForStoragePolicy:(ASICacheStoragePolicy)cachePolicy;

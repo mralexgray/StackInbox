@@ -15,31 +15,26 @@
 #define PXLog(...)	NSLog(__VA_ARGS__)
 #endif
 
+#define XCell PXListViewCell
+
 
 @interface PXListView : NSScrollView
 {
 	id <PXListViewDelegate> _delegate;
 	
-	NSMutableArray *_reusableCells;
-	NSMutableArray *_visibleCells;
-	NSRange _currentRange;
+	NSMutableArray *_reusableCells, *_visibleCells;
+	NSRange _currentRange, _visibleRange;
 	
 	NSUInteger _numberOfRows;
 	NSMutableIndexSet *_selectedRows;
-	
-	NSRange _visibleRange;
-	CGFloat _totalHeight;
-	CGFloat *_cellYOffsets;
-	
-	CGFloat _cellSpacing;
 
-	BOOL _allowsEmptySelection;
-	BOOL _allowsMultipleSelection;
+	CGFloat  _totalHeight;
+	CGFloat *_cellYOffsets;
+	CGFloat  _cellSpacing;
+
+	BOOL _verticalMotionCanBeginDrag, _usesLiveResize, _allowsEmptySelection, _allowsMultipleSelection;
 	NSInteger _lastSelectedRow;
-	
-	BOOL _verticalMotionCanBeginDrag;
-	
-	BOOL _usesLiveResize;
+
 	CGFloat _widthPriorToResize;
 	
 	NSUInteger _dropRow;
@@ -49,29 +44,30 @@
 @property (nonatomic, assign) IBOutlet id <PXListViewDelegate> delegate;
 
 @property (nonatomic, retain) NSIndexSet *selectedRows;
-@property (nonatomic, assign) NSUInteger selectedRow;
+@property (nonatomic, assign) NSUI selectedRow;
 
 @property (nonatomic, assign) BOOL allowsEmptySelection;
 @property (nonatomic, assign) BOOL allowsMultipleSelection;
 @property (nonatomic, assign) BOOL verticalMotionCanBeginDrag;
 
-@property (nonatomic, assign) CGFloat cellSpacing;
+@property (nonatomic, assign) CGF  cellSpacing;
 @property (nonatomic, assign) BOOL usesLiveResize;
 
-- (void)reloadData;
-- (void)reloadRowAtIndex:(NSInteger)inIndex;
+- (void) reloadData;
+- (void) reloadRowAtIndex: (NSI)inIndex;
 
-- (PXListViewCell*)dequeueCellWithReusableIdentifier:(NSString*)identifier;
+- (XCell*)dequeueCellWithReusableIdentifier: (NSS*)identifier;
 
-- (NSArray*)visibleCells;
-- (PXListViewCell *)cellForRowAtIndex:(NSUInteger)inIndex;
+- (NSA*) visibleCells;
+- (XCell *)cellForRowAtIndex: (NSUI)inIndex;
 
-- (NSRange)visibleRange;
-- (NSRect)rectOfRow:(NSUInteger)row;
-- (void)deselectRows;
-- (void)selectRowIndexes:(NSIndexSet*)rows byExtendingSelection:(BOOL)doExtend;
+- (NSRange) visibleRange;
+- (NSR)  rectOfRow: (NSUI)row;
 
-- (void)scrollToRow:(NSUInteger)row;
-- (void)scrollRowToVisible:(NSUInteger)row;
+- (void) deselectRows;
+- (void) selectRowIndexes: (NSIndexSet*)rows byExtendingSelection: (BOOL)doExtend;
+
+- (void) scrollToRow: 		 (NSUI)row;
+- (void) scrollRowToVisible: (NSUI)row;
 
 @end

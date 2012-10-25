@@ -20,6 +20,6 @@
 								  event:(NSEvent*)dragEvent clickedCell:(PXListViewCell*)clickedCell
 								 offset:(NSPointPointer)dragImageOffset;
 - (void)setShowsDropHighlight:(BOOL)inState;
-- (void)setDropRow:(NSUInteger)row dropHighlight:(PXListViewDropHighlight)dropHighlight;
+- (void)setDropRow:(NSUI)row dropHighlight:(PXListViewDropHighlight)dropHighlight;
 
 @end

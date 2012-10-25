@@ -9,22 +9,22 @@
 #import <Foundation/Foundation.h>
 
 
-extern NSString * const SIInboxItemTypeComment;
-extern NSString * const SIInboxItemTypeChatMessage;
-extern NSString * const SIInboxItemTypeNewAnswer;
-extern NSString * const SIInboxItemTypeCareersMessage;
-extern NSString * const SIInboxItemTypeCareersInvites;
-extern NSString * const SIInboxItemTypeMetaQuestion;
+extern NSS * const SIInboxItemTypeComment;
+extern NSS * const SIInboxItemTypeChatMessage;
+extern NSS * const SIInboxItemTypeNewAnswer;
+extern NSS * const SIInboxItemTypeCareersMessage;
+extern NSS * const SIInboxItemTypeCareersInvites;
+extern NSS * const SIInboxItemTypeMetaQuestion;
 typedef NSString* SIInboxItemType;
 
 @interface SIInboxModel : NSObject <NSCoding>
-@property (strong) NSString *title;
-@property (strong) NSString *body;
+@property (strong) NSS *title;
+@property (strong) NSS *body;
 @property (strong) NSDate *creationDate;
-@property (strong) NSString *link;
+@property (strong) NSS *link;
 @property (assign) BOOL isUnread;
-@property (strong) NSString *siteIconLink;
-@property (strong) NSString *siteName;
+@property (strong) NSS *siteIconLink;
+@property (strong) NSS *siteName;
 @property (strong) SIInboxItemType type;
 @property (assign) BOOL isAPIUnread;
 - (NSNumber *)creationTINumber;

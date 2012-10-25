@@ -106,7 +106,7 @@ inline static NSString* keyForURL(NSURL* url, NSString* style) {
 	[self clearCacheForURL:aURL style:nil];
 }
 
-- (void)clearCacheForURL:(NSURL*)aURL style:(NSString*)style {
+- (void)clearCacheForURL:(NSURL*)aURL style: (NSS*)style {
 	[[EGOCache currentCache] removeCacheForKey:keyForURL(aURL, style)];
 }
 
@@ -144,11 +144,11 @@ inline static NSString* keyForURL(NSURL* url, NSString* style) {
 	if(!aURL) return;
 	
 	if([observer respondsToSelector:@selector(imageLoaderDidLoad:)]) {
-		[[NSNotificationCenter defaultCenter] addObserver:observer selector:@selector(imageLoaderDidLoad:) name:kImageNotificationLoaded(aURL) object:self];
+		[AZNOTCENTER addObserver:observer selector:@selector(imageLoaderDidLoad:) name:kImageNotificationLoaded(aURL) object:self];
 	}
 	
 	if([observer respondsToSelector:@selector(imageLoaderDidFailToLoad:)]) {
-		[[NSNotificationCenter defaultCenter] addObserver:observer selector:@selector(imageLoaderDidFailToLoad:) name:kImageNotificationLoadFailed(aURL) object:self];
+		[AZNOTCENTER addObserver:observer selector:@selector(imageLoaderDidFailToLoad:) name:kImageNotificationLoadFailed(aURL) object:self];
 	}
 
 	[self loadImageForURL:aURL];
@@ -168,12 +168,12 @@ inline static NSString* keyForURL(NSURL* url, NSString* style) {
 }
 
 - (void)removeObserver:(id<EGOImageLoaderObserver>)observer {
-	[[NSNotificationCenter defaultCenter] removeObserver:observer name:nil object:self];
+	[AZNOTCENTER removeObserver:observer name:nil object:self];
 }
 
 - (void)removeObserver:(id<EGOImageLoaderObserver>)observer forURL:(NSURL*)aURL {
-	[[NSNotificationCenter defaultCenter] removeObserver:observer name:kImageNotificationLoaded(aURL) object:self];
-	[[NSNotificationCenter defaultCenter] removeObserver:observer name:kImageNotificationLoadFailed(aURL) object:self];
+	[AZNOTCENTER removeObserver:observer name:kImageNotificationLoaded(aURL) object:self];
+	[AZNOTCENTER removeObserver:observer name:kImageNotificationLoadFailed(aURL) object:self];
 }
 
 #endif
@@ -183,7 +183,7 @@ inline static NSString* keyForURL(NSURL* url, NSString* style) {
 	[self loadImageForURL:aURL style:nil styler:nil completion:completion];
 }
 
-- (void)loadImageForURL:(NSURL*)aURL style:(NSString*)style styler:(UIImage* (^)(UIImage* image))styler completion:(void (^)(UIImage* image, NSURL* imageURL, NSError* error))completion {
+- (void)loadImageForURL:(NSURL*)aURL style: (NSS*)style styler:(UIImage* (^)(UIImage* image))styler completion:(void (^)(UIImage* image, NSURL* imageURL, NSError* error))completion {
 	UIImage* anImage = [[EGOCache currentCache] imageForKey:keyForURL(aURL,style)];
 
 	if(anImage) {
@@ -241,7 +241,7 @@ inline static NSString* keyForURL(NSURL* url, NSString* style) {
 																	 object:self
 																   userInfo:@{@"error": error,@"imageURL": connection.imageURL}];
 		
-		[[NSNotificationCenter defaultCenter] performSelectorOnMainThread:@selector(postNotification:) withObject:notification waitUntilDone:YES];
+		[AZNOTCENTER performSelectorOnMainThread:@selector(postNotification:) withObject:notification waitUntilDone:YES];
 		#endif
 		
 		#if __EGOIL_USE_BLOCKS
@@ -258,7 +258,7 @@ inline static NSString* keyForURL(NSURL* url, NSString* style) {
 																	 object:self
 																   userInfo:@{@"image": anImage,@"imageURL": connection.imageURL}];
 		
-		[[NSNotificationCenter defaultCenter] performSelectorOnMainThread:@selector(postNotification:) withObject:notification waitUntilDone:YES];
+		[AZNOTCENTER performSelectorOnMainThread:@selector(postNotification:) withObject:notification waitUntilDone:YES];
 		#endif
 		
 		#if __EGOIL_USE_BLOCKS
@@ -280,7 +280,7 @@ inline static NSString* keyForURL(NSURL* url, NSString* style) {
 																 object:self
 															   userInfo:@{@"error": error,@"imageURL": connection.imageURL}];
 	
-	[[NSNotificationCenter defaultCenter] performSelectorOnMainThread:@selector(postNotification:) withObject:notification waitUntilDone:YES];
+	[AZNOTCENTER performSelectorOnMainThread:@selector(postNotification:) withObject:notification waitUntilDone:YES];
 	#endif
 	
 	#if __EGOIL_USE_BLOCKS

@@ -21,7 +21,7 @@ static NSLock *readLock = nil;
 	}
 }
 
-+ (id)inputStreamWithFileAtPath:(NSString *)path request:(ASIHTTPRequest *)theRequest
++ (id)inputStreamWithFileAtPath:(NSS *)path request:(ASIHTTPRequest *)theRequest
 {
 	ASIInputStream *theStream = [[self alloc] init];
 	[theStream setRequest:theRequest];
@@ -40,7 +40,7 @@ static NSLock *readLock = nil;
 
 // Called when CFNetwork wants to read more of our request body
 // When throttling is on, we ask ASIHTTPRequest for the maximum amount of data we can read
-- (NSInteger)read:(uint8_t *)buffer maxLength:(NSUInteger)len
+- (NSInteger)read:(uint8_t *)buffer maxLength:(NSUI)len
 {
 	[readLock lock];
 	unsigned long toRead = len;
@@ -85,22 +85,22 @@ static NSLock *readLock = nil;
 	[stream setDelegate:delegate];
 }
 
-- (void)scheduleInRunLoop:(NSRunLoop *)aRunLoop forMode:(NSString *)mode
+- (void)scheduleInRunLoop:(NSRunLoop *)aRunLoop forMode:(NSS *)mode
 {
 	[stream scheduleInRunLoop:aRunLoop forMode:mode];
 }
 
-- (void)removeFromRunLoop:(NSRunLoop *)aRunLoop forMode:(NSString *)mode
+- (void)removeFromRunLoop:(NSRunLoop *)aRunLoop forMode:(NSS *)mode
 {
 	[stream removeFromRunLoop:aRunLoop forMode:mode];
 }
 
-- (id)propertyForKey:(NSString *)key
+- (id)propertyForKey:(NSS *)key
 {
 	return [stream propertyForKey:key];
 }
 
-- (BOOL)setProperty:(id)property forKey:(NSString *)key
+- (BOOL)setProperty:(id)property forKey:(NSS *)key
 {
 	return [stream setProperty:property forKey:key];
 }
