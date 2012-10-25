@@ -32,7 +32,7 @@
 - (BOOL)isEqual:(id)object
 {
 	return ([object isKindOfClass:[self class]]
-			&& [[self name] isEqualToString:[object name]]
+			&& [[self name] isEqualToString:object[@"name"]]  //[object name]]
 			&& [[self domain] isEqualToString:[object domain]]
 			&& [[self path] isEqualToString:[object path]]
 			);

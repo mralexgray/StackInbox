@@ -42,7 +42,7 @@
 		self.timeoutInterval = 30;
 		
 		#if __EGOIL_USE_BLOCKS
-		handlers = [[NSMutableDictionary alloc] init];
+		handlers = [[NSMD alloc] init];
 		#endif
 	}
 	

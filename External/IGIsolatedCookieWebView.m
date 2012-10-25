@@ -142,7 +142,7 @@ didReceiveResponse:(NSURLResponse *)response
 //		NSLog(@"cookies being sent to %@: %@",
 //			  [[request URL] absoluteURL],
 //			  [NSHTTPCookie requestHeaderFieldsWithCookies:newCookies]);
-		NSMutableDictionary *newAllHeaders = [NSMutableDictionary dictionaryWithDictionary:[request allHTTPHeaderFields]];
+		NSMD *newAllHeaders = [NSMD dictionaryWithDictionary:[request allHTTPHeaderFields]];
 		[newAllHeaders addEntriesFromDictionary:[NSHTTPCookie requestHeaderFieldsWithCookies:newCookies]];
 		[newRequest setAllHTTPHeaderFields:[NSDictionary dictionaryWithDictionary:newAllHeaders]];
 	}

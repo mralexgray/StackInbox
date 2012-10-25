@@ -30,7 +30,10 @@
 #pragma mark utilities
 - (NSString*)encodeURL:(NSString *)string
 {
-	NSString *newString = NSMakeCollectable(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)string, NULL, CFSTR(":/?#[]@!$ &'()*+,;=\"<>%{}|\\^~`"), CFStringConvertNSStringEncodingToEncoding([self stringEncoding])));
+	NSString *newString = (__bridge_transfer NSString*) CFURLCreateStringByAddingPercentEscapes(	NULL, (CFStringRef)self, NULL,
+				(CFStringRef)@"!*'();:@&=+$,/?%#[]", kCFStringEncodingUTF8 );
+
+//	NSString *newString = NSMakeCollectable(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)string, NULL, CFSTR(":/?#[]@!$ &'()*+,;=\"<>%{}|\\^~`"), CFStringConvertNSStringEncodingToEncoding([self stringEncoding])));
 	if (newString) {
 		return newString;
 	}
@@ -64,7 +67,7 @@
 	if (![self postData]) {
 		[self setPostData:[NSMutableArray array]];
 	}
-	NSMutableDictionary *keyValuePair = [NSMutableDictionary dictionaryWithCapacity:2];
+	NSMD *keyValuePair = [NSMD dictionaryWithCapacity:2];
 	[keyValuePair setValue:key forKey:@"key"];
 	[keyValuePair setValue:[value description] forKey:@"value"];
 	[[self postData] addObject:keyValuePair];
@@ -143,7 +146,7 @@
 		contentType = @"application/octet-stream";
 	}
 
-	NSMutableDictionary *fileInfo = [NSMutableDictionary dictionaryWithCapacity:4];
+	NSMD *fileInfo = [NSMD dictionaryWithCapacity:4];
 	[fileInfo setValue:key forKey:@"key"];
 	[fileInfo setValue:fileName forKey:@"fileName"];
 	[fileInfo setValue:contentType forKey:@"contentType"];

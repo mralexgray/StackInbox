@@ -268,19 +268,18 @@
 
 - (void)newItemsFound:(NSArray *)newItems {
 	
-	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"ShowCountInBadge"]) {
-		[[NSApplication sharedApplication].dockTile setBadgeLabel:[NSString stringWithFormat:@"%i", newItems.count]];		
-	} else {
-		[[NSApplication sharedApplication].dockTile setBadgeLabel:@"★"];		
-	}
+	[[NSUserDefaults standardUserDefaults] boolForKey:@"ShowCountInBadge"] ?
+	[[NSApplication sharedApplication].dockTile setBadgeLabel:[NSString stringWithFormat:@"%ld", newItems.count]] :
+	[[NSApplication sharedApplication].dockTile setBadgeLabel:@"★"];
+
 	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"PostGrowlNotfications"]) {
 		NSString *link = ((SIInboxModel *)newItems[0]).link;
-		NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+		NSMD *dict = [NSMD dictionary];
 		dict[@"link"] = link;
 		NSNumber *numb = [NSNumber numberWithInteger:[newItems count]];
 		dict[@"count"] = numb;
 									 
-		[GrowlApplicationBridge notifyWithTitle:[NSString stringWithFormat:@"%i new StackExchange Inbox item%@", [newItems count], ([newItems count] == 1) ? @"" : @"s"]
+		[GrowlApplicationBridge notifyWithTitle:[NSString stringWithFormat:@"%li new StackExchange Inbox item%@", [newItems count], ([newItems count] == 1) ? @"" : @"s"]
 									description:((SIInboxModel *)newItems[0]).body
 							   notificationName:@"NewInboxItemGNotification"
 									   iconData:[[NSImage imageNamed:@"StackInbox"] TIFFRepresentation]
@@ -310,8 +309,7 @@
 	}
 	if ([jsonObject[@"quota_remaining"] integerValue] == 0) {
 		[[NSApplication sharedApplication].dockTile setBadgeLabel:@"!"];  
-		NSString *msg = @"You have managed to use your StackExchange daily quota, all ten thousand of them. You will have to wait for the quota to reset in less than 24 hours. \n\n You should never see this message, so it probably means there is an error. \n Please report it (File > Report Bug)";
-		NSAlert *alert = [NSAlert alertWithMessageText:@"Quota used up!" defaultButton:@"Ok" alternateButton:nil otherButton:nil informativeTextWithFormat:msg];
+		NSAlert *alert = [NSAlert alertWithMessageText:@"Quota used up!" defaultButton:@"Ok" alternateButton:nil otherButton:nil informativeTextWithFormat:@"You have managed to use your StackExchange daily quota, all ten thousand of them. You will have to wait for the quota to reset in less than 24 hours. \n\n You should never see this message, so it probably means there is an error. \n Please report it (File > Report Bug)"];
 		[alert runModal];
 	}
 	NSArray *items = jsonObject[@"items"];

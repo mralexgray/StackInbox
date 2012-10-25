@@ -82,7 +82,7 @@ static EGOCache* __instance;
 		if([dict isKindOfClass:[NSDictionary class]]) {
 			cacheDictionary = [dict mutableCopy];
 		} else {
-			cacheDictionary = [[NSMutableDictionary alloc] init];
+			cacheDictionary = [[NSMD alloc] init];
 		}
 		
 		diskOperationQueue = [[NSOperationQueue alloc] init];

@@ -7,7 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "BaseModel.h"
+#import <AtoZ/AtoZ.h>
+
 
 @interface SIAppCookieJar : BaseModel // : NSObject
 

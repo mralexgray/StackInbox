@@ -390,7 +390,7 @@ void GTMAssertSelectorNilOrImplementedWithArgs(id obj, SEL sel, ...);
   NSUInteger backgroundTaskIdentifer_; // UIBackgroundTaskIdentifier
 #endif
   id userData_;					 // retained, if set by caller
-  NSMutableDictionary *properties_; // more data retained for caller
+  NSMD *properties_; // more data retained for caller
   NSArray *runLoopModes_;		   // optional, for 10.5 and later
   id <GTMHTTPFetchHistoryProtocol> fetchHistory_; // if supplied by the caller, used for Last-Modified-Since checks and cookies
   NSInteger cookieStorageMethod_;   // constant from above
@@ -633,7 +633,7 @@ void GTMAssertSelectorNilOrImplementedWithArgs(id obj, SEL sel, ...);
 @property (retain) id userData;
 
 // Stored property values are retained for the convenience of the caller
-@property (copy) NSMutableDictionary *properties;
+@property (copy) NSMD *properties;
 
 - (void)setProperty:(id)obj forKey:(NSString *)key; // pass nil obj to remove property
 - (id)propertyForKey:(NSString *)key;

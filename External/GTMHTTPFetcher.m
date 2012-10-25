@@ -1484,7 +1484,7 @@ totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite {
   userData_ = [theObj retain];
 }
 
-- (void)setProperties:(NSMutableDictionary *)dict {
+- (void)setProperties:(NSMD *)dict {
   [properties_ autorelease];
 
   // This copies rather than retains the parameter for compatiblity with
@@ -1492,13 +1492,13 @@ totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite {
   properties_ = [dict mutableCopy];
 }
 
-- (NSMutableDictionary *)properties {
+- (NSMD *)properties {
   return properties_;
 }
 
 - (void)setProperty:(id)obj forKey:(NSString *)key {
   if (properties_ == nil && obj != nil) {
-	[self setProperties:[NSMutableDictionary dictionary]];
+	[self setProperties:[NSMD dictionary]];
   }
   [properties_ setValue:obj forKey:key];
 }

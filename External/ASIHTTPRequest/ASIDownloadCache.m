@@ -94,7 +94,7 @@ static NSArray *fileExtensionsToHandleAsHTML = nil;
 - (void)updateExpiryForRequest:(ASIHTTPRequest *)request maxAge:(NSTimeInterval)maxAge
 {
 	NSString *headerPath = [self pathToStoreCachedResponseHeadersForRequest:request];
-	NSMutableDictionary *cachedHeaders = [NSMutableDictionary dictionaryWithContentsOfFile:headerPath];
+	NSMD *cachedHeaders = [NSMD dictionaryWithContentsOfFile:headerPath];
 	if (!cachedHeaders) {
 		return;
 	}
@@ -135,7 +135,7 @@ static NSArray *fileExtensionsToHandleAsHTML = nil;
 	NSString *headerPath = [self pathToStoreCachedResponseHeadersForRequest:request];
 	NSString *dataPath = [self pathToStoreCachedResponseDataForRequest:request];
 
-	NSMutableDictionary *responseHeaders = [NSMutableDictionary dictionaryWithDictionary:[request responseHeaders]];
+	NSMD *responseHeaders = [NSMD dictionaryWithDictionary:[request responseHeaders]];
 	if ([request isResponseCompressed]) {
 		[responseHeaders removeObjectForKey:@"Content-Encoding"];
 	}

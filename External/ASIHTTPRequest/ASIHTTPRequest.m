@@ -229,7 +229,7 @@ static NSOperationQueue *sharedQueue = nil;
 @property (assign) int retryCount;
 @property (assign) BOOL willRetryRequest;
 @property (assign) BOOL connectionCanBeReused;
-@property (retain, nonatomic) NSMutableDictionary *connectionInfo;
+@property (retain, nonatomic) NSMD *connectionInfo;
 @property (retain, nonatomic) NSInputStream *readStream;
 @property (assign) ASIAuthenticationState authenticationNeeded;
 @property (assign, nonatomic) BOOL readStreamIsScheduled;
@@ -475,7 +475,7 @@ static NSOperationQueue *sharedQueue = nil;
 - (void)addRequestHeader:(NSString *)header value:(NSString *)value
 {
 	if (!requestHeaders) {
-		[self setRequestHeaders:[NSMutableDictionary dictionaryWithCapacity:1]];
+		[self setRequestHeaders:[NSMD dictionaryWithCapacity:1]];
 	}
 	requestHeaders[header] = value;
 }
@@ -1218,7 +1218,7 @@ static NSOperationQueue *sharedQueue = nil;
 		
 		// Tell CFNetwork to use a client certificate
 		if (clientCertificateIdentity) {
-			NSMutableDictionary *sslProperties = [NSMutableDictionary dictionaryWithCapacity:1];
+			NSMD *sslProperties = [NSMD dictionaryWithCapacity:1];
 			
 			NSMutableArray *certificates = [NSMutableArray arrayWithCapacity:[clientCertificates count]+1];
 
@@ -1260,7 +1260,7 @@ static NSOperationQueue *sharedQueue = nil;
 				portKey = (NSString *)kCFStreamPropertyHTTPSProxyPort;
 			}
 		}
-		NSMutableDictionary *proxyToUse = [NSMutableDictionary dictionaryWithObjectsAndKeys:[self proxyHost],hostKey,@([self proxyPort]),portKey,nil];
+		NSMD *proxyToUse = [NSMD dictionaryWithObjectsAndKeys:[self proxyHost],hostKey,@([self proxyPort]),portKey,nil];
 
 		if ([[self proxyType] isEqualToString:(NSString *)kCFProxyTypeSOCKS]) {
 			CFReadStreamSetProperty((CFReadStreamRef)[self readStream], kCFStreamPropertySOCKSProxy, proxyToUse);
@@ -1319,7 +1319,7 @@ static NSOperationQueue *sharedQueue = nil;
 		if (![self connectionInfo] && [[self url] host] && [[self url] scheme]) { // We must have a proper url with a host and scheme, or this will explode
 			
 			// Look for a connection to the same server in the pool
-			for (NSMutableDictionary *existingConnection in persistentConnectionsPool) {
+			for (NSMD *existingConnection in persistentConnectionsPool) {
 				if (!existingConnection[@"request"] && [existingConnection[@"host"] isEqualToString:[[self url] host]] && [existingConnection[@"scheme"] isEqualToString:[[self url] scheme]] && [(NSNumber *)existingConnection[@"port"] intValue] == [[[self url] port] intValue]) {
 					[self setConnectionInfo:existingConnection];
 				}
@@ -1333,7 +1333,7 @@ static NSOperationQueue *sharedQueue = nil;
 		
 		// No free connection was found in the pool matching the server/scheme/port we're connecting to, we'll need to create a new one
 		if (![self connectionInfo]) {
-			[self setConnectionInfo:[NSMutableDictionary dictionary]];
+			[self setConnectionInfo:[NSMD dictionary]];
 			nextConnectionNumberToCreate++;
 			[self connectionInfo][@"id"] = [NSNumber numberWithInt:nextConnectionNumberToCreate];
 			[self connectionInfo][@"host"] = [[self url] host];
@@ -1957,7 +1957,7 @@ static NSOperationQueue *sharedQueue = nil;
 
 
 /* ALWAYS CALLED ON MAIN THREAD! */
-- (void)requestReceivedResponseHeaders:(NSMutableDictionary *)newResponseHeaders
+- (void)requestReceivedResponseHeaders:(NSMD *)newResponseHeaders
 {
 	if ([self error] || [self mainRequest]) {
 		return;
@@ -2183,12 +2183,12 @@ static NSOperationQueue *sharedQueue = nil;
 			ASI_DEBUG_LOG(@"[AUTH] Request %@ passed BASIC authentication, and will save credentials in the session store for future use",self);
 			#endif
 			
-			NSMutableDictionary *newCredentials = [NSMutableDictionary dictionaryWithCapacity:2];
+			NSMD *newCredentials = [NSMD dictionaryWithCapacity:2];
 			newCredentials[(NSString *)kCFHTTPAuthenticationUsername] = [self username];
 			newCredentials[(NSString *)kCFHTTPAuthenticationPassword] = [self password];
 			
 			// Store the credentials in the session 
-			NSMutableDictionary *sessionCredentials = [NSMutableDictionary dictionary];
+			NSMD *sessionCredentials = [NSMD dictionary];
 			sessionCredentials[@"Credentials"] = newCredentials;
 			sessionCredentials[@"URL"] = [self url];
 			sessionCredentials[@"AuthenticationScheme"] = (NSString *)kCFHTTPAuthenticationSchemeBasic;
@@ -2399,7 +2399,7 @@ static NSOperationQueue *sharedQueue = nil;
 				[self saveProxyCredentialsToKeychain:newCredentials];
 			}
 			if (useSessionPersistence) {
-				NSMutableDictionary *sessionProxyCredentials = [NSMutableDictionary dictionary];
+				NSMD *sessionProxyCredentials = [NSMD dictionary];
 				sessionProxyCredentials[@"Authentication"] = (id)proxyAuthentication;
 				sessionProxyCredentials[@"Credentials"] = newCredentials;
 				sessionProxyCredentials[@"Host"] = [self proxyHost];
@@ -2430,7 +2430,7 @@ static NSOperationQueue *sharedQueue = nil;
 			}
 			if (useSessionPersistence) {
 				
-				NSMutableDictionary *sessionCredentials = [NSMutableDictionary dictionary];
+				NSMD *sessionCredentials = [NSMD dictionary];
 				sessionCredentials[@"Authentication"] = (id)requestAuthentication;
 				sessionCredentials[@"Credentials"] = newCredentials;
 				sessionCredentials[@"URL"] = [self url];
@@ -2450,9 +2450,9 @@ static NSOperationQueue *sharedQueue = nil;
 	return NO;
 }
 
-- (NSMutableDictionary *)findProxyCredentials
+- (NSMD *)findProxyCredentials
 {
-	NSMutableDictionary *newCredentials = [[[NSMutableDictionary alloc] init] autorelease];
+	NSMD *newCredentials = [[[NSMD alloc] init] autorelease];
 	
 	NSString *user = nil;
 	NSString *pass = nil;
@@ -2524,9 +2524,9 @@ static NSOperationQueue *sharedQueue = nil;
 }
 
 
-- (NSMutableDictionary *)findCredentials
+- (NSMD *)findCredentials
 {
-	NSMutableDictionary *newCredentials = [[[NSMutableDictionary alloc] init] autorelease];
+	NSMD *newCredentials = [[[NSMD alloc] init] autorelease];
 
 	// First, let's look at the url to see if the username and password were included
 	NSString *user = [[self url] user];
@@ -2870,7 +2870,7 @@ static NSOperationQueue *sharedQueue = nil;
 			}
 		}
 		
-		NSMutableDictionary *newCredentials = [self findProxyCredentials];
+		NSMD *newCredentials = [self findProxyCredentials];
 		
 		//If we have some credentials to use let's apply them to the request and continue
 		if (newCredentials) {
@@ -3107,7 +3107,7 @@ static NSOperationQueue *sharedQueue = nil;
 		}
 		
 
-		NSMutableDictionary *newCredentials = [self findCredentials];
+		NSMD *newCredentials = [self findCredentials];
 		
 		//If we have some credentials to use let's apply them to the request and continue
 		if (newCredentials) {

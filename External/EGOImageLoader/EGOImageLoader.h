@@ -38,7 +38,7 @@
 @interface EGOImageLoader : NSObject/*<NSURLConnectionDelegate>*/ {
 @private
 	NSDictionary* _currentConnections;
-	NSMutableDictionary* currentConnections;
+	NSMD* currentConnections;
 	#if __EGOIL_USE_BLOCKS
 	dispatch_queue_t _operationQueue;
 	#endif

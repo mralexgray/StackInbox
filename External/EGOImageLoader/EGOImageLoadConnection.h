@@ -53,7 +53,7 @@
 @property(nonatomic,assign) NSTimeInterval timeoutInterval; // Default is 30 seconds
 
 #if __EGOIL_USE_BLOCKS
-@property(nonatomic,readonly) NSMutableDictionary* handlers;
+@property(nonatomic,readonly) NSMD* handlers;
 #endif
 
 @end

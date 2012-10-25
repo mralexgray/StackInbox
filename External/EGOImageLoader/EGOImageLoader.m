@@ -73,7 +73,7 @@ inline static NSString* keyForURL(NSURL* url, NSString* style) {
 - (id)init {
 	if((self = [super init])) {
 		connectionsLock = [[NSLock alloc] init];
-		currentConnections = [[NSMutableDictionary alloc] init];
+		currentConnections = [[NSMD alloc] init];
 		
 		#if __EGOIL_USE_BLOCKS
 		_operationQueue = dispatch_queue_create("com.enormego.EGOImageLoader",NULL);
@@ -201,10 +201,10 @@ inline static NSString* keyForURL(NSURL* url, NSString* style) {
 		void (^completionCopy)(UIImage* image, NSURL* imageURL, NSError* error) = [completion copy];
 		
 		NSString* handlerKey = style ? style : kNoStyle;
-		NSMutableDictionary* handler = [connection.handlers objectForKey:handlerKey];
+		NSMD* handler = [connection.handlers objectForKey:handlerKey];
 		
 		if(!handler) {
-			handler = [[NSMutableDictionary alloc] initWithCapacity:2];
+			handler = [[NSMD alloc] initWithCapacity:2];
 			[connection.handlers setObject:handler forKey:handlerKey];
 
 			[handler setObject:[NSMutableArray arrayWithCapacity:1] forKey:kCompletionsKey];

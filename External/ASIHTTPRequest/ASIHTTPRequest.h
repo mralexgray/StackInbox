@@ -130,7 +130,7 @@ typedef void (^ASIDataBlock)(NSData *data);
 	NSInputStream *postBodyReadStream;
 	
 	// Dictionary for custom HTTP request headers
-	NSMutableDictionary *requestHeaders;
+	NSMD *requestHeaders;
 	
 	// Set to YES when the request header dictionary has been populated, used to prevent this happening more than once
 	BOOL haveBuiltRequestHeaders;
@@ -431,7 +431,7 @@ typedef void (^ASIDataBlock)(NSData *data);
 	// * An id for the request that is currently using the connection. This is used for determining if a connection is available or not (we store a number rather than a reference to the request so we don't need to hang onto a request until the connection expires)
 	// * A reference to the stream that is currently using the connection. This is necessary because we need to keep the old stream open until we've opened a new one.
 	//   The stream will be closed + released either when another request comes to use the connection, or when the timer fires to tell the connection to expire
-	NSMutableDictionary *connectionInfo;
+	NSMD *connectionInfo;
 	
 	// When set to YES, 301 and 302 automatic redirects will use the original method and and body, according to the HTTP 1.1 standard
 	// Default is NO (to follow the behaviour of most browsers)
@@ -684,8 +684,8 @@ typedef void (^ASIDataBlock)(NSData *data);
 - (BOOL)applyProxyCredentials:(NSDictionary *)newCredentials;
 
 // Attempt to obtain credentials for this request from the URL, username and password or keychain
-- (NSMutableDictionary *)findCredentials;
-- (NSMutableDictionary *)findProxyCredentials;
+- (NSMD *)findCredentials;
+- (NSMD *)findProxyCredentials;
 
 // Unlock (unpause) the request thread so it can resume the request
 // Should be called by delegates when they have populated the authentication information after an authentication challenge
@@ -936,7 +936,7 @@ typedef void (^ASIDataBlock)(NSData *data);
 @property (retain) NSError *error;
 @property (assign,readonly) BOOL complete;
 @property (retain) NSDictionary *responseHeaders;
-@property (retain) NSMutableDictionary *requestHeaders;
+@property (retain) NSMD *requestHeaders;
 @property (retain) NSMutableArray *requestCookies;
 @property (retain,readonly) NSArray *responseCookies;
 @property (assign) BOOL useCookiePersistence;

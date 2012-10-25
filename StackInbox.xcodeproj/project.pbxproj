@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7BB8709E1638AF6B0000C242 /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BB8709C1638AF270000C242 /* BaseModel.m */; };
 		AB3537AF14B6336D001D6CA5 /* Growl Registration Ticket.growlRegDict in Resources */ = {isa = PBXBuildFile; fileRef = AB3537AE14B6336D001D6CA5 /* Growl Registration Ticket.growlRegDict */; };
 		AB3537B314B63A75001D6CA5 /* Growl.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = AB3537AB14B63309001D6CA5 /* Growl.framework */; };
 		AB3537B614B63DA3001D6CA5 /* StackInbox.png in Resources */ = {isa = PBXBuildFile; fileRef = AB3537B514B63DA3001D6CA5 /* StackInbox.png */; };
@@ -62,7 +61,7 @@
 		ABE31B5214A1439200299D4D /* SIWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = ABE31B5114A1439100299D4D /* SIWindow.m */; };
 		ABF1CF3814F077E60048879B /* SIConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = ABF1CF3714F077E50048879B /* SIConstants.m */; };
 		ABFEB3A914A8FA0100C3A0A5 /* INAppStoreWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFEB3A814A8FA0100C3A0A5 /* INAppStoreWindow.m */; };
-		ABFEB3BA14A9EEEA00C3A0A5 /* IGIsolatedCookieWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFEB3B914A9EEEA00C3A0A5 /* IGIsolatedCookieWebView.m */; };
+		ABFEB3BA14A9EEEA00C3A0A5 /* IGIsolatedCookieWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFEB3B914A9EEEA00C3A0A5 /* IGIsolatedCookieWebView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		ABFEB3BC14A9F69100C3A0A5 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABFEB3BB14A9F69100C3A0A5 /* Quartz.framework */; };
 		ABFEB3BF14A9FBB300C3A0A5 /* SIAppCookieJar.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFEB3BE14A9FBB300C3A0A5 /* SIAppCookieJar.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		ABFEB3C314AA005F00C3A0A5 /* NSHTTPCookie+Testing.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFEB3C214AA005E00C3A0A5 /* NSHTTPCookie+Testing.m */; };
@@ -82,8 +81,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		7BB8709C1638AF270000C242 /* BaseModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = BaseModel.m; path = ../BaseModel/BaseModel/BaseModel.m; sourceTree = "<group>"; };
-		7BB8709D1638AF280000C242 /* BaseModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.objj.h; name = BaseModel.h; path = ../BaseModel/BaseModel/BaseModel.h; sourceTree = "<group>"; };
 		AB3537AB14B63309001D6CA5 /* Growl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Growl.framework; path = External/Growl.framework; sourceTree = "<group>"; };
 		AB3537AE14B6336D001D6CA5 /* Growl Registration Ticket.growlRegDict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "Growl Registration Ticket.growlRegDict"; path = "External/Growl Registration Ticket.growlRegDict"; sourceTree = "<group>"; };
 		AB3537B514B63DA3001D6CA5 /* StackInbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StackInbox.png; sourceTree = SOURCE_ROOT; };
@@ -223,8 +220,6 @@
 		AB3E89E514E6776B00CC5A80 /* External */ = {
 			isa = PBXGroup;
 			children = (
-				7BB8709C1638AF270000C242 /* BaseModel.m */,
-				7BB8709D1638AF280000C242 /* BaseModel.h */,
 				ABFEB3B814A9EEE500C3A0A5 /* IGIsolatedCookieWebView.h */,
 				ABFEB3B914A9EEEA00C3A0A5 /* IGIsolatedCookieWebView.m */,
 				ABFEB3A714A8FA0100C3A0A5 /* INAppStoreWindow.h */,
@@ -510,7 +505,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7BB8709E1638AF6B0000C242 /* BaseModel.m in Sources */,
 				ABAF7392149EC73F00DE0A2F /* main.m in Sources */,
 				ABAF7399149EC73F00DE0A2F /* SIAppDelegate.m in Sources */,
 				ABAF73AE149ED01100DE0A2F /* PXListDocumentView.m in Sources */,
@@ -634,12 +628,19 @@
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/External\"",
 				);
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_ENABLE_OBJC_GC = unsupported;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "StackInbox/StackInbox-Prefix.pch";
+				GCC_VERSION = "";
 				INFOPLIST_FILE = "StackInbox/StackInbox-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.6.8;
+				OTHER_LDFLAGS = (
+					"-framework",
+					AtoZ,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -653,12 +654,19 @@
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/External\"",
 				);
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_ENABLE_OBJC_GC = unsupported;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "StackInbox/StackInbox-Prefix.pch";
+				GCC_VERSION = "";
 				INFOPLIST_FILE = "StackInbox/StackInbox-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.6.8;
+				OTHER_LDFLAGS = (
+					"-framework",
+					AtoZ,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

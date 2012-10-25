@@ -38,9 +38,9 @@
 		[self.delegate updateProgressWithDecimalPercent:size/total * 100]; 
 	}];
 	[requester setCompletionBlock:^{
-		NSString *responseString = [requester responseString];
-		NSError *requestError = [requester error];
-		NSMutableDictionary *jsonDictionary = [NSMutableDictionary dictionaryWithDictionary:[responseString objectFromJSONString]];
+		NSString *responseString 	= [requester responseString].copy;
+		NSError *requestError 		= [requester error];
+		NSMD *jsonDictionary 		= [NSMD dictionaryWithDictionary:[responseString objectFromJSONString]];
 		if (requestError != nil) {
 			int errorID = [jsonDictionary[@"error_id"] intValue];
 			if (errorID == 401 || errorID == 402 || errorID == 403 || errorID == 406) {

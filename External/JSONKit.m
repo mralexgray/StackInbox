@@ -871,7 +871,7 @@ static void _JKArrayRemoveObjectAtIndex(JKArray *array, NSUInteger objectIndex) 
 @end
 
 #pragma mark -
-@interface JKDictionary : NSMutableDictionary <NSCopying, NSMutableCopying, NSFastEnumeration> {
+@interface JKDictionary : NSMD <NSCopying, NSMutableCopying, NSFastEnumeration> {
   NSUInteger count, capacity, mutations;
   JKHashTableEntry *entry;
 }
@@ -1099,7 +1099,7 @@ static JKHashTableEntry *_JKDictionaryHashTableEntryForKey(JKDictionary *diction
 - (id)mutableCopyWithZone:(NSZone *)zone
 {
   NSParameterAssert((entry != NULL) && (count <= capacity));
-  return([[NSMutableDictionary allocWithZone:zone] initWithDictionary:self]);
+  return([[NSMD allocWithZone:zone] initWithDictionary:self]);
 }
 
 @end

@@ -67,28 +67,28 @@
 - (NSData *)uncompressBytes:(Bytef *)bytes length:(NSUInteger)length error:(NSError **)err
 {
 	if (length == 0) return nil;
-	
+
 	NSUInteger halfLength = length/2;
 	NSMutableData *outputData = [NSMutableData dataWithLength:length+halfLength];
 
 	int status;
-	
+
 	zStream.next_in = bytes;
 	zStream.avail_in = (unsigned int)length;
 	zStream.avail_out = 0;
-	
+
 	NSInteger bytesProcessedAlready = zStream.total_out;
 	while (zStream.avail_in != 0) {
-		
+
 		if (zStream.total_out-bytesProcessedAlready >= [outputData length]) {
 			[outputData increaseLengthBy:halfLength];
 		}
-		
+
 		zStream.next_out = (Bytef*)[outputData mutableBytes] + zStream.total_out-bytesProcessedAlready;
 		zStream.avail_out = (unsigned int)([outputData length] - (zStream.total_out-bytesProcessedAlready));
-		
+
 		status = inflate(&zStream, Z_NO_FLUSH);
-		
+
 		if (status == Z_STREAM_END) {
 			break;
 		} else if (status != Z_OK) {
@@ -98,7 +98,7 @@
 			return nil;
 		}
 	}
-	
+
 	// Set real length
 	[outputData setLength: zStream.total_out-bytesProcessedAlready];
 	return outputData;
@@ -129,7 +129,7 @@
 		}
 		return NO;
 	}
-	
+
 	// Ensure the source file exists
 	if (![fileManager fileExistsAtPath:sourcePath]) {
 		if (err) {
@@ -137,12 +137,12 @@
 		}
 		return NO;
 	}
-	
+
 	UInt8 inputData[DATA_CHUNK_SIZE];
 	NSData *outputData;
 	NSInteger readLength;
 	NSError *theError = nil;
-	
+
 
 	ASIDataDecompressor *decompressor = [ASIDataDecompressor decompressor];
 
@@ -150,12 +150,12 @@
 	[inputStream open];
 	NSOutputStream *outputStream = [NSOutputStream outputStreamToFileAtPath:destinationPath append:NO];
 	[outputStream open];
-	
+
 	while ([decompressor streamReady]) {
-		
+
 		// Read some data from the file
-		readLength = [inputStream read:inputData maxLength:DATA_CHUNK_SIZE]; 
-		
+		readLength = [inputStream read:inputData maxLength:DATA_CHUNK_SIZE];
+
 		// Make sure nothing went wrong
 		if ([inputStream streamStatus] == NSStreamEventErrorOccurred) {
 			if (err) {
@@ -178,10 +178,10 @@
 			[decompressor closeStream];
 			return NO;
 		}
-		
+
 		// Write the inflated data out to the destination file
 		[outputStream write:(Bytef*)[outputData bytes] maxLength:[outputData length]];
-		
+
 		// Make sure nothing went wrong
 		if ([inputStream streamStatus] == NSStreamEventErrorOccurred) {
 			if (err) {
@@ -190,9 +190,9 @@
 			[decompressor closeStream];
 			return NO;
 		}
-		
+
 	}
-	
+
 	[inputStream close];
 	[outputStream close];
 
@@ -210,7 +210,10 @@
 
 + (NSError *)inflateErrorWithCode:(int)code
 {
-	return [NSError errorWithDomain:NetworkRequestErrorDomain code:ASICompressionError userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Decompression of data failed with code %hi",code]}];
+	return
+	[NSError errorWithDomain: NetworkRequestErrorDomain
+						code: ASICompressionError
+					userInfo: @{NSLocalizedDescriptionKey:$(@"Decompression of data failed with code %i",code)}];
 }
 
 @synthesize streamReady;

@@ -29,7 +29,7 @@
 
 @interface EGOCache : NSObject {
 @private
-	NSMutableDictionary* cacheDictionary;
+	NSMD* cacheDictionary;
 	NSOperationQueue* diskOperationQueue;
 	NSTimeInterval defaultTimeoutInterval;
 }
