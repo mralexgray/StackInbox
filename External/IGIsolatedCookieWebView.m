@@ -63,12 +63,12 @@ didReceiveResponse:(NSURLResponse *)response
 @implementation IGIsolatedCookieWebView
 
 - (id)initWithFrame:(NSRect)frame {
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code here.
+	self = [super initWithFrame:frame];
+	if (self) {
+		// Initialization code here.
 		[self awakeFromNib];
-    }
-    return self;
+	}
+	return self;
 }
 
 - (void)awakeFromNib
@@ -99,8 +99,8 @@ didReceiveResponse:(NSURLResponse *)response
 {
 	self = [super init];
 	if (self) {
-        
-    }
+		
+	}
 	return self;
 }
 
@@ -113,7 +113,6 @@ didReceiveResponse:(NSURLResponse *)response
 		for (NSHTTPCookie *aCookie in cookies) {
 			[[SIAppCookieJar sharedSIAppCookieJar] setCookie:aCookie];
 		}
-        [cookies release];
 //		NSLog(@"%d %@",[(NSHTTPURLResponse *)response statusCode],[[response URL] absoluteURL]);
 	}
 }

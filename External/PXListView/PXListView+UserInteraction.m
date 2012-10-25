@@ -106,35 +106,35 @@ static PXIsDragStartResult PXIsDragStart( NSEvent *startEvent, NSTimeInterval th
 
 - (void)keyDown:(NSEvent *)theEvent
 {
-	[self interpretKeyEvents:[NSArray arrayWithObject:theEvent]];
+	[self interpretKeyEvents:@[theEvent]];
 }
 
 
 - (void)moveUp:(id)sender
 {
-    if([_selectedRows count]>0) {
-        NSUInteger firstIndex = [_selectedRows firstIndex];
-        
-        if(firstIndex>0) {
-            NSUInteger newRow = firstIndex-1;
-            [self setSelectedRow:newRow];
-            [self scrollRowToVisible:newRow];
-        }
-    }
+	if([_selectedRows count]>0) {
+		NSUInteger firstIndex = [_selectedRows firstIndex];
+		
+		if(firstIndex>0) {
+			NSUInteger newRow = firstIndex-1;
+			[self setSelectedRow:newRow];
+			[self scrollRowToVisible:newRow];
+		}
+	}
 }
 
 
 - (void)moveDown:(id)sender
 {
-    if([_selectedRows count]>0) {
-        NSUInteger lastIndex = [_selectedRows lastIndex];
-        
-        if(lastIndex<(_numberOfRows-1)) {
-            NSUInteger newRow = lastIndex+1;
-            [self setSelectedRow:newRow];
-            [self scrollRowToVisible:newRow];
-        }
-    }
+	if([_selectedRows count]>0) {
+		NSUInteger lastIndex = [_selectedRows lastIndex];
+		
+		if(lastIndex<(_numberOfRows-1)) {
+			NSUInteger newRow = lastIndex+1;
+			[self setSelectedRow:newRow];
+			[self scrollRowToVisible:newRow];
+		}
+	}
 }
 
 
@@ -145,81 +145,81 @@ static PXIsDragStartResult PXIsDragStart( NSEvent *startEvent, NSTimeInterval th
 		return _allowsMultipleSelection && [_selectedRows count] != _numberOfRows;	// No "select all" if everything's already selected or we can only select one row.
 	}
 	
-    if([menuItem action] == @selector(deselectAll:))
+	if([menuItem action] == @selector(deselectAll:))
 	{
 		return _allowsEmptySelection && [_selectedRows count] != 0;	// No "deselect all" if nothing's selected or we must have at least one row selected.
 	}
-    
-    return NO;
+	
+	return NO;
 }
 
 #pragma mark - Mouse Events
 
 - (void)handleMouseDown:(NSEvent*)theEvent inCell:(PXListViewCell*)theCell // Central funnel for cell clicks so cells don't have to know about multi-selection, modifiers etc.
 {
-    //Send a double click delegate message if the row has been double clicked
-    if([theEvent clickCount]>1) {
-        if([[self delegate] respondsToSelector:@selector(listView:rowDoubleClicked:)]) {
-            [[self delegate] listView:self rowDoubleClicked:[theCell row]];
-        }
-    }
-    
-    // theEvent is NIL if we get a "press" action from accessibility. In that case, try to toggle, so users can selectively turn on/off an item.
-    [[self window] makeFirstResponder:self];
-    
-    BOOL		tryDraggingAgain = YES;
-    BOOL		shouldToggle = theEvent == nil || ([theEvent modifierFlags] & NSCommandKeyMask) || ([theEvent modifierFlags] & NSShiftKeyMask);	// +++ Shift should really be a continuous selection.
-    BOOL		isSelected = [_selectedRows containsIndex: [theCell row]];
-    NSIndexSet	*clickedIndexSet = [NSIndexSet indexSetWithIndex: [theCell row]];
-    
-    // If a cell is already selected, we can drag it out, in which case we shouldn't toggle it:
-    if( theEvent && isSelected && [self attemptDragWithMouseDown: theEvent inCell: theCell] )
-        return;
-    
-    if( _allowsMultipleSelection )
-    {
-        if( isSelected && shouldToggle )
-        {
-            if( [_selectedRows count] == 1 && !_allowsEmptySelection )
-                return;
-            [self deselectRowIndexes: clickedIndexSet];
-        }
-        else if( !isSelected && shouldToggle )
-            [self selectRowIndexes: clickedIndexSet byExtendingSelection: YES];
-        else if( !isSelected && !shouldToggle )
-            [self selectRowIndexes: clickedIndexSet byExtendingSelection: NO];
-        else if( isSelected && !shouldToggle && [_selectedRows count] != 1 )
-        {
-            [self selectRowIndexes: clickedIndexSet byExtendingSelection: NO];
-            tryDraggingAgain = NO;
-        }
-    }
-    else if( shouldToggle && _allowsEmptySelection )
-    {
-        if( isSelected )
-        {
-            [self deselectRowIndexes: clickedIndexSet];
-            tryDraggingAgain = NO;
-        }
-        else
-            [self selectRowIndexes: clickedIndexSet byExtendingSelection: NO];
-    }
-    else
-    {
-        [self selectRowIndexes: clickedIndexSet byExtendingSelection: NO];
-    }
-    
-    // If a user selects a cell, they need to be able to drag it off right away, so check for that case here:
-    if( tryDraggingAgain && theEvent && [_selectedRows containsIndex: [theCell row]] )
-        [self attemptDragWithMouseDown: theEvent inCell: theCell];
+	//Send a double click delegate message if the row has been double clicked
+	if([theEvent clickCount]>1) {
+		if([[self delegate] respondsToSelector:@selector(listView:rowDoubleClicked:)]) {
+			[[self delegate] listView:self rowDoubleClicked:[theCell row]];
+		}
+	}
+	
+	// theEvent is NIL if we get a "press" action from accessibility. In that case, try to toggle, so users can selectively turn on/off an item.
+	[[self window] makeFirstResponder:self];
+	
+	BOOL		tryDraggingAgain = YES;
+	BOOL		shouldToggle = theEvent == nil || ([theEvent modifierFlags] & NSCommandKeyMask) || ([theEvent modifierFlags] & NSShiftKeyMask);	// +++ Shift should really be a continuous selection.
+	BOOL		isSelected = [_selectedRows containsIndex: [theCell row]];
+	NSIndexSet	*clickedIndexSet = [NSIndexSet indexSetWithIndex: [theCell row]];
+	
+	// If a cell is already selected, we can drag it out, in which case we shouldn't toggle it:
+	if( theEvent && isSelected && [self attemptDragWithMouseDown: theEvent inCell: theCell] )
+		return;
+	
+	if( _allowsMultipleSelection )
+	{
+		if( isSelected && shouldToggle )
+		{
+			if( [_selectedRows count] == 1 && !_allowsEmptySelection )
+				return;
+			[self deselectRowIndexes: clickedIndexSet];
+		}
+		else if( !isSelected && shouldToggle )
+			[self selectRowIndexes: clickedIndexSet byExtendingSelection: YES];
+		else if( !isSelected && !shouldToggle )
+			[self selectRowIndexes: clickedIndexSet byExtendingSelection: NO];
+		else if( isSelected && !shouldToggle && [_selectedRows count] != 1 )
+		{
+			[self selectRowIndexes: clickedIndexSet byExtendingSelection: NO];
+			tryDraggingAgain = NO;
+		}
+	}
+	else if( shouldToggle && _allowsEmptySelection )
+	{
+		if( isSelected )
+		{
+			[self deselectRowIndexes: clickedIndexSet];
+			tryDraggingAgain = NO;
+		}
+		else
+			[self selectRowIndexes: clickedIndexSet byExtendingSelection: NO];
+	}
+	else
+	{
+		[self selectRowIndexes: clickedIndexSet byExtendingSelection: NO];
+	}
+	
+	// If a user selects a cell, they need to be able to drag it off right away, so check for that case here:
+	if( tryDraggingAgain && theEvent && [_selectedRows containsIndex: [theCell row]] )
+		[self attemptDragWithMouseDown: theEvent inCell: theCell];
 }
 
 
 - (void)handleMouseDownOutsideCells: (NSEvent*)theEvent
 {
 #pragma unused(theEvent)
-    //[[self window] makeFirstResponder: self];
-    //
+	//[[self window] makeFirstResponder: self];
+	//
 	if( _allowsEmptySelection )
 		[self deselectRows];
 	else if( _numberOfRows > 1 )
@@ -251,10 +251,10 @@ static PXIsDragStartResult PXIsDragStart( NSEvent *startEvent, NSTimeInterval th
 		NSPasteboard	*dragPasteboard = [NSPasteboard pasteboardWithUniqueName];
 		
 		if( [_delegate respondsToSelector: @selector(listView:writeRowsWithIndexes:toPasteboard:)]
-           and [_delegate listView: self writeRowsWithIndexes: _selectedRows toPasteboard: dragPasteboard] )
+		   and [_delegate listView: self writeRowsWithIndexes: _selectedRows toPasteboard: dragPasteboard] )
 		{
 			[theCell dragImage: dragImage at: dragImageOffset offset: NSZeroSize event: theEvent
-                    pasteboard: dragPasteboard source: self slideBack: YES];
+					pasteboard: dragPasteboard source: self slideBack: YES];
 			
 			return YES;
 		}
@@ -267,13 +267,13 @@ static PXIsDragStartResult PXIsDragStart( NSEvent *startEvent, NSTimeInterval th
 {
 #pragma unused(dragEvent)
 	CGFloat		minX = CGFLOAT_MAX, maxX = CGFLOAT_MIN,
-    minY = CGFLOAT_MAX, maxY = CGFLOAT_MIN;
+	minY = CGFLOAT_MAX, maxY = CGFLOAT_MIN;
 	NSPoint		localMouse = [self convertPoint: NSZeroPoint fromView: clickedCell];
-    
+	
 	if ([clickedCell isFlipped]) {
 		localMouse = [self convertPoint:CGPointMake(0, NSHeight(clickedCell.frame) * 2) fromView:clickedCell];
 	}
-    
+	
 	localMouse.y += [self documentVisibleRect].origin.y;
 	
 	// Determine how large an image we'll need to hold all cells, with their
@@ -300,21 +300,21 @@ static PXIsDragStartResult PXIsDragStart( NSEvent *startEvent, NSTimeInterval th
 	NSImage*	dragImage = [[[NSImage alloc] initWithSize: imageSize] autorelease];
 	
 	[dragImage lockFocus];
-    
-    for( PXListViewCell* currCell in _visibleCells )
-    {
-        NSUInteger		currRow = [currCell row];
-        if( [dragRows containsIndex: currRow] )
-        { 
-            NSRect				rowRect = [self rectOfRow: currRow];
-            NSBitmapImageRep*	bir = [currCell bitmapImageRepForCachingDisplayInRect: [currCell bounds]];
-            [currCell cacheDisplayInRect: [currCell bounds] toBitmapImageRep: bir];
-            NSPoint				thePos = NSMakePoint( rowRect.origin.x -minX, rowRect.origin.y -minY);
-            thePos.y = imageSize.height -(thePos.y +rowRect.size.height);	// Document view is flipped, so flip the coordinates before drawing into image, or the list items will be reversed.
-            [bir drawAtPoint: thePos];
-        }
-    }
-    
+	
+	for( PXListViewCell* currCell in _visibleCells )
+	{
+		NSUInteger		currRow = [currCell row];
+		if( [dragRows containsIndex: currRow] )
+		{ 
+			NSRect				rowRect = [self rectOfRow: currRow];
+			NSBitmapImageRep*	bir = [currCell bitmapImageRepForCachingDisplayInRect: [currCell bounds]];
+			[currCell cacheDisplayInRect: [currCell bounds] toBitmapImageRep: bir];
+			NSPoint				thePos = NSMakePoint( rowRect.origin.x -minX, rowRect.origin.y -minY);
+			thePos.y = imageSize.height -(thePos.y +rowRect.size.height);	// Document view is flipped, so flip the coordinates before drawing into image, or the list items will be reversed.
+			[bir drawAtPoint: thePos];
+		}
+	}
+	
 	[dragImage unlockFocus];
 	
 	// Give caller the right offset so the image ends up right atop the actual views:
@@ -353,8 +353,8 @@ static PXIsDragStartResult PXIsDragStart( NSEvent *startEvent, NSTimeInterval th
 		
 		
 		CGFloat		cellHeight = 0,
-        cellOffset = 0,
-        nextCellOffset = 0;
+		cellOffset = 0,
+		nextCellOffset = 0;
 		if( (idx +1) < _numberOfRows )
 		{
 			cellOffset = _cellYOffsets[idx];
@@ -375,7 +375,7 @@ static PXIsDragStartResult PXIsDragStart( NSEvent *startEvent, NSTimeInterval th
 			nextCellOffset = cellOffset;
 			idx = NSUIntegerMax;
 		}
-        
+		
 		if( pos.y < (cellOffset +(cellHeight / 6.0)) )
 		{
 			*outDropHighlight = PXListViewDropAbove;
@@ -422,20 +422,20 @@ static PXIsDragStartResult PXIsDragStart( NSEvent *startEvent, NSTimeInterval th
 	
 	NSUInteger				oldDropRow = _dropRow;
 	PXListViewDropHighlight	oldDropHighlight = _dropHighlight;
-    
+	
 	if( [_delegate respondsToSelector: @selector(listView:validateDrop:proposedRow:proposedDropHighlight:)] )
 	{
 		NSPoint		dragMouse = [[self documentView] convertPoint: [sender draggingLocation] fromView: nil];
 		_dropRow = [self indexOfRowAtPoint: dragMouse returningProposedDropHighlight: &_dropHighlight];
 		
 		theOperation = [_delegate listView: self validateDrop: sender proposedRow: _dropRow
-                     proposedDropHighlight: _dropHighlight];
+					 proposedDropHighlight: _dropHighlight];
 	}
 	
 	if( theOperation != NSDragOperationNone )
 	{
 		if( oldDropRow != _dropRow
-           || oldDropHighlight != _dropHighlight )
+		   || oldDropHighlight != _dropHighlight )
 		{
 			PXListViewCell*	newCell = [self cellForDropHighlight: &_dropHighlight row: &_dropRow];
 			PXListViewCell*	oldCell = [self cellForDropHighlight: &oldDropHighlight row: &oldDropRow];
@@ -457,20 +457,20 @@ static PXIsDragStartResult PXIsDragStart( NSEvent *startEvent, NSTimeInterval th
 	
 	NSUInteger				oldDropRow = _dropRow;
 	PXListViewDropHighlight	oldDropHighlight = _dropHighlight;
-    
+	
 	if( [_delegate respondsToSelector: @selector(listView:validateDrop:proposedRow:proposedDropHighlight:)] )
 	{
 		NSPoint		dragMouse = [[self documentView] convertPoint: [sender draggingLocation] fromView: nil];
 		_dropRow = [self indexOfRowAtPoint: dragMouse returningProposedDropHighlight: &_dropHighlight];
 		
 		theOperation = [_delegate listView: self validateDrop: sender proposedRow: _dropRow
-                     proposedDropHighlight: _dropHighlight];
+					 proposedDropHighlight: _dropHighlight];
 	}
 	
 	if( theOperation != NSDragOperationNone )
 	{
 		if( oldDropRow != _dropRow
-           || oldDropHighlight != _dropHighlight )
+		   || oldDropHighlight != _dropHighlight )
 		{
 			PXListViewCell*	newCell = [self cellForDropHighlight: &_dropHighlight row: &_dropRow];
 			PXListViewCell*	oldCell = [self cellForDropHighlight: &oldDropHighlight row: &oldDropRow];

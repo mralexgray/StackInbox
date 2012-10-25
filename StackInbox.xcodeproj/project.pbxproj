@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7BB8709E1638AF6B0000C242 /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BB8709C1638AF270000C242 /* BaseModel.m */; };
 		AB3537AF14B6336D001D6CA5 /* Growl Registration Ticket.growlRegDict in Resources */ = {isa = PBXBuildFile; fileRef = AB3537AE14B6336D001D6CA5 /* Growl Registration Ticket.growlRegDict */; };
 		AB3537B314B63A75001D6CA5 /* Growl.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = AB3537AB14B63309001D6CA5 /* Growl.framework */; };
 		AB3537B614B63DA3001D6CA5 /* StackInbox.png in Resources */ = {isa = PBXBuildFile; fileRef = AB3537B514B63DA3001D6CA5 /* StackInbox.png */; };
@@ -22,19 +23,19 @@
 		AB7573EA14F5685C002311BF /* StackInboxNew.png in Resources */ = {isa = PBXBuildFile; fileRef = AB7573E914F5685C002311BF /* StackInboxNew.png */; };
 		AB7573ED14F57638002311BF /* StackInboxRead.png in Resources */ = {isa = PBXBuildFile; fileRef = AB7573EC14F57638002311BF /* StackInboxRead.png */; };
 		AB81FD3D14AFFBBE00A393FD /* StackInbox.icns in Resources */ = {isa = PBXBuildFile; fileRef = AB81FD3C14AFFBBE00A393FD /* StackInbox.icns */; };
-		AB81FD3F14B01EDC00A393FD /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = AB81FD3E14B01EDC00A393FD /* JSONKit.m */; };
+		AB81FD3F14B01EDC00A393FD /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = AB81FD3E14B01EDC00A393FD /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		AB81FD4614B0223300A393FD /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = AB81FD4514B0223300A393FD /* GTMNSString+HTML.m */; };
-		AB81FD4914B025BB00A393FD /* GTMHTTPFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = AB81FD4814B025BB00A393FD /* GTMHTTPFetcher.m */; };
+		AB81FD4914B025BB00A393FD /* GTMHTTPFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = AB81FD4814B025BB00A393FD /* GTMHTTPFetcher.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		AB88C39114F40A63003D0F5E /* Growl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB3537AB14B63309001D6CA5 /* Growl.framework */; };
 		ABAF7386149EC73F00DE0A2F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABAF7385149EC73F00DE0A2F /* Cocoa.framework */; };
 		ABAF7390149EC73F00DE0A2F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = ABAF738E149EC73F00DE0A2F /* InfoPlist.strings */; };
 		ABAF7392149EC73F00DE0A2F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = ABAF7391149EC73F00DE0A2F /* main.m */; };
 		ABAF7396149EC73F00DE0A2F /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = ABAF7394149EC73F00DE0A2F /* Credits.rtf */; };
-		ABAF7399149EC73F00DE0A2F /* SIAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = ABAF7398149EC73F00DE0A2F /* SIAppDelegate.m */; };
+		ABAF7399149EC73F00DE0A2F /* SIAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = ABAF7398149EC73F00DE0A2F /* SIAppDelegate.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		ABAF739C149EC74000DE0A2F /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = ABAF739A149EC74000DE0A2F /* MainMenu.xib */; };
 		ABAF73AE149ED01100DE0A2F /* PXListDocumentView.m in Sources */ = {isa = PBXBuildFile; fileRef = ABAF73A3149ED01000DE0A2F /* PXListDocumentView.m */; };
-		ABAF73AF149ED01100DE0A2F /* PXListView.m in Sources */ = {isa = PBXBuildFile; fileRef = ABAF73A5149ED01000DE0A2F /* PXListView.m */; };
-		ABAF73B0149ED01100DE0A2F /* PXListView+UserInteraction.m in Sources */ = {isa = PBXBuildFile; fileRef = ABAF73A8149ED01000DE0A2F /* PXListView+UserInteraction.m */; };
+		ABAF73AF149ED01100DE0A2F /* PXListView.m in Sources */ = {isa = PBXBuildFile; fileRef = ABAF73A5149ED01000DE0A2F /* PXListView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		ABAF73B0149ED01100DE0A2F /* PXListView+UserInteraction.m in Sources */ = {isa = PBXBuildFile; fileRef = ABAF73A8149ED01000DE0A2F /* PXListView+UserInteraction.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		ABAF73B1149ED01100DE0A2F /* PXListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ABAF73AA149ED01100DE0A2F /* PXListViewCell.m */; };
 		ABAF73B3149ED26C00DE0A2F /* CellNib.xib in Resources */ = {isa = PBXBuildFile; fileRef = ABAF73B2149ED26C00DE0A2F /* CellNib.xib */; };
 		ABAF73B6149ED6D900DE0A2F /* SIListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ABAF73B5149ED6D900DE0A2F /* SIListViewCell.m */; };
@@ -45,8 +46,8 @@
 		ABAF744C149F6F7000DE0A2F /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = ABAF744B149F6F7000DE0A2F /* libz.dylib */; };
 		ABAF745F149F6FC100DE0A2F /* ASIInputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = ABAF7451149F6FBE00DE0A2F /* ASIInputStream.m */; };
 		ABAF7460149F6FC100DE0A2F /* ASIFormDataRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = ABAF7453149F6FBE00DE0A2F /* ASIFormDataRequest.m */; };
-		ABAF7461149F6FC100DE0A2F /* ASIHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = ABAF7455149F6FBF00DE0A2F /* ASIHTTPRequest.m */; };
-		ABAF7462149F6FC100DE0A2F /* ASINetworkQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = ABAF7457149F6FC000DE0A2F /* ASINetworkQueue.m */; };
+		ABAF7461149F6FC100DE0A2F /* ASIHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = ABAF7455149F6FBF00DE0A2F /* ASIHTTPRequest.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		ABAF7462149F6FC100DE0A2F /* ASINetworkQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = ABAF7457149F6FC000DE0A2F /* ASINetworkQueue.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		ABAF7463149F6FC100DE0A2F /* ASIDownloadCache.m in Sources */ = {isa = PBXBuildFile; fileRef = ABAF745A149F6FC000DE0A2F /* ASIDownloadCache.m */; };
 		ABAF7464149F6FC100DE0A2F /* ASIDataCompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = ABAF745C149F6FC000DE0A2F /* ASIDataCompressor.m */; };
 		ABAF7465149F6FC100DE0A2F /* ASIDataDecompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = ABAF745E149F6FC100DE0A2F /* ASIDataDecompressor.m */; };
@@ -57,13 +58,13 @@
 		ABE31B4114A09EA800299D4D /* EGOImageLoadConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = ABE31B3B14A09EA800299D4D /* EGOImageLoadConnection.m */; };
 		ABE31B4214A09EA800299D4D /* EGOImageLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = ABE31B3D14A09EA800299D4D /* EGOImageLoader.m */; };
 		ABE31B4314A09EA800299D4D /* EGOImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = ABE31B4014A09EA800299D4D /* EGOImageView.m */; };
-		ABE31B4614A09F2800299D4D /* EGOCache.m in Sources */ = {isa = PBXBuildFile; fileRef = ABE31B4514A09F2800299D4D /* EGOCache.m */; };
+		ABE31B4614A09F2800299D4D /* EGOCache.m in Sources */ = {isa = PBXBuildFile; fileRef = ABE31B4514A09F2800299D4D /* EGOCache.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		ABE31B5214A1439200299D4D /* SIWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = ABE31B5114A1439100299D4D /* SIWindow.m */; };
 		ABF1CF3814F077E60048879B /* SIConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = ABF1CF3714F077E50048879B /* SIConstants.m */; };
 		ABFEB3A914A8FA0100C3A0A5 /* INAppStoreWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFEB3A814A8FA0100C3A0A5 /* INAppStoreWindow.m */; };
 		ABFEB3BA14A9EEEA00C3A0A5 /* IGIsolatedCookieWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFEB3B914A9EEEA00C3A0A5 /* IGIsolatedCookieWebView.m */; };
 		ABFEB3BC14A9F69100C3A0A5 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABFEB3BB14A9F69100C3A0A5 /* Quartz.framework */; };
-		ABFEB3BF14A9FBB300C3A0A5 /* SIAppCookieJar.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFEB3BE14A9FBB300C3A0A5 /* SIAppCookieJar.m */; };
+		ABFEB3BF14A9FBB300C3A0A5 /* SIAppCookieJar.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFEB3BE14A9FBB300C3A0A5 /* SIAppCookieJar.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		ABFEB3C314AA005F00C3A0A5 /* NSHTTPCookie+Testing.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFEB3C214AA005E00C3A0A5 /* NSHTTPCookie+Testing.m */; };
 /* End PBXBuildFile section */
 
@@ -81,22 +82,20 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		7BB8709C1638AF270000C242 /* BaseModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = BaseModel.m; path = ../BaseModel/BaseModel/BaseModel.m; sourceTree = "<group>"; };
+		7BB8709D1638AF280000C242 /* BaseModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.objj.h; name = BaseModel.h; path = ../BaseModel/BaseModel/BaseModel.h; sourceTree = "<group>"; };
 		AB3537AB14B63309001D6CA5 /* Growl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Growl.framework; path = External/Growl.framework; sourceTree = "<group>"; };
 		AB3537AE14B6336D001D6CA5 /* Growl Registration Ticket.growlRegDict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "Growl Registration Ticket.growlRegDict"; path = "External/Growl Registration Ticket.growlRegDict"; sourceTree = "<group>"; };
 		AB3537B514B63DA3001D6CA5 /* StackInbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StackInbox.png; sourceTree = SOURCE_ROOT; };
-		AB3E89E014E6774100CC5A80 /* SILoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SILoginViewController.h; sourceTree = "<group>"; };
 		AB3E89E114E6774100CC5A80 /* SILoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SILoginViewController.m; sourceTree = "<group>"; };
 		AB3E89E214E6774100CC5A80 /* SILoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SILoginViewController.xib; sourceTree = "<group>"; };
-		AB3E89E714E677DD00CC5A80 /* SIDownloadingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIDownloadingViewController.h; sourceTree = "<group>"; };
 		AB3E89E814E677DD00CC5A80 /* SIDownloadingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIDownloadingViewController.m; sourceTree = "<group>"; };
 		AB3E89E914E677DD00CC5A80 /* SIDownloadingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SIDownloadingViewController.xib; sourceTree = "<group>"; };
-		AB3E89EC14E677F300CC5A80 /* SINoInternetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINoInternetViewController.h; sourceTree = "<group>"; };
 		AB3E89ED14E677F300CC5A80 /* SINoInternetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINoInternetViewController.m; sourceTree = "<group>"; };
 		AB3E89EE14E677F300CC5A80 /* SINoInternetViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SINoInternetViewController.xib; sourceTree = "<group>"; };
-		AB3E89F114E6782400CC5A80 /* SIInboxListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIInboxListViewController.h; sourceTree = "<group>"; };
 		AB3E89F214E6782400CC5A80 /* SIInboxListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIInboxListViewController.m; sourceTree = "<group>"; };
 		AB3E89F314E6782400CC5A80 /* SIInboxListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SIInboxListViewController.xib; sourceTree = "<group>"; };
-		AB3E89F614E6793D00CC5A80 /* SIViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = SIViewController.h; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; wrapsLines = 0; };
+		AB3E89F614E6793D00CC5A80 /* SIViewControllers.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.objj.h; path = SIViewControllers.h; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; wrapsLines = 0; };
 		AB3E89F714E6793D00CC5A80 /* SIViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = SIViewController.m; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; wrapsLines = 0; };
 		AB7573E914F5685C002311BF /* StackInboxNew.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StackInboxNew.png; sourceTree = "<group>"; };
 		AB7573EC14F57638002311BF /* StackInboxRead.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StackInboxRead.png; sourceTree = "<group>"; };
@@ -209,9 +208,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7BB870A01638C0760000C242 /* XIBs */ = {
+			isa = PBXGroup;
+			children = (
+				AB3E89E214E6774100CC5A80 /* SILoginViewController.xib */,
+				AB3E89E914E677DD00CC5A80 /* SIDownloadingViewController.xib */,
+				AB3E89EE14E677F300CC5A80 /* SINoInternetViewController.xib */,
+				AB3E89F314E6782400CC5A80 /* SIInboxListViewController.xib */,
+				ABAF73B2149ED26C00DE0A2F /* CellNib.xib */,
+			);
+			name = XIBs;
+			sourceTree = "<group>";
+		};
 		AB3E89E514E6776B00CC5A80 /* External */ = {
 			isa = PBXGroup;
 			children = (
+				7BB8709C1638AF270000C242 /* BaseModel.m */,
+				7BB8709D1638AF280000C242 /* BaseModel.h */,
 				ABFEB3B814A9EEE500C3A0A5 /* IGIsolatedCookieWebView.h */,
 				ABFEB3B914A9EEEA00C3A0A5 /* IGIsolatedCookieWebView.m */,
 				ABFEB3A714A8FA0100C3A0A5 /* INAppStoreWindow.h */,
@@ -236,25 +249,17 @@
 		AB3E89E614E677AD00CC5A80 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				7BB870A01638C0760000C242 /* XIBs */,
 				ABE31B5014A1439100299D4D /* SIWindow.h */,
 				ABE31B5114A1439100299D4D /* SIWindow.m */,
-				AB3E89F614E6793D00CC5A80 /* SIViewController.h */,
+				AB3E89F614E6793D00CC5A80 /* SIViewControllers.h */,
 				AB3E89F714E6793D00CC5A80 /* SIViewController.m */,
-				AB3E89E014E6774100CC5A80 /* SILoginViewController.h */,
 				AB3E89E114E6774100CC5A80 /* SILoginViewController.m */,
-				AB3E89E214E6774100CC5A80 /* SILoginViewController.xib */,
-				AB3E89E714E677DD00CC5A80 /* SIDownloadingViewController.h */,
 				AB3E89E814E677DD00CC5A80 /* SIDownloadingViewController.m */,
-				AB3E89E914E677DD00CC5A80 /* SIDownloadingViewController.xib */,
-				AB3E89EC14E677F300CC5A80 /* SINoInternetViewController.h */,
 				AB3E89ED14E677F300CC5A80 /* SINoInternetViewController.m */,
-				AB3E89EE14E677F300CC5A80 /* SINoInternetViewController.xib */,
-				AB3E89F114E6782400CC5A80 /* SIInboxListViewController.h */,
 				AB3E89F214E6782400CC5A80 /* SIInboxListViewController.m */,
-				AB3E89F314E6782400CC5A80 /* SIInboxListViewController.xib */,
 				ABAF73B4149ED6D900DE0A2F /* SIListViewCell.h */,
 				ABAF73B5149ED6D900DE0A2F /* SIListViewCell.m */,
-				ABAF73B2149ED26C00DE0A2F /* CellNib.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -505,6 +510,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7BB8709E1638AF6B0000C242 /* BaseModel.m in Sources */,
 				ABAF7392149EC73F00DE0A2F /* main.m in Sources */,
 				ABAF7399149EC73F00DE0A2F /* SIAppDelegate.m in Sources */,
 				ABAF73AE149ED01100DE0A2F /* PXListDocumentView.m in Sources */,
@@ -622,7 +628,7 @@
 		ABAF73A0149EC74000DE0A2F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -632,7 +638,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "StackInbox/StackInbox-Prefix.pch";
 				INFOPLIST_FILE = "StackInbox/StackInbox-Info.plist";
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MACOSX_DEPLOYMENT_TARGET = 10.6.8;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -641,7 +647,7 @@
 		ABAF73A1149EC74000DE0A2F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -651,7 +657,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "StackInbox/StackInbox-Prefix.pch";
 				INFOPLIST_FILE = "StackInbox/StackInbox-Info.plist";
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MACOSX_DEPLOYMENT_TARGET = 10.6.8;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

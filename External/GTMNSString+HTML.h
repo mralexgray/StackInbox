@@ -33,7 +33,7 @@
 /// For obvious reasons this call is only safe once.
 //
 //  Returns:
-//    Autoreleased NSString
+//	Autoreleased NSString
 //
 - (NSString *)gtm_stringByEscapingForHTML;
 
@@ -49,7 +49,7 @@
 /// For obvious reasons this call is only safe once.
 //
 //  Returns:
-//    Autoreleased NSString
+//	Autoreleased NSString
 //
 - (NSString *)gtm_stringByEscapingForAsciiHTML;
 
@@ -59,7 +59,7 @@
 ///  Handles &#32; and &#x32; cases as well
 ///
 //  Returns:
-//    Autoreleased NSString
+//	Autoreleased NSString
 //
 - (NSString *)gtm_stringByUnescapingFromHTML;
 

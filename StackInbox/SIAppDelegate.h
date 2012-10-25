@@ -9,10 +9,11 @@
 #import <Cocoa/Cocoa.h>
 #import <Growl/growl.h>
 
-#import "SILoginViewController.h"
-#import "SIDownloadingViewController.h"
-#import "SINoInternetViewController.h"
-#import "SIInboxListViewController.h"
+//#import "SILoginViewController.h"
+//#import "SIDownloadingViewController.h"
+//#import "SINoInternetViewController.h"
+//#import "SIInboxListViewController.h"
+#import "SIViewControllers.h"
 
 #import "SIInboxDownloader.h"
 #import "SIAuthController.h"

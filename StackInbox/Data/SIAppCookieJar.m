@@ -12,41 +12,49 @@
 
 @implementation SIAppCookieJar
 @synthesize cookieStore;
-$singleton(SIAppCookieJar);     
+//SYNTHESIZE_SINGLETON_FOR_CLASS(SIAppCookieJar, sharedSIAppCookieJar);
+//$singleton(SIAppCookieJar);
 
-- (id)initSingleton {
-    cookieStore = [[NSKeyedUnarchiver unarchiveObjectWithFile:[self pathForCookieJar]] retain];
-    if (cookieStore == nil) {
-        cookieStore = [[NSMutableArray arrayWithCapacity:0] retain];
-    }
-    return self;
+
++ (instancetype) sharedSIAppCookieJar
+{
+	return [self sharedInstance];
+}
+//- (id)initSingleton {
+
+- (void) setUp {
+	cookieStore = [[NSKeyedUnarchiver unarchiveObjectWithFile:[self pathForCookieJar]] retain];
+	if (cookieStore == nil) {
+		cookieStore = [[NSMutableArray arrayWithCapacity:0] retain];
+	}
+//	return self;
 }
 
 - (NSString *) pathForCookieJar
 {
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSString *folder = [@"~/Library/Application Support/StackInbox/" stringByExpandingTildeInPath];
-    if ([fileManager fileExistsAtPath: folder] == NO)
-        [fileManager createDirectoryAtPath:folder withIntermediateDirectories:YES attributes:nil error:nil];
+	NSFileManager *fileManager = [NSFileManager defaultManager];
+	NSString *folder = [@"~/Library/Application Support/StackInbox/" stringByExpandingTildeInPath];
+	if ([fileManager fileExistsAtPath: folder] == NO)
+		[fileManager createDirectoryAtPath:folder withIntermediateDirectories:YES attributes:nil error:nil];
 	return [folder stringByAppendingPathComponent: @"cookies"];
 }
 
 
 - (void)syncCookieJar {
-    if (![NSKeyedArchiver archiveRootObject:cookieStore toFile:[self pathForCookieJar]])
-        NSLog(@"Error saving cookies");
+	if (![NSKeyedArchiver archiveRootObject:cookieStore toFile:[self pathForCookieJar]])
+		NSLog(@"Error saving cookies");
 }
 - (void)removeExpiredCookies
 {
-    NSMutableArray *copyOfCookieStore = [cookieStore copy];
+	NSMutableArray *copyOfCookieStore = [cookieStore copy];
 	for (NSHTTPCookie *aCookie in copyOfCookieStore) if ([aCookie isExpired]) 	[cookieStore removeObject:aCookie];
-    [copyOfCookieStore release];
-    [self syncCookieJar];
+	[copyOfCookieStore release];
+	[self syncCookieJar];
 }
 
 - (void)setCookie:(NSHTTPCookie *)cookie
 {
-    NSLog(@"should be setting cookie with name '%@' and value '%@' for //* URL *// domain '%@'",
+	NSLog(@"should be setting cookie with name '%@' and value '%@' for //* URL *// domain '%@'",
 			[cookie name], [cookie value], cookie.domain);//[url absoluteString]);
 	if (cookie) {
 		[cookieStore removeObject:cookie];
@@ -56,8 +64,8 @@ $singleton(SIAppCookieJar);
 }
 - (void)removeAllCookies
 {
-    [self.cookieStore removeAllObjects];
-    [self syncCookieJar];
+	[self.cookieStore removeAllObjects];
+	[self syncCookieJar];
 }
 
 @end

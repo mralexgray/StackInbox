@@ -26,28 +26,27 @@
 
 + (id)cellLoadedFromNibNamed:(NSString*)nibName reusableIdentifier:(NSString*)identifier
 {
-    return [self cellLoadedFromNibNamed:nibName bundle:nil reusableIdentifier:identifier];
+	return [self cellLoadedFromNibNamed:nibName bundle:nil reusableIdentifier:identifier];
 }
 
 + (id)cellLoadedFromNibNamed:(NSString*)nibName bundle:(NSBundle*)bundle reusableIdentifier:(NSString*)identifier
 {
-    NSNib *cellNib = [[NSNib alloc] initWithNibNamed:nibName bundle:bundle];
-    NSArray *objects = nil;
-    
-    id cell = nil;
-    
-    [cellNib instantiateNibWithOwner:nil topLevelObjects:&objects];
-    for(id object in objects) {
-        if([object isKindOfClass:[self class]]) {
-            cell = object;
-            [cell setReusableIdentifier:identifier];
-            break;
-        }
-    }
-    
-    [cellNib release];
-    
-    return cell;
+	NSNib *cellNib = [[NSNib alloc] initWithNibNamed:nibName bundle:bundle];
+	NSArray *objects = nil;
+	
+	id cell = nil;
+	
+	[cellNib instantiateNibWithOwner:nil topLevelObjects:&objects];
+	for(id object in objects) {
+		if([object isKindOfClass:[self class]]) {
+			cell = object;
+			[cell setReusableIdentifier:identifier];
+			break;
+		}
+	}
+	
+	
+	return cell;
 }
 
 #pragma mark -
@@ -75,11 +74,6 @@
 }
 
 
-- (void)dealloc
-{
-	[_reusableIdentifier release];
-	[super dealloc];
-}
 
 #pragma mark -
 #pragma mark Handling Selection
@@ -149,7 +143,7 @@
 
 - (void)layoutSubviews;
 {
-    
+	
 }
 
 #pragma mark -
@@ -157,7 +151,7 @@
 
 - (NSArray*)	accessibilityAttributeNames
 {
-	NSMutableArray*	attribs = [[[super accessibilityAttributeNames] mutableCopy] autorelease];
+	NSMutableArray*	attribs = [[super accessibilityAttributeNames] mutableCopy];
 	
 	[attribs addObject: NSAccessibilityRoleAttribute];
 	[attribs addObject: NSAccessibilityEnabledAttribute];
@@ -184,7 +178,7 @@
 	}
 	else if( [attribute isEqualToString: NSAccessibilityEnabledAttribute] )
 	{
-		return [NSNumber numberWithBool: YES];
+		return @YES;
 	}
 	else
 		return [super accessibilityAttributeValue: attribute];
@@ -193,7 +187,7 @@
 
 - (NSArray *)	accessibilityActionNames
 {
-	return [NSArray arrayWithObjects: NSAccessibilityPressAction, nil];
+	return @[NSAccessibilityPressAction];
 }
 
 

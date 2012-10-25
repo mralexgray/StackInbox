@@ -19,7 +19,7 @@
 
 + (id)decompressor
 {
-	ASIDataDecompressor *decompressor = [[[self alloc] init] autorelease];
+	ASIDataDecompressor *decompressor = [[self alloc] init];
 	[decompressor setupStream];
 	return decompressor;
 }
@@ -29,7 +29,6 @@
 	if (streamReady) {
 		[self closeStream];
 	}
-	[super dealloc];
 }
 
 - (NSError *)setupStream
@@ -121,12 +120,12 @@
 
 + (BOOL)uncompressDataFromFile:(NSString *)sourcePath toFile:(NSString *)destinationPath error:(NSError **)err
 {
-	NSFileManager *fileManager = [[[NSFileManager alloc] init] autorelease];
+	NSFileManager *fileManager = [[NSFileManager alloc] init];
 
 	// Create an empty file at the destination path
 	if (![fileManager createFileAtPath:destinationPath contents:[NSData data] attributes:nil]) {
 		if (err) {
-			*err = [NSError errorWithDomain:NetworkRequestErrorDomain code:ASICompressionError userInfo:[NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"Decompression of %@ failed because we were to create a file at %@",sourcePath,destinationPath],NSLocalizedDescriptionKey,nil]];
+			*err = [NSError errorWithDomain:NetworkRequestErrorDomain code:ASICompressionError userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Decompression of %@ failed because we were to create a file at %@",sourcePath,destinationPath]}];
 		}
 		return NO;
 	}
@@ -134,7 +133,7 @@
 	// Ensure the source file exists
 	if (![fileManager fileExistsAtPath:sourcePath]) {
 		if (err) {
-			*err = [NSError errorWithDomain:NetworkRequestErrorDomain code:ASICompressionError userInfo:[NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"Decompression of %@ failed the file does not exist",sourcePath],NSLocalizedDescriptionKey,nil]];
+			*err = [NSError errorWithDomain:NetworkRequestErrorDomain code:ASICompressionError userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Decompression of %@ failed the file does not exist",sourcePath]}];
 		}
 		return NO;
 	}
@@ -152,7 +151,7 @@
 	NSOutputStream *outputStream = [NSOutputStream outputStreamToFileAtPath:destinationPath append:NO];
 	[outputStream open];
 	
-    while ([decompressor streamReady]) {
+	while ([decompressor streamReady]) {
 		
 		// Read some data from the file
 		readLength = [inputStream read:inputData maxLength:DATA_CHUNK_SIZE]; 
@@ -160,9 +159,9 @@
 		// Make sure nothing went wrong
 		if ([inputStream streamStatus] == NSStreamEventErrorOccurred) {
 			if (err) {
-				*err = [NSError errorWithDomain:NetworkRequestErrorDomain code:ASICompressionError userInfo:[NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"Decompression of %@ failed because we were unable to read from the source data file",sourcePath],NSLocalizedDescriptionKey,[inputStream streamError],NSUnderlyingErrorKey,nil]];
+				*err = [NSError errorWithDomain:NetworkRequestErrorDomain code:ASICompressionError userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Decompression of %@ failed because we were unable to read from the source data file",sourcePath],NSUnderlyingErrorKey: [inputStream streamError]}];
 			}
-            [decompressor closeStream];
+			[decompressor closeStream];
 			return NO;
 		}
 		// Have we reached the end of the input data?
@@ -186,13 +185,13 @@
 		// Make sure nothing went wrong
 		if ([inputStream streamStatus] == NSStreamEventErrorOccurred) {
 			if (err) {
-				*err = [NSError errorWithDomain:NetworkRequestErrorDomain code:ASICompressionError userInfo:[NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"Decompression of %@ failed because we were unable to write to the destination data file at %@",sourcePath,destinationPath],NSLocalizedDescriptionKey,[outputStream streamError],NSUnderlyingErrorKey,nil]];
-            }
+				*err = [NSError errorWithDomain:NetworkRequestErrorDomain code:ASICompressionError userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Decompression of %@ failed because we were unable to write to the destination data file at %@",sourcePath,destinationPath],NSUnderlyingErrorKey: [outputStream streamError]}];
+			}
 			[decompressor closeStream];
 			return NO;
 		}
 		
-    }
+	}
 	
 	[inputStream close];
 	[outputStream close];
@@ -211,7 +210,7 @@
 
 + (NSError *)inflateErrorWithCode:(int)code
 {
-	return [NSError errorWithDomain:NetworkRequestErrorDomain code:ASICompressionError userInfo:[NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"Decompression of data failed with code %hi",code],NSLocalizedDescriptionKey,nil]];
+	return [NSError errorWithDomain:NetworkRequestErrorDomain code:ASICompressionError userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Decompression of data failed with code %hi",code]}];
 }
 
 @synthesize streamReady;

@@ -35,12 +35,12 @@
 
 	BOOL _allowsEmptySelection;
 	BOOL _allowsMultipleSelection;
-    NSInteger _lastSelectedRow;
-    
+	NSInteger _lastSelectedRow;
+	
 	BOOL _verticalMotionCanBeginDrag;
-    
-    BOOL _usesLiveResize;
-    CGFloat _widthPriorToResize;
+	
+	BOOL _usesLiveResize;
+	CGFloat _widthPriorToResize;
 	
 	NSUInteger _dropRow;
 	PXListViewDropHighlight	_dropHighlight;

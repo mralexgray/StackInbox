@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "SIDownloadingViewController.h"
+#import "SIViewControllers.h"
 
 @implementation SIDownloadingViewController
 @synthesize activity;
@@ -14,18 +14,18 @@
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Initialization code here.
-    }
-    
-    return self;
+	self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+	if (self) {
+		// Initialization code here.
+	}
+	
+	return self;
 }
 
 - (void)awakeFromNib {
-    [self.activity startAnimation:nil];
+	[self.activity startAnimation:nil];
 }
 - (void)viewControllerWillMoveFromParent {
-    [self.progressBar setDoubleValue:0];
+	[self.progressBar setDoubleValue:0];
 }
 @end

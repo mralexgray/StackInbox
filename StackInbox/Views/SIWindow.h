@@ -8,6 +8,7 @@
 
 #import <AppKit/AppKit.h>
 #import "INAppStoreWindow.h"
+
 @interface SIWindow : INAppStoreWindow <NSWindowDelegate>
-@property (nonatomic, retain)NSProgressIndicator *titlebarRefreshSpinner;
+@property (nonatomic, strong)NSProgressIndicator *titlebarRefreshSpinner;
 @end

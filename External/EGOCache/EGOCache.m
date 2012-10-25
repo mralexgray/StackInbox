@@ -40,7 +40,7 @@ static NSString* _EGOCacheDirectory;
 
 static inline NSString* EGOCacheDirectory() {
 	if(!_EGOCacheDirectory) {
-		NSString* cachesDirectory = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+		NSString* cachesDirectory = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES)[0];
 		_EGOCacheDirectory = [[[cachesDirectory stringByAppendingPathComponent:[[NSProcessInfo processInfo] processName]] stringByAppendingPathComponent:@"EGOCache"] copy];
 	}
 	
@@ -93,7 +93,7 @@ static EGOCache* __instance;
 														error:NULL];
 		
 		for(NSString* key in cacheDictionary) {
-			NSDate* date = [cacheDictionary objectForKey:key];
+			NSDate* date = cacheDictionary[key];
 			if([[[NSDate date] earlierDate:date] isEqualToDate:date]) {
 				[[NSFileManager defaultManager] removeItemAtPath:cachePathForKey(key) error:NULL];
 			}
@@ -119,7 +119,7 @@ static EGOCache* __instance;
 }
 
 - (void)removeItemFromCache:(NSString*)key {
-	NSString* cachePath = cachePathForKey(key);
+	__unsafe_unretained NSString* cachePath = cachePathForKey(key);
 	
 	NSInvocation* deleteInvocation = [NSInvocation invocationWithMethodSignature:[self methodSignatureForSelector:@selector(deleteDataAtPath:)]];
 	[deleteInvocation setTarget:self];
@@ -131,7 +131,7 @@ static EGOCache* __instance;
 }
 
 - (BOOL)hasCacheForKey:(NSString*)key {
-	NSDate* date = [cacheDictionary objectForKey:key];
+	NSDate* date = cacheDictionary[key];
 	if(!date) return NO;
 	if([[[NSDate date] earlierDate:date] isEqualToDate:date]) return NO;
 	return [[NSFileManager defaultManager] fileExistsAtPath:cachePathForKey(key)];
@@ -146,7 +146,7 @@ static EGOCache* __instance;
 
 - (void)copyFilePath:(NSString*)filePath asKey:(NSString*)key withTimeoutInterval:(NSTimeInterval)timeoutInterval {
 	[[NSFileManager defaultManager] copyItemAtPath:filePath toPath:cachePathForKey(key) error:NULL];
-	[cacheDictionary setObject:[NSDate dateWithTimeIntervalSinceNow:timeoutInterval] forKey:key];
+	cacheDictionary[key] = [NSDate dateWithTimeIntervalSinceNow:timeoutInterval];
 	[self performSelectorOnMainThread:@selector(saveAfterDelay) withObject:nil waitUntilDone:YES];
 }																												   
 
@@ -160,7 +160,7 @@ static EGOCache* __instance;
 - (void)setData:(NSData*)data forKey:(NSString*)key withTimeoutInterval:(NSTimeInterval)timeoutInterval {
 	CHECK_FOR_EGOCACHE_PLIST();
 	
-	NSString* cachePath = cachePathForKey(key);
+	__unsafe_unretained NSString* cachePath = cachePathForKey(key);
 	NSInvocation* writeInvocation = [NSInvocation invocationWithMethodSignature:[self methodSignatureForSelector:@selector(writeData:toPath:)]];
 	[writeInvocation setTarget:self];
 	[writeInvocation setSelector:@selector(writeData:toPath:)];
@@ -168,7 +168,7 @@ static EGOCache* __instance;
 	[writeInvocation setArgument:&cachePath atIndex:3];
 	
 	[self performDiskWriteOperation:writeInvocation];
-	[cacheDictionary setObject:[NSDate dateWithTimeIntervalSinceNow:timeoutInterval] forKey:key];
+	cacheDictionary[key] = [NSDate dateWithTimeIntervalSinceNow:timeoutInterval];
 	
 	[self performSelectorOnMainThread:@selector(saveAfterDelay) withObject:nil waitUntilDone:YES]; // Need to make sure the save delay get scheduled in the main runloop, not the current threads
 }
@@ -244,7 +244,7 @@ static EGOCache* __instance;
 }
 
 - (void)setImage:(NSImage*)anImage forKey:(NSString*)key withTimeoutInterval:(NSTimeInterval)timeoutInterval {
-	[self setData:[[[anImage representations] objectAtIndex:0] representationUsingType:NSPNGFileType properties:nil]
+	[self setData:[[anImage representations][0] representationUsingType:NSPNGFileType properties:nil]
 		   forKey:key withTimeoutInterval:timeoutInterval];
 }
 

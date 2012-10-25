@@ -17,8 +17,8 @@
 
 - (BOOL)attemptDragWithMouseDown:(NSEvent*)theEvent inCell:(PXListViewCell*)theCell;
 - (NSImage*)dragImageForRowsWithIndexes:(NSIndexSet *)dragRows
-                                  event:(NSEvent*)dragEvent clickedCell:(PXListViewCell*)clickedCell
-                                 offset:(NSPointPointer)dragImageOffset;
+								  event:(NSEvent*)dragEvent clickedCell:(PXListViewCell*)clickedCell
+								 offset:(NSPointPointer)dragImageOffset;
 - (void)setShowsDropHighlight:(BOOL)inState;
 - (void)setDropRow:(NSUInteger)row dropHighlight:(PXListViewDropHighlight)dropHighlight;
 

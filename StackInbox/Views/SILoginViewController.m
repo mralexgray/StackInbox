@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "SILoginViewController.h"
+#import "SIViewControllers.h"
 
 @implementation SILoginViewController
 @synthesize loginState;
@@ -16,37 +16,35 @@
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        
-    }
-    
-    return self;
+	self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+	if (self) {
+		
+	}
+	
+	return self;
 }
 - (void)switchToLoggingInState:(BOOL)loggingIn {
-    [self setLoginState:loggingIn];
-    if (loggingIn) {
-        [loginButton setEnabled:NO];
-        [loginButton setTitle:@"Logging in..."];
-        [progressBar setIndeterminate:YES];
-        [progressBar startAnimation:nil];
-    } else {
-        [loginButton setEnabled:YES];
-        [loginButton setTitle:@"Login"];
-        [progressBar setDoubleValue:0];
-        [progressBar setIndeterminate:NO];
-    }
+	[self setLoginState:loggingIn];
+	if (loggingIn) {
+		[loginButton setEnabled:NO];
+		[loginButton setTitle:@"Logging in..."];
+		[progressBar setIndeterminate:YES];
+		[progressBar startAnimation:nil];
+	} else {
+		[loginButton setEnabled:YES];
+		[loginButton setTitle:@"Login"];
+		[progressBar setDoubleValue:0];
+		[progressBar setIndeterminate:NO];
+	}
 }
 - (void)awakeFromNib {
-    [self switchToLoggingInState:self.loginState];
+	[self switchToLoggingInState:self.loginState];
 }
 - (IBAction)login:(NSButton *)sender {
-    [self switchToLoggingInState:YES];
-    performDelegateSelector(@selector(loginButtonPressed))
+	[self switchToLoggingInState:YES];
+	performDelegateSelector(@selector(loginButtonPressed))
 }
 - (void)viewControllerWillMoveFromParent {
-    [self switchToLoggingInState:NO];
-}
-- (void)dealloc {
+	[self switchToLoggingInState:NO];
 }
 @end

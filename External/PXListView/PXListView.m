@@ -35,7 +35,7 @@ NSString * const PXListViewSelectionDidChange = @"PXListViewSelectionDidChange";
 		_visibleCells = [[NSMutableArray alloc] init];
 		_selectedRows = [[NSMutableIndexSet alloc] init];
 		_allowsEmptySelection = YES;
-        _usesLiveResize = YES;
+		_usesLiveResize = YES;
 	}
 	
 	return self;
@@ -49,7 +49,7 @@ NSString * const PXListViewSelectionDidChange = @"PXListViewSelectionDidChange";
 		_visibleCells = [[NSMutableArray alloc] init];
 		_selectedRows = [[NSMutableIndexSet alloc] init];
 		_allowsEmptySelection = YES;
-        _usesLiveResize = YES;
+		_usesLiveResize = YES;
 	}
 	
 	return self;
@@ -63,14 +63,14 @@ NSString * const PXListViewSelectionDidChange = @"PXListViewSelectionDidChange";
 	NSClipView *contentView = [self contentView];
 	[contentView setPostsBoundsChangedNotifications: YES];
 	
-    [[NSNotificationCenter defaultCenter] addObserver:self
+	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(contentViewBoundsDidChange:)
 												 name:NSViewBoundsDidChangeNotification
 											   object:contentView];
 	
 	//Tag ourselves onto the document view:
 	[[self documentView] setListView: self];
-    [self reloadData];
+	[self reloadData];
 }
 
 - (void)dealloc
@@ -90,30 +90,30 @@ NSString * const PXListViewSelectionDidChange = @"PXListViewSelectionDidChange";
 
 - (id<PXListViewDelegate>)delegate
 {
-    return _delegate;
+	return _delegate;
 }
 
 - (void)setDelegate:(id<PXListViewDelegate>)delegate
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:_delegate
-                                                    name:PXListViewSelectionDidChange
-                                                  object:self];
-     
-    _delegate = delegate;
-    
-    if([_delegate respondsToSelector:@selector(listViewSelectionDidChange:)]) {
-        [[NSNotificationCenter defaultCenter] addObserver:_delegate
-                                                 selector:@selector(listViewSelectionDidChange:)
-                                                     name:PXListViewSelectionDidChange
-                                                   object:self];
-    }
+	[[NSNotificationCenter defaultCenter] removeObserver:_delegate
+													name:PXListViewSelectionDidChange
+												  object:self];
+	 
+	_delegate = delegate;
+	
+	if([_delegate respondsToSelector:@selector(listViewSelectionDidChange:)]) {
+		[[NSNotificationCenter defaultCenter] addObserver:_delegate
+												 selector:@selector(listViewSelectionDidChange:)
+													 name:PXListViewSelectionDidChange
+												   object:self];
+	}
 }
 
 - (void)reloadRowAtIndex:(NSInteger)inIndex;
 {
-    [self cacheCellLayout];
-    [self layoutCells];
-    //[self layoutCellsForResizeEvent];
+	[self cacheCellLayout];
+	[self layoutCells];
+	//[self layoutCellsForResizeEvent];
 }
 
 - (void)reloadData
@@ -124,7 +124,7 @@ NSString * const PXListViewSelectionDidChange = @"PXListViewSelectionDidChange";
 	NSUInteger numCells = [_visibleCells count];
 	for (NSUInteger i = 0; i < numCells; i++)
 	{
-		PXListViewCell *cell = [_visibleCells objectAtIndex:i];
+		PXListViewCell *cell = _visibleCells[i];
 		[_reusableCells addObject:cell];
 		[cell setHidden:YES];
 	}
@@ -133,7 +133,7 @@ NSString * const PXListViewSelectionDidChange = @"PXListViewSelectionDidChange";
 	free(_cellYOffsets);
 	
 	[_selectedRows removeAllIndexes];
-    _lastSelectedRow = -1;
+	_lastSelectedRow = -1;
 	
 	if([delegate conformsToProtocol:@protocol(PXListViewDelegate)])
 	{
@@ -146,7 +146,7 @@ NSString * const PXListViewSelectionDidChange = @"PXListViewSelectionDidChange";
 		
 		[self layoutCells];
 	}
-//    /[self setNeedsDisplay:YES];
+//	/[self setNeedsDisplay:YES];
 }
 
 - (NSUInteger)numberOfRows
@@ -174,12 +174,12 @@ NSString * const PXListViewSelectionDidChange = @"PXListViewSelectionDidChange";
 	//Search backwards looking for a match since removing from end of array is generally quicker
 	for(NSUInteger i = [_reusableCells count]; i>0;i--)
 	{
-		PXListViewCell *cell = [_reusableCells objectAtIndex:(i-1)];
+		PXListViewCell *cell = _reusableCells[(i-1)];
 		
 		if([[cell reusableIdentifier] isEqualToString:identifier])
 		{
 			//Make sure it doesn't get dealloc'd early:
-			[[cell retain] autorelease];            
+			[[cell retain] autorelease];			
 			[_reusableCells removeObjectAtIndex:(i-1)];
 			[cell prepareForReuse];
 			
@@ -192,7 +192,7 @@ NSString * const PXListViewSelectionDidChange = @"PXListViewSelectionDidChange";
 
 - (NSArray*)visibleCells
 {
-    return [[_visibleCells copy] autorelease];
+	return [[_visibleCells copy] autorelease];
 }
 
 - (NSRange)visibleRange
@@ -248,7 +248,7 @@ NSString * const PXListViewSelectionDidChange = @"PXListViewSelectionDidChange";
 
 - (PXListViewCell *)cellForRowAtIndex:(NSUInteger)inIndex
 {
-    return [self visibleCellForRow:inIndex];
+	return [self visibleCellForRow:inIndex];
 }
 
 - (NSArray*)visibleCellsForRowIndexes:(NSIndexSet*)rows
@@ -277,7 +277,7 @@ NSString * const PXListViewSelectionDidChange = @"PXListViewSelectionDidChange";
 		for(NSUInteger i = visibleRange.location; i < NSMaxRange(visibleRange); i++)
 		{
 			id cell = nil;
-            cell = [delegate listView: self cellForRow: i];
+			cell = [delegate listView: self cellForRow: i];
 			[_visibleCells addObject:cell];
 			
 			[self layoutCell:cell atRow:i];
@@ -300,7 +300,7 @@ NSString * const PXListViewSelectionDidChange = @"PXListViewSelectionDidChange";
 		// We'll have to rebuild all the cells:
 		[_reusableCells addObjectsFromArray:_visibleCells];
 		[_visibleCells removeAllObjects];
-		[[self documentView] setSubviews:[NSArray array]];
+		[[self documentView] setSubviews:@[]];
 		[self addCellsFromVisibleRange];
 	}
 	else
@@ -311,17 +311,17 @@ NSString * const PXListViewSelectionDidChange = @"PXListViewSelectionDidChange";
 			{
 				NSUInteger newRow = i -1;
 				PXListViewCell *cell = [[self delegate] listView:self cellForRow:newRow];
-                
+				
 				[_visibleCells insertObject: cell atIndex:0];
 				[self layoutCell:cell atRow:newRow];
 			}
 		}
-        
+		
 		if(visibleRange.location > _currentRange.location) // Remove top.
 		{
 			for(NSUInteger i = visibleRange.location; i > _currentRange.location; i--)
 			{
-				[self enqueueCell:[_visibleCells objectAtIndex:0]];
+				[self enqueueCell:_visibleCells[0]];
 			}
 		}
 		
@@ -331,13 +331,13 @@ NSString * const PXListViewSelectionDidChange = @"PXListViewSelectionDidChange";
 			{
 				NSInteger newRow = i;
 				PXListViewCell *cell = [[self delegate] listView:self cellForRow: newRow];
-                
+				
 				[_visibleCells addObject:cell];
 				[self layoutCell:cell atRow:newRow];
 			}
 		}
 		
-        if(NSMaxRange(visibleRange) < NSMaxRange(_currentRange)) // Remove bottom.
+		if(NSMaxRange(visibleRange) < NSMaxRange(_currentRange)) // Remove bottom.
 		{
 			for(NSUInteger i = NSMaxRange(_currentRange); i > NSMaxRange(visibleRange); i--)
 			{
@@ -396,23 +396,23 @@ NSString * const PXListViewSelectionDidChange = @"PXListViewSelectionDidChange";
 
 - (void)selectRowIndexes:(NSIndexSet*)rows byExtendingSelection:(BOOL)shouldExtend
 {
-    NSMutableIndexSet *updatedCellIndexes = [NSMutableIndexSet indexSet];
-    
+	NSMutableIndexSet *updatedCellIndexes = [NSMutableIndexSet indexSet];
+	
 	if(!shouldExtend) {
-        [updatedCellIndexes addIndexes:_selectedRows];
+		[updatedCellIndexes addIndexes:_selectedRows];
 		[_selectedRows removeAllIndexes];
 	}
 	
 	[_selectedRows addIndexes:rows];
-    [updatedCellIndexes addIndexes:rows]; 
-    
+	[updatedCellIndexes addIndexes:rows]; 
+	
 	NSArray *updatedCells = [self visibleCellsForRowIndexes:updatedCellIndexes];
 	for(PXListViewCell *cell in updatedCells)
 	{
 		[cell setNeedsDisplay:YES];
 	}
-    
-    [self postSelectionDidChangeNotification];
+	
+	[self postSelectionDidChangeNotification];
 }
 
 
@@ -425,8 +425,8 @@ NSString * const PXListViewSelectionDidChange = @"PXListViewSelectionDidChange";
 	{
 		[oldSelectedCell setNeedsDisplay:YES];
 	}
-    
-    [self postSelectionDidChangeNotification];
+	
+	[self postSelectionDidChangeNotification];
 }
 
 
@@ -437,9 +437,9 @@ NSString * const PXListViewSelectionDidChange = @"PXListViewSelectionDidChange";
 
 - (void)postSelectionDidChangeNotification
 {
-    if ([self numberOfRows] > 0) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:PXListViewSelectionDidChange object:self];
-    }
+	if ([self numberOfRows] > 0) {
+		[[NSNotificationCenter defaultCenter] postNotificationName:PXListViewSelectionDidChange object:self];
+	}
 }
 
 #pragma mark -
@@ -464,10 +464,10 @@ NSString * const PXListViewSelectionDidChange = @"PXListViewSelectionDidChange";
 	
 	if([delegate conformsToProtocol:@protocol(PXListViewDelegate)])
 	{
-        CGFloat cellWidth = NSWidth([self contentViewRect]);
-        if([self inLiveResize]&&![self usesLiveResize]) {
-            cellWidth = _widthPriorToResize;
-        }
+		CGFloat cellWidth = NSWidth([self contentViewRect]);
+		if([self inLiveResize]&&![self usesLiveResize]) {
+			cellWidth = _widthPriorToResize;
+		}
 
 		CGFloat rowHeight = [delegate listView:self heightOfRow:row];
 		
@@ -512,7 +512,7 @@ NSString * const PXListViewSelectionDidChange = @"PXListViewSelectionDidChange";
 	{
 		NSInteger row = [cell row];
 		[cell setFrame:[self rectOfRow:row]];
-        [cell layoutSubviews];
+		[cell layoutSubviews];
 	}
 	
 	NSRect bounds = [self bounds];
@@ -525,8 +525,8 @@ NSString * const PXListViewSelectionDidChange = @"PXListViewSelectionDidChange";
 - (void)layoutCell:(PXListViewCell*)cell atRow:(NSUInteger)row
 {
 	[[self documentView] addSubview:cell];
-    [cell setFrame:[self rectOfRow:row]];
-    
+	[cell setFrame:[self rectOfRow:row]];
+	
 	[cell setListView:self];
 	[cell setRow:row];
 	[cell setHidden:NO];
@@ -541,16 +541,16 @@ NSString * const PXListViewSelectionDidChange = @"PXListViewSelectionDidChange";
 	if(![self inLiveResize]||[self usesLiveResize])
 	{
 		[_visibleCells removeAllObjects];
-		[[self documentView] setSubviews:[NSArray array]];
+		[[self documentView] setSubviews:@[]];
 		
 		[self cacheCellLayout];
 		[self addCellsFromVisibleRange];
 		
 		_currentRange = [self visibleRange];
 	}
-    else if([self inLiveResize]&&![self usesLiveResize]) {
-        [self updateCells];
-    }
+	else if([self inLiveResize]&&![self usesLiveResize]) {
+		[self updateCells];
+	}
 }
 
 #pragma mark -
@@ -563,20 +563,20 @@ NSString * const PXListViewSelectionDidChange = @"PXListViewSelectionDidChange";
 
 - (void)scrollToRow:(NSUInteger)row
 {
-    if(row >= _numberOfRows) {
-        return;
-    }
-    
-    // Use minimal scroll necessary, so we don't force the selection to upper left of window:
+	if(row >= _numberOfRows) {
+		return;
+	}
+	
+	// Use minimal scroll necessary, so we don't force the selection to upper left of window:
 	NSRect visibleRect = [self documentVisibleRect];
 	NSRect rowRect = [self rectOfRow:row];
 	
 	NSPoint newScrollPoint = rowRect.origin;
-    
-    //Have we over-scrolled?
+	
+	//Have we over-scrolled?
 	if(NSMaxY(rowRect) > NSMaxY(visibleRect)) {
 		newScrollPoint.y = _totalHeight - NSHeight(visibleRect);
-    }
+	}
 	
 	[[self contentView] scrollToPoint:newScrollPoint];
 	[self reflectScrolledClipView:[self contentView]];
@@ -586,22 +586,22 @@ NSString * const PXListViewSelectionDidChange = @"PXListViewSelectionDidChange";
 {
 	if(row >= _numberOfRows) {
 		return;
-    }
+	}
 	
 	// Use minimal scroll necessary, so we don't force the selection to upper left of window:
 	NSRect visibleRect = [self documentVisibleRect];
 	NSRect rowRect = [self rectOfRow:row];
-    
+	
 	if(NSContainsRect(visibleRect, rowRect)) {	// Already visible, no need to scroll.
 		return;
-    }
+	}
 	
 	NSPoint newScrollPoint = rowRect.origin;
-    
-    //Have we over-scrolled?
+	
+	//Have we over-scrolled?
 	if(NSMaxY(rowRect) > NSMaxY(visibleRect)) {
 		newScrollPoint.y = _totalHeight - NSHeight(visibleRect);
-    }
+	}
 	
 	[[self contentView] scrollToPoint:newScrollPoint];
 	[self reflectScrolledClipView:[self contentView]];
@@ -613,57 +613,57 @@ NSString * const PXListViewSelectionDidChange = @"PXListViewSelectionDidChange";
 
 - (void)viewWillStartLiveResize
 {
-    _widthPriorToResize = NSWidth([self contentViewRect]);
-    if([self usesLiveResize])
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowSizing:) name:NSSplitViewDidResizeSubviewsNotification object:self.superview];
+	_widthPriorToResize = NSWidth([self contentViewRect]);
+	if([self usesLiveResize])
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowSizing:) name:NSSplitViewDidResizeSubviewsNotification object:self.superview];
 }
 
 - (void)layoutCellsForResizeEvent 
 {
-    //Change the layout of the cells
-    [_visibleCells removeAllObjects];
-    [[self documentView] setSubviews:[NSArray array]];
-    
-    [self cacheCellLayout];
-    [self addCellsFromVisibleRange];
-    
-    if ([_delegate conformsToProtocol:@protocol(PXListViewDelegate)])
-    {
-        CGFloat totalHeight = 0;
-        
-        for (NSUInteger i = 0; i < _numberOfRows; i++)
-        {
-            CGFloat cellHeight = [_delegate listView:self heightOfRow:i];
-            totalHeight += cellHeight +[self cellSpacing];
-        }
-        
-        _totalHeight = totalHeight;
-        
-        NSRect bounds = [self bounds];
-        CGFloat documentHeight = _totalHeight > NSHeight(bounds) ? _totalHeight:(NSHeight(bounds) - 2);
-        
-        [[self documentView] setFrame:NSMakeRect(0.0f, 0.0f, NSWidth([self contentViewRect]), documentHeight)];
-    }
-    
-    _currentRange = [self visibleRange];
+	//Change the layout of the cells
+	[_visibleCells removeAllObjects];
+	[[self documentView] setSubviews:@[]];
+	
+	[self cacheCellLayout];
+	[self addCellsFromVisibleRange];
+	
+	if ([_delegate conformsToProtocol:@protocol(PXListViewDelegate)])
+	{
+		CGFloat totalHeight = 0;
+		
+		for (NSUInteger i = 0; i < _numberOfRows; i++)
+		{
+			CGFloat cellHeight = [_delegate listView:self heightOfRow:i];
+			totalHeight += cellHeight +[self cellSpacing];
+		}
+		
+		_totalHeight = totalHeight;
+		
+		NSRect bounds = [self bounds];
+		CGFloat documentHeight = _totalHeight > NSHeight(bounds) ? _totalHeight:(NSHeight(bounds) - 2);
+		
+		[[self documentView] setFrame:NSMakeRect(0.0f, 0.0f, NSWidth([self contentViewRect]), documentHeight)];
+	}
+	
+	_currentRange = [self visibleRange];
 }
 
 - (void)viewDidEndLiveResize
 {
-    [super viewDidEndLiveResize];
-    
-    //If we use live resize the view will already be up to date
-    if (![self usesLiveResize])
-    {
-        [self layoutCellsForResizeEvent];
-    }
-    if ([self usesLiveResize])
-        [[NSNotificationCenter defaultCenter] removeObserver:self name:NSSplitViewDidResizeSubviewsNotification object:self.superview];
+	[super viewDidEndLiveResize];
+	
+	//If we use live resize the view will already be up to date
+	if (![self usesLiveResize])
+	{
+		[self layoutCellsForResizeEvent];
+	}
+	if ([self usesLiveResize])
+		[[NSNotificationCenter defaultCenter] removeObserver:self name:NSSplitViewDidResizeSubviewsNotification object:self.superview];
 }
 
 - (void)windowSizing:(NSNotification *)inNot
 {
-    [self layoutCellsForResizeEvent];
+	[self layoutCellsForResizeEvent];
 }
 
 #pragma mark -
@@ -721,7 +721,7 @@ NSString * const PXListViewSelectionDidChange = @"PXListViewSelectionDidChange";
 	}
 	else if( [attribute isEqualToString: NSAccessibilityEnabledAttribute] )
 	{
-		return [NSNumber numberWithBool: YES];
+		return @YES;
 	}
 	else
 		return [super accessibilityAttributeValue: attribute];

@@ -50,13 +50,13 @@ typedef enum _ASIAuthenticationState {
 } ASIAuthenticationState;
 
 typedef enum _ASINetworkErrorType {
-    ASIConnectionFailureErrorType = 1,
-    ASIRequestTimedOutErrorType = 2,
-    ASIAuthenticationErrorType = 3,
-    ASIRequestCancelledErrorType = 4,
-    ASIUnableToCreateRequestErrorType = 5,
-    ASIInternalErrorWhileBuildingRequestType  = 6,
-    ASIInternalErrorWhileApplyingCredentialsType  = 7,
+	ASIConnectionFailureErrorType = 1,
+	ASIRequestTimedOutErrorType = 2,
+	ASIAuthenticationErrorType = 3,
+	ASIRequestCancelledErrorType = 4,
+	ASIUnableToCreateRequestErrorType = 5,
+	ASIInternalErrorWhileBuildingRequestType  = 6,
+	ASIInternalErrorWhileApplyingCredentialsType  = 7,
 	ASIFileManagementError = 8,
 	ASITooMuchRedirectionErrorType = 9,
 	ASIUnhandledExceptionError = 10,
@@ -178,12 +178,12 @@ typedef void (^ASIDataBlock)(NSData *data);
 	// When the request fails or completes successfully, complete will be true
 	BOOL complete;
 	
-    // external "finished" indicator, subject of KVO notifications; updates after 'complete'
-    BOOL finished;
-    
-    // True if our 'cancel' selector has been called
-    BOOL cancelled;
-    
+	// external "finished" indicator, subject of KVO notifications; updates after 'complete'
+	BOOL finished;
+	
+	// True if our 'cancel' selector has been called
+	BOOL cancelled;
+	
 	// If an error occurs, error will contain an NSError
 	// If error code is = ASIConnectionFailureErrorType (1, Connection failure occurred) - inspect [[error userInfo] objectForKey:NSUnderlyingErrorKey] for more information
 	NSError *error;
@@ -212,17 +212,17 @@ typedef void (^ASIDataBlock)(NSData *data);
 	id <ASIProgressDelegate> downloadProgressDelegate;
 	
 	// Whether we've seen the headers of the response yet
-    BOOL haveExaminedHeaders;
+	BOOL haveExaminedHeaders;
 	
 	// Data we receive will be stored here. Data may be compressed unless allowCompressedResponse is false - you should use [request responseData] instead in most cases
 	NSMutableData *rawResponseData;
 	
 	// Used for sending and receiving data
-    CFHTTPMessageRef request;	
+	CFHTTPMessageRef request;	
 	NSInputStream *readStream;
 	
 	// Used for authentication
-    CFHTTPAuthenticationRef requestAuthentication; 
+	CFHTTPAuthenticationRef requestAuthentication; 
 	NSDictionary *requestCredentials;
 	
 	// Used during NTLM authentication
@@ -246,7 +246,7 @@ typedef void (^ASIDataBlock)(NSData *data);
 	BOOL shouldPresentProxyAuthenticationDialog;	
 	
 	// Used for proxy authentication
-    CFHTTPAuthenticationRef proxyAuthentication; 
+	CFHTTPAuthenticationRef proxyAuthentication; 
 	NSDictionary *proxyCredentials;
 	
 	// Used during authentication with an NTLM proxy
@@ -365,9 +365,9 @@ typedef void (^ASIDataBlock)(NSData *data);
 	
 	// When NO, requests will not check the secure certificate is valid (use for self-signed certificates during development, DO NOT USE IN PRODUCTION) Default is YES
 	BOOL validatesSecureCertificate;
-    
-    // If not nil and the URL scheme is https, CFNetwork configured to supply a client certificate
-    SecIdentityRef clientCertificateIdentity;
+	
+	// If not nil and the URL scheme is https, CFNetwork configured to supply a client certificate
+	SecIdentityRef clientCertificateIdentity;
 	NSArray *clientCertificates;
 	
 	// Details on the proxy to use - you could set these yourself, but it's probably best to let ASIHTTPRequest detect the system proxy settings
@@ -535,8 +535,8 @@ typedef void (^ASIDataBlock)(NSData *data);
 	//block for handling proxy authentication
 	ASIBasicBlock proxyAuthenticationNeededBlock;
 	
-    //block for handling redirections, if you want to
-    ASIBasicBlock requestRedirectedBlock;
+	//block for handling redirections, if you want to
+	ASIBasicBlock requestRedirectedBlock;
 	#endif
 }
 

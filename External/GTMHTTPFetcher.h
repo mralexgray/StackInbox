@@ -4,7 +4,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *	 http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -50,7 +50,7 @@
 //  [myFetcher setPostData:[postString dataUsingEncoding:NSUTF8StringEncoding]];
 //
 //  [myFetcher beginFetchWithDelegate:self
-//                  didFinishSelector:@selector(myFetcher:finishedWithData:error:)];
+//				  didFinishSelector:@selector(myFetcher:finishedWithData:error:)];
 //
 //  Upon fetch completion, the callback selector is invoked; it should have
 //  this signature (you can use any callback method name you want so long as
@@ -61,20 +61,20 @@
 //  The block callback version looks like:
 //
 //  [myFetcher beginFetchWithCompletionHandler:^(NSData *retrievedData, NSError *error) {
-//    if (error != nil) {
-//      // status code or network error
-//    } else {
-//      // succeeded
-//    }
+//	if (error != nil) {
+//	  // status code or network error
+//	} else {
+//	  // succeeded
+//	}
 //  }];
 
 //
 // NOTE:  Fetches may retrieve data from the server even though the server
-//        returned an error.  The failure selector is called when the server
-//        status is >= 300, with an NSError having domain
-//        kGTMHTTPFetcherStatusDomain and code set to the server status.
+//		returned an error.  The failure selector is called when the server
+//		status is >= 300, with an NSError having domain
+//		kGTMHTTPFetcherStatusDomain and code set to the server status.
 //
-//        Status codes are at <http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html>
+//		Status codes are at <http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html>
 //
 //
 // Downloading to disk:
@@ -100,7 +100,7 @@
 // userInfo. The error method can get the challenge info like this:
 //
 //  NSURLAuthenticationChallenge *challenge
-//     = [[error userInfo] objectForKey:kGTMHTTPFetcherErrorChallengeKey];
+//	 = [[error userInfo] objectForKey:kGTMHTTPFetcherErrorChallengeKey];
 //  BOOL isProxyChallenge = [[challenge protectionSpace] isProxy];
 //
 // If a proxy error occurs, you can ask the user for the proxy username/password
@@ -137,11 +137,11 @@
 // (kGTMHTTPFetcherStatusNotModified) like this:
 //
 // - (void)myFetcher:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)data error:(NSError *)error {
-//    if ([error code] == kGTMHTTPFetcherStatusNotModified) {
-//      // |data| is empty; use the data from the previous finishedWithData: for this URL
-//    } else {
-//      // handle other server status code
-//    }
+//	if ([error code] == kGTMHTTPFetcherStatusNotModified) {
+//	  // |data| is empty; use the data from the previous finishedWithData: for this URL
+//	} else {
+//	  // handle other server status code
+//	}
 // }
 //
 //
@@ -182,7 +182,7 @@
 //
 // Optionally, the client may set the maximum retry interval:
 //  [myFetcher setMaxRetryInterval:60.0]; // in seconds; default is 60 seconds
-//                                        // for downloads, 600 for uploads
+//										// for downloads, 600 for uploads
 //
 // Also optionally, the client may provide a callback selector to determine
 // if a status code or other error should be retried.
@@ -200,12 +200,12 @@
 //
 //  -(BOOL)myFetcher:(GTMHTTPFetcher *)fetcher willRetry:(BOOL)suggestedWillRetry forError:(NSError *)error {
 //
-//    // perhaps examine [error domain] and [error code], or [fetcher retryCount]
-//    //
-//    // return YES to start the retry timer, NO to proceed to the failure
-//    // callback, or |suggestedWillRetry| to get default behavior for the
-//    // current error domain and code values.
-//    return suggestedWillRetry;
+//	// perhaps examine [error domain] and [error code], or [fetcher retryCount]
+//	//
+//	// return YES to start the retry timer, NO to proceed to the failure
+//	// callback, or |suggestedWillRetry| to get default behavior for the
+//	// current error domain and code values.
+//	return suggestedWillRetry;
 //  }
 
 
@@ -221,12 +221,12 @@
   #import "GDataDefines.h"
 #else
   #if TARGET_OS_IPHONE
-    #ifndef GTM_FOUNDATION_ONLY
-      #define GTM_FOUNDATION_ONLY 1
-    #endif
-    #ifndef GTM_IPHONE
-      #define GTM_IPHONE 1
-    #endif
+	#ifndef GTM_FOUNDATION_ONLY
+	  #define GTM_FOUNDATION_ONLY 1
+	#endif
+	#ifndef GTM_IPHONE
+	  #define GTM_IPHONE 1
+	#endif
   #endif
 #endif
 
@@ -241,9 +241,9 @@
   #define _INITIALIZE_AS(x) =x
 #else
   #if defined(__cplusplus)
-    #define _EXTERN extern "C"
+	#define _EXTERN extern "C"
   #else
-    #define _EXTERN extern
+	#define _EXTERN extern
   #endif
   #define _INITIALIZE_AS(x)
 #endif
@@ -251,16 +251,16 @@
 // notifications
 //
 // fetch started and stopped, and fetch retry delay started and stopped
-_EXTERN NSString* const kGTMHTTPFetcherStartedNotification           _INITIALIZE_AS(@"kGTMHTTPFetcherStartedNotification");
-_EXTERN NSString* const kGTMHTTPFetcherStoppedNotification           _INITIALIZE_AS(@"kGTMHTTPFetcherStoppedNotification");
+_EXTERN NSString* const kGTMHTTPFetcherStartedNotification		   _INITIALIZE_AS(@"kGTMHTTPFetcherStartedNotification");
+_EXTERN NSString* const kGTMHTTPFetcherStoppedNotification		   _INITIALIZE_AS(@"kGTMHTTPFetcherStoppedNotification");
 _EXTERN NSString* const kGTMHTTPFetcherRetryDelayStartedNotification _INITIALIZE_AS(@"kGTMHTTPFetcherRetryDelayStartedNotification");
 _EXTERN NSString* const kGTMHTTPFetcherRetryDelayStoppedNotification _INITIALIZE_AS(@"kGTMHTTPFetcherRetryDelayStoppedNotification");
 
 // callback constants
-_EXTERN NSString* const kGTMHTTPFetcherErrorDomain       _INITIALIZE_AS(@"com.google.GTMHTTPFetcher");
-_EXTERN NSString* const kGTMHTTPFetcherStatusDomain      _INITIALIZE_AS(@"com.google.HTTPStatus");
+_EXTERN NSString* const kGTMHTTPFetcherErrorDomain	   _INITIALIZE_AS(@"com.google.GTMHTTPFetcher");
+_EXTERN NSString* const kGTMHTTPFetcherStatusDomain	  _INITIALIZE_AS(@"com.google.HTTPStatus");
 _EXTERN NSString* const kGTMHTTPFetcherErrorChallengeKey _INITIALIZE_AS(@"challenge");
-_EXTERN NSString* const kGTMHTTPFetcherStatusDataKey     _INITIALIZE_AS(@"data");  // data returned with a kGTMHTTPFetcherStatusDomain error
+_EXTERN NSString* const kGTMHTTPFetcherStatusDataKey	 _INITIALIZE_AS(@"data");  // data returned with a kGTMHTTPFetcherStatusDomain error
 
 enum {
   kGTMHTTPFetcherErrorDownloadFailed = -1,
@@ -310,8 +310,8 @@ void GTMAssertSelectorNilOrImplementedWithArgs(id obj, SEL sel, ...);
 - (NSData *)cachedDataForRequest:(NSURLRequest *)request;
 - (id <GTMCookieStorageProtocol>)cookieStorage;
 - (void)updateFetchHistoryWithRequest:(NSURLRequest *)request
-                             response:(NSURLResponse *)response
-                       downloadedData:(NSData *)downloadedData;
+							 response:(NSURLResponse *)response
+					   downloadedData:(NSData *)downloadedData;
 - (void)removeCachedDataForRequest:(NSURLRequest *)request;
 @end
 
@@ -330,8 +330,8 @@ void GTMAssertSelectorNilOrImplementedWithArgs(id obj, SEL sel, ...);
 // This protocol allows us to call the authorizer without requiring its sources
 // in this project
 - (void)authorizeRequest:(NSMutableURLRequest *)request
-                delegate:(id)delegate
-       didFinishSelector:(SEL)sel;
+				delegate:(id)delegate
+	   didFinishSelector:(SEL)sel;
 
 - (void)stopAuthorization;
 
@@ -359,16 +359,16 @@ void GTMAssertSelectorNilOrImplementedWithArgs(id obj, SEL sel, ...);
   NSString *temporaryDownloadPath_;
   NSFileHandle *downloadFileHandle_;
   unsigned long long downloadedLength_;
-  NSURLCredential *credential_;     // username & password
+  NSURLCredential *credential_;	 // username & password
   NSURLCredential *proxyCredential_; // credential supplied to proxy servers
   NSData *postData_;
   NSInputStream *postStream_;
   NSMutableData *loggedStreamData_;
-  NSURLResponse *response_;         // set in connection:didReceiveResponse:
+  NSURLResponse *response_;		 // set in connection:didReceiveResponse:
   id delegate_;
-  SEL finishedSel_;                 // should by implemented by delegate
-  SEL sentDataSel_;                 // optional, set with setSentDataSelector
-  SEL receivedDataSel_;             // optional, set with setReceivedDataSelector
+  SEL finishedSel_;				 // should by implemented by delegate
+  SEL sentDataSel_;				 // optional, set with setSentDataSelector
+  SEL receivedDataSel_;			 // optional, set with setReceivedDataSelector
 #if NS_BLOCKS_AVAILABLE
   void (^completionBlock_)(NSData *, NSError *);
   void (^receivedDataBlock_)(NSData *);
@@ -382,16 +382,16 @@ void GTMAssertSelectorNilOrImplementedWithArgs(id obj, SEL sel, ...);
   id sentDataPlaceholder_;
   id retryPlaceholder_;
 #endif
-  BOOL hasConnectionEnded_;         // set if the connection need not be cancelled
-  BOOL isCancellingChallenge_;      // set only when cancelling an auth challenge
+  BOOL hasConnectionEnded_;		 // set if the connection need not be cancelled
+  BOOL isCancellingChallenge_;	  // set only when cancelling an auth challenge
   BOOL isStopNotificationNeeded_;   // set when start notification has been sent
   BOOL shouldFetchInBackground_;
 #if GTM_BACKGROUND_FETCHING
   NSUInteger backgroundTaskIdentifer_; // UIBackgroundTaskIdentifier
 #endif
-  id userData_;                     // retained, if set by caller
+  id userData_;					 // retained, if set by caller
   NSMutableDictionary *properties_; // more data retained for caller
-  NSArray *runLoopModes_;           // optional, for 10.5 and later
+  NSArray *runLoopModes_;		   // optional, for 10.5 and later
   id <GTMHTTPFetchHistoryProtocol> fetchHistory_; // if supplied by the caller, used for Last-Modified-Since checks and cookies
   NSInteger cookieStorageMethod_;   // constant from above
   id <GTMCookieStorageProtocol> cookieStorage_;
@@ -404,17 +404,17 @@ void GTMAssertSelectorNilOrImplementedWithArgs(id obj, SEL sel, ...);
   NSInteger servicePriority_;
   NSThread *thread_;
 
-  BOOL isRetryEnabled_;             // user wants auto-retry
-  SEL retrySel_;                    // optional; set with setRetrySelector
+  BOOL isRetryEnabled_;			 // user wants auto-retry
+  SEL retrySel_;					// optional; set with setRetrySelector
   NSTimer *retryTimer_;
   NSUInteger retryCount_;
   NSTimeInterval maxRetryInterval_; // default 600 seconds
   NSTimeInterval minRetryInterval_; // random between 1 and 2 seconds
-  NSTimeInterval retryFactor_;      // default interval multiplier is 2
+  NSTimeInterval retryFactor_;	  // default interval multiplier is 2
   NSTimeInterval lastRetryInterval_;
   BOOL hasAttemptedAuthRefresh_;
 
-  NSString *comment_;               // comment for log
+  NSString *comment_;			   // comment for log
   NSString *log_;
 }
 
@@ -495,8 +495,8 @@ void GTMAssertSelectorNilOrImplementedWithArgs(id obj, SEL sel, ...);
 // The delegate's optional sentData selector may be used to monitor upload
 // progress. It should have a signature like:
 //  - (void)myFetcher:(GTMHTTPFetcher *)fetcher
-//              didSendBytes:(NSInteger)bytesSent
-//            totalBytesSent:(NSInteger)totalBytesSent
+//			  didSendBytes:(NSInteger)bytesSent
+//			totalBytesSent:(NSInteger)totalBytesSent
 //  totalBytesExpectedToSend:(NSInteger)totalBytesExpectedToSend;
 //
 // +doesSupportSentDataCallback indicates if this delegate method is supported
@@ -507,7 +507,7 @@ void GTMAssertSelectorNilOrImplementedWithArgs(id obj, SEL sel, ...);
 // The delegate's optional receivedData selector may be used to monitor download
 // progress. It should have a signature like:
 //  - (void)myFetcher:(GTMHTTPFetcher *)fetcher
-//       receivedData:(NSData *)dataReceivedSoFar;
+//	   receivedData:(NSData *)dataReceivedSoFar;
 //
 // The dataReceived argument will be nil when downloading to a file handle.
 //
@@ -579,7 +579,7 @@ void GTMAssertSelectorNilOrImplementedWithArgs(id obj, SEL sel, ...);
 //
 
 - (BOOL)beginFetchWithDelegate:(id)delegate
-             didFinishSelector:(SEL)finishedSEL;
+			 didFinishSelector:(SEL)finishedSEL;
 
 #if NS_BLOCKS_AVAILABLE
 - (BOOL)beginFetchWithCompletionHandler:(void (^)(NSData *data, NSError *error))handler;

@@ -21,8 +21,8 @@
 
 @interface SIInboxDownloader : NSObject  
 
-@property (nonatomic, retain) NSString *json;
-@property (nonatomic, assign) id <SIInboxDownloaderDelegate>delegate;
+@property (nonatomic, strong) NSString *json;
+@property (nonatomic, unsafe_unretained) id <SIInboxDownloaderDelegate>delegate;
 @property (assign) 			  NSTimeInterval lastDownload;
 
 - (void) startDownloadWithAccessToken: (NSString *)accessToken;

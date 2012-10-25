@@ -31,7 +31,7 @@
 @private
 	NSURL* imageURL;
 	NSImage* placeholderImage;
-	id<EGOImageViewDelegate> delegate;
+	id<EGOImageViewDelegate> __unsafe_unretained delegate;
 }
 
 - (id)initWithPlaceholderImage:(NSImage*)anImage; // delegate:nil
@@ -39,9 +39,9 @@
 
 - (void)cancelImageLoad;
 
-@property(nonatomic,retain) NSURL* imageURL;
-@property(nonatomic,retain) NSImage* placeholderImage;
-@property(nonatomic,assign) id<EGOImageViewDelegate> delegate;
+@property(nonatomic,strong) NSURL* imageURL;
+@property(nonatomic,strong) NSImage* placeholderImage;
+@property(nonatomic,unsafe_unretained) id<EGOImageViewDelegate> delegate;
 @end
 
 @protocol EGOImageViewDelegate<NSObject>

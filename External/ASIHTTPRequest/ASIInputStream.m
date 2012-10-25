@@ -23,7 +23,7 @@ static NSLock *readLock = nil;
 
 + (id)inputStreamWithFileAtPath:(NSString *)path request:(ASIHTTPRequest *)theRequest
 {
-	ASIInputStream *theStream = [[[self alloc] init] autorelease];
+	ASIInputStream *theStream = [[self alloc] init];
 	[theStream setRequest:theRequest];
 	[theStream setStream:[NSInputStream inputStreamWithFileAtPath:path]];
 	return theStream;
@@ -31,17 +31,12 @@ static NSLock *readLock = nil;
 
 + (id)inputStreamWithData:(NSData *)data request:(ASIHTTPRequest *)theRequest
 {
-	ASIInputStream *theStream = [[[self alloc] init] autorelease];
+	ASIInputStream *theStream = [[self alloc] init];
 	[theStream setRequest:theRequest];
 	[theStream setStream:[NSInputStream inputStreamWithData:data]];
 	return theStream;
 }
 
-- (void)dealloc
-{
-	[stream release];
-	[super dealloc];
-}
 
 // Called when CFNetwork wants to read more of our request body
 // When throttling is on, we ask ASIHTTPRequest for the maximum amount of data we can read
@@ -72,52 +67,52 @@ static NSLock *readLock = nil;
  */
 - (void)open
 {
-    [stream open];
+	[stream open];
 }
 
 - (void)close
 {
-    [stream close];
+	[stream close];
 }
 
 - (id)delegate
 {
-    return [stream delegate];
+	return [stream delegate];
 }
 
 - (void)setDelegate:(id)delegate
 {
-    [stream setDelegate:delegate];
+	[stream setDelegate:delegate];
 }
 
 - (void)scheduleInRunLoop:(NSRunLoop *)aRunLoop forMode:(NSString *)mode
 {
-    [stream scheduleInRunLoop:aRunLoop forMode:mode];
+	[stream scheduleInRunLoop:aRunLoop forMode:mode];
 }
 
 - (void)removeFromRunLoop:(NSRunLoop *)aRunLoop forMode:(NSString *)mode
 {
-    [stream removeFromRunLoop:aRunLoop forMode:mode];
+	[stream removeFromRunLoop:aRunLoop forMode:mode];
 }
 
 - (id)propertyForKey:(NSString *)key
 {
-    return [stream propertyForKey:key];
+	return [stream propertyForKey:key];
 }
 
 - (BOOL)setProperty:(id)property forKey:(NSString *)key
 {
-    return [stream setProperty:property forKey:key];
+	return [stream setProperty:property forKey:key];
 }
 
 - (NSStreamStatus)streamStatus
 {
-    return [stream streamStatus];
+	return [stream streamStatus];
 }
 
 - (NSError *)streamError
 {
-    return [stream streamError];
+	return [stream streamError];
 }
 
 // If we get asked to perform a method we don't have (probably internal ones),

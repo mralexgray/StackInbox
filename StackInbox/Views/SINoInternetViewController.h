@@ -7,7 +7,5 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "SIViewController.h"
-@interface SINoInternetViewController : SIViewController
+//#import "SIViewController.h"
 
-@end

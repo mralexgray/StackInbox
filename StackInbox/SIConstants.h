@@ -6,6 +6,8 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
+#define performDelegateSelector(sel) if ([delegate respondsToSelector:sel]) { [delegate performSelector:sel]; }
+
 extern NSString * const SIAuthWindowShown;
 extern NSString * const SIAuthWindowClosed;
 extern NSString * const SIAuthSuccessful;

@@ -36,7 +36,7 @@
 
 - (id)initWithPlaceholderImage:(NSImage*)anImage delegate:(id<EGOImageViewDelegate>)aDelegate {
 	if((self = [super init])) {
-        [self setImage:anImage];
+		[self setImage:anImage];
 		self.placeholderImage = anImage;
 		self.delegate = aDelegate;
 	}
@@ -47,7 +47,6 @@
 - (void)setImageURL:(NSURL *)aURL {
 	if(imageURL) {
 		[[EGOImageLoader sharedImageLoader] removeObserver:self forURL:imageURL];
-		[imageURL release];
 		imageURL = nil;
 	}
 	
@@ -56,7 +55,7 @@
 		imageURL = nil;
 		return;
 	} else {
-		imageURL = [aURL retain];
+		imageURL = aURL;
 	}
 
 	[[EGOImageLoader sharedImageLoader] removeObserver:self];
@@ -83,9 +82,9 @@
 }
 
 - (void)imageLoaderDidLoad:(NSNotification*)notification {
-	if(![[[notification userInfo] objectForKey:@"imageURL"] isEqual:self.imageURL]) return;
+	if(![[notification userInfo][@"imageURL"] isEqual:self.imageURL]) return;
 
-	NSImage* anImage = [[notification userInfo] objectForKey:@"image"];
+	NSImage* anImage = [notification userInfo][@"image"];
 	self.image = anImage;
 	[self setNeedsDisplay];
 	
@@ -95,10 +94,10 @@
 }
 
 - (void)imageLoaderDidFailToLoad:(NSNotification*)notification {
-	if(![[[notification userInfo] objectForKey:@"imageURL"] isEqual:self.imageURL]) return;
+	if(![[notification userInfo][@"imageURL"] isEqual:self.imageURL]) return;
 	
 	if([self.delegate respondsToSelector:@selector(imageViewFailedToLoadImage:error:)]) {
-		[self.delegate imageViewFailedToLoadImage:self error:[[notification userInfo] objectForKey:@"error"]];
+		[self.delegate imageViewFailedToLoadImage:self error:[notification userInfo][@"error"]];
 	}
 }
 
@@ -106,8 +105,6 @@
 - (void)dealloc {
 	[[EGOImageLoader sharedImageLoader] removeObserver:self];
 	self.imageURL = nil;
-	self.placeholderImage = nil;
-    [super dealloc];
 }
 
 @end

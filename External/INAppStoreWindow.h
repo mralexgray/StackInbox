@@ -36,11 +36,11 @@
  Creates a window similar to the Mac App Store window, with centered traffic lights and an enlarged title bar. This does not handle creating the toolbar.
  **/
 @interface INAppStoreWindow : NSWindow {
-    CGFloat _titleBarHeight;
-    NSView *_titleBarView;
+	CGFloat _titleBarHeight;
+	NSView *_titleBarView;
 	NSString *_windowMenuTitle;
-    BOOL _centerFullScreenButton;
-    BOOL _centerTrafficLightButtons;
+	BOOL _centerFullScreenButton;
+	BOOL _centerTrafficLightButtons;
 }
 /** The height of the title bar. By default, this is set to the standard title bar height. **/
 @property (nonatomic) CGFloat titleBarHeight;

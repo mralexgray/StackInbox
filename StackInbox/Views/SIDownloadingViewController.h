@@ -7,9 +7,4 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "SIViewController.h"
-@interface SIDownloadingViewController : SIViewController
-@property (assign) IBOutlet NSProgressIndicator *activity;
-@property (assign) IBOutlet NSProgressIndicator *progressBar;
-
-@end
+//#import "SIViewController.h"

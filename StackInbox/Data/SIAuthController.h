@@ -15,8 +15,8 @@
 @end
 
 @interface SIAuthController : NSObject
-@property (nonatomic, retain) NSString *accessToken;
-@property (assign) id<SIAuthControllerDelegate> delegate;
+@property (nonatomic, strong) NSString *accessToken;
+@property (unsafe_unretained) id<SIAuthControllerDelegate> delegate;
 
 - (void)startAuth;
 - (BOOL)hasAccessToken;

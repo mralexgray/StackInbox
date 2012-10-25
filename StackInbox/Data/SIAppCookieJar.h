@@ -7,12 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "BaseModel.h"
 
-@interface SIAppCookieJar : NSObject
+@interface SIAppCookieJar : BaseModel // : NSObject
 
 @property (nonatomic, retain) NSMutableArray *cookieStore;
 
-- (id) 				initSingleton; 				// <= add these to the interface
+//- (id) 				initSingleton; 				// <= add these to the interface
 + (SIAppCookieJar*) sharedSIAppCookieJar;  		// <= where Foo is the class name
 - (NSString *) 		pathForCookieJar;
 

@@ -21,7 +21,7 @@
 #import "GTMNSString+HTML.h"
 
 typedef struct {
-	NSString *escapeSequence;
+__unsafe_unretained	NSString *escapeSequence;
 	unichar uchar;
 } HTMLEscapeMap;
 
@@ -35,7 +35,7 @@ static HTMLEscapeMap gAsciiHTMLEscapeMap[] = {
 	{ @"&lt;", 60 },
 	{ @"&gt;", 62 },
 	
-    // A.2.1. Latin-1 characters
+	// A.2.1. Latin-1 characters
 	{ @"&nbsp;", 160 }, 
 	{ @"&iexcl;", 161 }, 
 	{ @"&cent;", 162 }, 
@@ -219,7 +219,7 @@ static HTMLEscapeMap gAsciiHTMLEscapeMap[] = {
 	{ @"&bdquo;", 8222 },
 	{ @"&dagger;", 8224 },
 	{ @"&Dagger;", 8225 },
-    // A.2.3. Symbols cont'd  
+	// A.2.3. Symbols cont'd  
 	{ @"&bull;", 8226 }, 
 	{ @"&hellip;", 8230 }, 
 	
@@ -329,7 +329,7 @@ static HTMLEscapeMap gUnicodeHTMLEscapeMap[] = {
 	// Spacing Modifier Letters
 	{ @"&circ;", 710 },
 	{ @"&tilde;", 732 },
-    
+	
 	// General Punctuation
 	{ @"&ensp;", 8194 },
 	{ @"&emsp;", 8195 },
@@ -373,8 +373,8 @@ static int EscapeMapCompare(const void *ucharVoid, const void *mapVoid) {
 @implementation NSString (GTMNSStringHTMLAdditions)
 
 - (NSString *)gtm_stringByEscapingHTMLUsingTable:(HTMLEscapeMap*)table 
-                                          ofSize:(NSUInteger)size 
-                                 escapingUnicode:(BOOL)escapeUnicode {  
+										  ofSize:(NSUInteger)size 
+								 escapingUnicode:(BOOL)escapeUnicode {  
 	NSUInteger length = [self length];
 	if (!length) {
 		return self;

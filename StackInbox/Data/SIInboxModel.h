@@ -18,14 +18,14 @@ extern NSString * const SIInboxItemTypeMetaQuestion;
 typedef NSString* SIInboxItemType;
 
 @interface SIInboxModel : NSObject <NSCoding>
-@property (retain) NSString *title;
-@property (retain) NSString *body;
-@property (retain) NSDate *creationDate;
-@property (retain) NSString *link;
+@property (strong) NSString *title;
+@property (strong) NSString *body;
+@property (strong) NSDate *creationDate;
+@property (strong) NSString *link;
 @property (assign) BOOL isUnread;
-@property (retain) NSString *siteIconLink;
-@property (retain) NSString *siteName;
-@property (retain) SIInboxItemType type;
+@property (strong) NSString *siteIconLink;
+@property (strong) NSString *siteName;
+@property (strong) SIInboxItemType type;
 @property (assign) BOOL isAPIUnread;
 - (NSNumber *)creationTINumber;
 - (NSURL *)siteIconURL;

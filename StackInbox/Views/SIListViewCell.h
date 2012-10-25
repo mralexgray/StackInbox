@@ -10,9 +10,10 @@
 #import "EGOImageView.h"
 
 @interface SIListViewCell : PXListViewCell
-@property (nonatomic, retain) IBOutlet NSTextField *textLabel;
-@property (nonatomic, retain) IBOutlet EGOImageView *imageView;
-@property (nonatomic, retain) NSColor *backgroundColor;
-@property (nonatomic, retain) IBOutlet NSTextField *detailTextLabel;
-@property (assign) IBOutlet NSTextField *timeField;
+
+@property (unsafe_unretained) 			  IBOutlet NSTextField 	*timeField;
+@property (nonatomic, strong) IBOutlet NSTextField 	*textLabel, *detailTextLabel;
+@property (nonatomic, strong) IBOutlet EGOImageView *imageView;
+@property (nonatomic, strong)		   NSColor	 	*backgroundColor;
+
 @end
