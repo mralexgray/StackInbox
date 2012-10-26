@@ -34,17 +34,17 @@
 
 #pragma mark - App Lifecycle
 
-- (void)dealloc {
-	[statusItem release];
-	[timer release];
-	[loginViewController release];
-	[downloadingViewController release];
-	[noInternetViewController release];
-	[inboxViewController release];
-	[authController release];
-	[downloader release];
-	[super dealloc];
-}
+//- (void)dealloc {
+//	[statusItem release];
+//	[timer release];
+//	[loginViewController release];
+//	[downloadingViewController release];
+//	[noInternetViewController release];
+//	[inboxViewController release];
+//	[authController release];
+//	[downloader release];
+//	[super dealloc];
+//}
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
 	[self setupViewControllers];
@@ -124,30 +124,30 @@
 	SILoginViewController *loginVC = [[SILoginViewController alloc] init];
 	[loginVC setDelegate:self];
 	[self setLoginViewController:loginVC];
-	[loginVC release];
-	
+//	[loginVC release];
+
 	SINoInternetViewController *noInternetVC = [[SINoInternetViewController alloc] init];
 	[self setNoInternetViewController:noInternetVC];
-	[noInternetVC release];
-	
+//	[noInternetVC release];
+
 	SIDownloadingViewController *downloadingVC = [[SIDownloadingViewController alloc] init];
 	[self setDownloadingViewController:downloadingVC];
-	[downloadingVC release];
-	
+//	[downloadingVC release];
+
 	SIInboxListViewController *inboxVC = [[SIInboxListViewController alloc] init];
 	[self setInboxViewController:inboxVC];
-	[inboxVC release];
+//	[inboxVC release];
 }
 - (void)setupDataControllers {
 	SIInboxDownloader *inboxDownloader = [[SIInboxDownloader alloc] init];
 	[inboxDownloader setDelegate:self];
 	[self setDownloader:inboxDownloader];
-	[inboxDownloader release];
-	
+//	[inboxDownloader release];
+
 	SIAuthController *authCont = [[SIAuthController alloc] init];
 	[authController setDelegate:self];
 	[self setAuthController:authCont];
-	[authCont release];
+//	[authCont release];
 }
 #pragma mark - Timer
 - (void)startTimer {

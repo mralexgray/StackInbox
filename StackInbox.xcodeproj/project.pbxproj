@@ -7,6 +7,80 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7BB870AC16390C130000C242 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABAF7385149EC73F00DE0A2F /* Cocoa.framework */; };
+		7BB870B616390C150000C242 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7BB870B416390C150000C242 /* InfoPlist.strings */; };
+		7BB870BA16390C150000C242 /* AtoZStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BB870B916390C150000C242 /* AtoZStack.m */; };
+		7BB870BE16390C8F0000C242 /* IGIsolatedCookieWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFEB3B914A9EEEA00C3A0A5 /* IGIsolatedCookieWebView.m */; };
+		7BB870BF16390C8F0000C242 /* INAppStoreWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFEB3A814A8FA0100C3A0A5 /* INAppStoreWindow.m */; };
+		7BB870C016390C8F0000C242 /* GTMHTTPFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = AB81FD4814B025BB00A393FD /* GTMHTTPFetcher.m */; };
+		7BB870C116390C8F0000C242 /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = AB81FD4514B0223300A393FD /* GTMNSString+HTML.m */; };
+		7BB870C216390C8F0000C242 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = AB81FD3E14B01EDC00A393FD /* JSONKit.m */; };
+		7BB870C316390C8F0000C242 /* ASIInputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = ABAF7451149F6FBE00DE0A2F /* ASIInputStream.m */; };
+		7BB870C416390C8F0000C242 /* ASIFormDataRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = ABAF7453149F6FBE00DE0A2F /* ASIFormDataRequest.m */; };
+		7BB870C516390C8F0000C242 /* ASIHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = ABAF7455149F6FBF00DE0A2F /* ASIHTTPRequest.m */; };
+		7BB870C616390C8F0000C242 /* ASINetworkQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = ABAF7457149F6FC000DE0A2F /* ASINetworkQueue.m */; };
+		7BB870C716390C8F0000C242 /* ASIDownloadCache.m in Sources */ = {isa = PBXBuildFile; fileRef = ABAF745A149F6FC000DE0A2F /* ASIDownloadCache.m */; };
+		7BB870C816390C8F0000C242 /* ASIDataCompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = ABAF745C149F6FC000DE0A2F /* ASIDataCompressor.m */; };
+		7BB870C916390C8F0000C242 /* ASIDataDecompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = ABAF745E149F6FC100DE0A2F /* ASIDataDecompressor.m */; };
+		7BB870CA16390C8F0000C242 /* NSHTTPCookie+Testing.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFEB3C214AA005E00C3A0A5 /* NSHTTPCookie+Testing.m */; };
+		7BB870CB16390C8F0000C242 /* NSDate+SI.m in Sources */ = {isa = PBXBuildFile; fileRef = ABD9A26414AAABB9009A2C93 /* NSDate+SI.m */; };
+		7BB870CC16390C8F0000C242 /* EGOCache.m in Sources */ = {isa = PBXBuildFile; fileRef = ABE31B4514A09F2800299D4D /* EGOCache.m */; };
+		7BB870CD16390C8F0000C242 /* EGOImageLoadConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = ABE31B3B14A09EA800299D4D /* EGOImageLoadConnection.m */; };
+		7BB870CE16390C8F0000C242 /* EGOImageLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = ABE31B3D14A09EA800299D4D /* EGOImageLoader.m */; };
+		7BB870CF16390C8F0000C242 /* EGOImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = ABE31B4014A09EA800299D4D /* EGOImageView.m */; };
+		7BB870D016390C8F0000C242 /* PXListDocumentView.m in Sources */ = {isa = PBXBuildFile; fileRef = ABAF73A3149ED01000DE0A2F /* PXListDocumentView.m */; };
+		7BB870D116390C8F0000C242 /* PXListView.m in Sources */ = {isa = PBXBuildFile; fileRef = ABAF73A5149ED01000DE0A2F /* PXListView.m */; };
+		7BB870D216390C8F0000C242 /* PXListView+UserInteraction.m in Sources */ = {isa = PBXBuildFile; fileRef = ABAF73A8149ED01000DE0A2F /* PXListView+UserInteraction.m */; };
+		7BB870D316390C8F0000C242 /* PXListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ABAF73AA149ED01100DE0A2F /* PXListViewCell.m */; };
+		7BB870D416390C8F0000C242 /* SIAppCookieJar.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFEB3BE14A9FBB300C3A0A5 /* SIAppCookieJar.m */; };
+		7BB870D516390C8F0000C242 /* SIInboxModel.m in Sources */ = {isa = PBXBuildFile; fileRef = ABAF73BB149ED98200DE0A2F /* SIInboxModel.m */; };
+		7BB870D616390C8F0000C242 /* SIInboxDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = ABE31B0E149F77E300299D4D /* SIInboxDownloader.m */; };
+		7BB870D716390C8F0000C242 /* SIAuthController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABD9A26814ABB0AF009A2C93 /* SIAuthController.m */; };
+		7BB870D816390C8F0000C242 /* SIConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = ABF1CF3714F077E50048879B /* SIConstants.m */; };
+		7BB870D916390CBF0000C242 /* IGIsolatedCookieWebView.h in Headers */ = {isa = PBXBuildFile; fileRef = ABFEB3B814A9EEE500C3A0A5 /* IGIsolatedCookieWebView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7BB870DA16390CBF0000C242 /* INAppStoreWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = ABFEB3A714A8FA0100C3A0A5 /* INAppStoreWindow.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7BB870DB16390CBF0000C242 /* CKSingleton.h in Headers */ = {isa = PBXBuildFile; fileRef = ABFEB3C014A9FD5C00C3A0A5 /* CKSingleton.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7BB870DC16390CBF0000C242 /* GTMHTTPFetcher.h in Headers */ = {isa = PBXBuildFile; fileRef = AB81FD4714B025B600A393FD /* GTMHTTPFetcher.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7BB870DD16390CBF0000C242 /* GTMNSString+HTML.h in Headers */ = {isa = PBXBuildFile; fileRef = AB81FD4414B0222E00A393FD /* GTMNSString+HTML.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7BB870DE16390CBF0000C242 /* JSONKit.h in Headers */ = {isa = PBXBuildFile; fileRef = AB81FD4014B01EE100A393FD /* JSONKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7BB870DF16390CBF0000C242 /* ASIHTTPRequestConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = ABAF744D149F6FBD00DE0A2F /* ASIHTTPRequestConfig.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7BB870E016390CBF0000C242 /* ASIProgressDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = ABAF744E149F6FBD00DE0A2F /* ASIProgressDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7BB870E116390CBF0000C242 /* ASIHTTPRequestDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = ABAF744F149F6FBD00DE0A2F /* ASIHTTPRequestDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7BB870E216390CBF0000C242 /* ASIInputStream.h in Headers */ = {isa = PBXBuildFile; fileRef = ABAF7450149F6FBE00DE0A2F /* ASIInputStream.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7BB870E316390CBF0000C242 /* ASIFormDataRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = ABAF7452149F6FBE00DE0A2F /* ASIFormDataRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7BB870E416390CBF0000C242 /* ASIHTTPRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = ABAF7454149F6FBF00DE0A2F /* ASIHTTPRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7BB870E516390CBF0000C242 /* ASINetworkQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = ABAF7456149F6FBF00DE0A2F /* ASINetworkQueue.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7BB870E616390CBF0000C242 /* ASICacheDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = ABAF7458149F6FC000DE0A2F /* ASICacheDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7BB870E716390CBF0000C242 /* ASIDownloadCache.h in Headers */ = {isa = PBXBuildFile; fileRef = ABAF7459149F6FC000DE0A2F /* ASIDownloadCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7BB870E816390CBF0000C242 /* ASIDataCompressor.h in Headers */ = {isa = PBXBuildFile; fileRef = ABAF745B149F6FC000DE0A2F /* ASIDataCompressor.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7BB870E916390CBF0000C242 /* ASIDataDecompressor.h in Headers */ = {isa = PBXBuildFile; fileRef = ABAF745D149F6FC100DE0A2F /* ASIDataDecompressor.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7BB870EA16390CBF0000C242 /* NSHTTPCookie+Testing.h in Headers */ = {isa = PBXBuildFile; fileRef = ABFEB3C114AA005E00C3A0A5 /* NSHTTPCookie+Testing.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7BB870EB16390CBF0000C242 /* NSDate+SI.h in Headers */ = {isa = PBXBuildFile; fileRef = ABD9A26314AAABB9009A2C93 /* NSDate+SI.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7BB870EC16390CBF0000C242 /* EGOCache.h in Headers */ = {isa = PBXBuildFile; fileRef = ABE31B4414A09F2800299D4D /* EGOCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7BB870ED16390CBF0000C242 /* EGOImageLoadConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = ABE31B3A14A09EA800299D4D /* EGOImageLoadConnection.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7BB870EE16390CC00000C242 /* EGOImageLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = ABE31B3C14A09EA800299D4D /* EGOImageLoader.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7BB870EF16390CC00000C242 /* EGOImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = ABE31B3F14A09EA800299D4D /* EGOImageView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7BB870F016390CC00000C242 /* PXListViewDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = ABAF73AC149ED01100DE0A2F /* PXListViewDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7BB870F116390CC00000C242 /* PXListViewDropHighlight.h in Headers */ = {isa = PBXBuildFile; fileRef = ABAF73AD149ED01100DE0A2F /* PXListViewDropHighlight.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7BB870F216390CC00000C242 /* PXListDocumentView.h in Headers */ = {isa = PBXBuildFile; fileRef = ABAF73A2149ED01000DE0A2F /* PXListDocumentView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7BB870F316390CC00000C242 /* PXListView.h in Headers */ = {isa = PBXBuildFile; fileRef = ABAF73A4149ED01000DE0A2F /* PXListView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7BB870F516390CC00000C242 /* PXListView+UserInteraction.h in Headers */ = {isa = PBXBuildFile; fileRef = ABAF73A7149ED01000DE0A2F /* PXListView+UserInteraction.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7BB870F616390CC00000C242 /* PXListViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = ABAF73A9149ED01100DE0A2F /* PXListViewCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7BB870F716390CC00000C242 /* PXListViewCell+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = ABAF73AB149ED01100DE0A2F /* PXListViewCell+Private.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7BB870F816390CC00000C242 /* SIAppCookieJar.h in Headers */ = {isa = PBXBuildFile; fileRef = ABFEB3BD14A9FBB300C3A0A5 /* SIAppCookieJar.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7BB870F916390CC00000C242 /* SIInboxModel.h in Headers */ = {isa = PBXBuildFile; fileRef = ABAF73BA149ED98200DE0A2F /* SIInboxModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7BB870FA16390CC00000C242 /* SIInboxDownloader.h in Headers */ = {isa = PBXBuildFile; fileRef = ABE31B0D149F77E300299D4D /* SIInboxDownloader.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7BB870FB16390CC00000C242 /* SIAuthController.h in Headers */ = {isa = PBXBuildFile; fileRef = ABD9A26714ABB0AF009A2C93 /* SIAuthController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7BB870FC16390CC00000C242 /* SIWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = ABE31B5014A1439100299D4D /* SIWindow.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7BB870FD16390CC00000C242 /* SIViewControllers.h in Headers */ = {isa = PBXBuildFile; fileRef = AB3E89F614E6793D00CC5A80 /* SIViewControllers.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7BB870FE16390CC00000C242 /* SIListViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = ABAF73B4149ED6D900DE0A2F /* SIListViewCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7BB870FF16390CC00000C242 /* SIConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = ABF1CF3614F077E50048879B /* SIConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7BB8710016390CC00000C242 /* AtoZStack.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BB870B816390C150000C242 /* AtoZStack.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7BB8710116390CF50000C242 /* SILoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB3E89E214E6774100CC5A80 /* SILoginViewController.xib */; };
+		7BB8710216390CF50000C242 /* SIDownloadingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB3E89E914E677DD00CC5A80 /* SIDownloadingViewController.xib */; };
+		7BB8710316390CF50000C242 /* SINoInternetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB3E89EE14E677F300CC5A80 /* SINoInternetViewController.xib */; };
+		7BB8710416390CF50000C242 /* SIInboxListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB3E89F314E6782400CC5A80 /* SIInboxListViewController.xib */; };
+		7BB8710516390CF50000C242 /* CellNib.xib in Resources */ = {isa = PBXBuildFile; fileRef = ABAF73B2149ED26C00DE0A2F /* CellNib.xib */; };
 		AB3537AF14B6336D001D6CA5 /* Growl Registration Ticket.growlRegDict in Resources */ = {isa = PBXBuildFile; fileRef = AB3537AE14B6336D001D6CA5 /* Growl Registration Ticket.growlRegDict */; };
 		AB3537B314B63A75001D6CA5 /* Growl.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = AB3537AB14B63309001D6CA5 /* Growl.framework */; };
 		AB3537B614B63DA3001D6CA5 /* StackInbox.png in Resources */ = {isa = PBXBuildFile; fileRef = AB3537B514B63DA3001D6CA5 /* StackInbox.png */; };
@@ -30,7 +104,7 @@
 		ABAF7390149EC73F00DE0A2F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = ABAF738E149EC73F00DE0A2F /* InfoPlist.strings */; };
 		ABAF7392149EC73F00DE0A2F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = ABAF7391149EC73F00DE0A2F /* main.m */; };
 		ABAF7396149EC73F00DE0A2F /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = ABAF7394149EC73F00DE0A2F /* Credits.rtf */; };
-		ABAF7399149EC73F00DE0A2F /* SIAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = ABAF7398149EC73F00DE0A2F /* SIAppDelegate.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		ABAF7399149EC73F00DE0A2F /* SIAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = ABAF7398149EC73F00DE0A2F /* SIAppDelegate.m */; };
 		ABAF739C149EC74000DE0A2F /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = ABAF739A149EC74000DE0A2F /* MainMenu.xib */; };
 		ABAF73AE149ED01100DE0A2F /* PXListDocumentView.m in Sources */ = {isa = PBXBuildFile; fileRef = ABAF73A3149ED01000DE0A2F /* PXListDocumentView.m */; };
 		ABAF73AF149ED01100DE0A2F /* PXListView.m in Sources */ = {isa = PBXBuildFile; fileRef = ABAF73A5149ED01000DE0A2F /* PXListView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -81,6 +155,15 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		7BB870AB16390C130000C242 /* AtoZStack.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AtoZStack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7BB870AE16390C130000C242 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		7BB870AF16390C130000C242 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		7BB870B016390C130000C242 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		7BB870B316390C150000C242 /* AtoZStack-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AtoZStack-Info.plist"; sourceTree = "<group>"; };
+		7BB870B516390C150000C242 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		7BB870B716390C150000C242 /* AtoZStack-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AtoZStack-Prefix.pch"; sourceTree = "<group>"; };
+		7BB870B816390C150000C242 /* AtoZStack.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.objj.h; path = AtoZStack.h; sourceTree = "<group>"; };
+		7BB870B916390C150000C242 /* AtoZStack.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AtoZStack.m; sourceTree = "<group>"; };
 		AB3537AB14B63309001D6CA5 /* Growl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Growl.framework; path = External/Growl.framework; sourceTree = "<group>"; };
 		AB3537AE14B6336D001D6CA5 /* Growl Registration Ticket.growlRegDict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "Growl Registration Ticket.growlRegDict"; path = "External/Growl Registration Ticket.growlRegDict"; sourceTree = "<group>"; };
 		AB3537B514B63DA3001D6CA5 /* StackInbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StackInbox.png; sourceTree = SOURCE_ROOT; };
@@ -187,6 +270,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		7BB870A716390C120000C242 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7BB870AC16390C130000C242 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		ABAF737E149EC73F00DE0A2F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -215,6 +306,36 @@
 				ABAF73B2149ED26C00DE0A2F /* CellNib.xib */,
 			);
 			name = XIBs;
+			sourceTree = "<group>";
+		};
+		7BB870AD16390C130000C242 /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7BB870AE16390C130000C242 /* AppKit.framework */,
+				7BB870AF16390C130000C242 /* CoreData.framework */,
+				7BB870B016390C130000C242 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		7BB870B116390C130000C242 /* AtoZStack */ = {
+			isa = PBXGroup;
+			children = (
+				7BB870B816390C150000C242 /* AtoZStack.h */,
+				7BB870B916390C150000C242 /* AtoZStack.m */,
+				7BB870B216390C150000C242 /* Supporting Files */,
+			);
+			path = AtoZStack;
+			sourceTree = "<group>";
+		};
+		7BB870B216390C150000C242 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				7BB870B316390C150000C242 /* AtoZStack-Info.plist */,
+				7BB870B416390C150000C242 /* InfoPlist.strings */,
+				7BB870B716390C150000C242 /* AtoZStack-Prefix.pch */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		AB3E89E514E6776B00CC5A80 /* External */ = {
@@ -290,6 +411,7 @@
 			children = (
 				AB3E89E514E6776B00CC5A80 /* External */,
 				ABAF738B149EC73F00DE0A2F /* StackInbox */,
+				7BB870B116390C130000C242 /* AtoZStack */,
 				ABAF7384149EC73F00DE0A2F /* Frameworks */,
 				ABAF7382149EC73F00DE0A2F /* Products */,
 			);
@@ -299,6 +421,7 @@
 			isa = PBXGroup;
 			children = (
 				ABAF7381149EC73F00DE0A2F /* StackInbox.app */,
+				7BB870AB16390C130000C242 /* AtoZStack.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -318,6 +441,7 @@
 				ABFEB3BB14A9F69100C3A0A5 /* Quartz.framework */,
 				ABAF7440149F6E9600DE0A2F /* SystemConfiguration.framework */,
 				ABAF746C149F745500DE0A2F /* WebKit.framework */,
+				7BB870AD16390C130000C242 /* Other Frameworks */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -433,7 +557,75 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		7BB870A816390C120000C242 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7BB870F716390CC00000C242 /* PXListViewCell+Private.h in Headers */,
+				7BB870D916390CBF0000C242 /* IGIsolatedCookieWebView.h in Headers */,
+				7BB870DA16390CBF0000C242 /* INAppStoreWindow.h in Headers */,
+				7BB870DB16390CBF0000C242 /* CKSingleton.h in Headers */,
+				7BB870DC16390CBF0000C242 /* GTMHTTPFetcher.h in Headers */,
+				7BB870DD16390CBF0000C242 /* GTMNSString+HTML.h in Headers */,
+				7BB870DE16390CBF0000C242 /* JSONKit.h in Headers */,
+				7BB870DF16390CBF0000C242 /* ASIHTTPRequestConfig.h in Headers */,
+				7BB870E016390CBF0000C242 /* ASIProgressDelegate.h in Headers */,
+				7BB870E116390CBF0000C242 /* ASIHTTPRequestDelegate.h in Headers */,
+				7BB870E216390CBF0000C242 /* ASIInputStream.h in Headers */,
+				7BB870E316390CBF0000C242 /* ASIFormDataRequest.h in Headers */,
+				7BB870E416390CBF0000C242 /* ASIHTTPRequest.h in Headers */,
+				7BB870E516390CBF0000C242 /* ASINetworkQueue.h in Headers */,
+				7BB870E616390CBF0000C242 /* ASICacheDelegate.h in Headers */,
+				7BB870E716390CBF0000C242 /* ASIDownloadCache.h in Headers */,
+				7BB870E816390CBF0000C242 /* ASIDataCompressor.h in Headers */,
+				7BB870E916390CBF0000C242 /* ASIDataDecompressor.h in Headers */,
+				7BB870EA16390CBF0000C242 /* NSHTTPCookie+Testing.h in Headers */,
+				7BB870EB16390CBF0000C242 /* NSDate+SI.h in Headers */,
+				7BB870EC16390CBF0000C242 /* EGOCache.h in Headers */,
+				7BB870ED16390CBF0000C242 /* EGOImageLoadConnection.h in Headers */,
+				7BB870EE16390CC00000C242 /* EGOImageLoader.h in Headers */,
+				7BB870EF16390CC00000C242 /* EGOImageView.h in Headers */,
+				7BB870F016390CC00000C242 /* PXListViewDelegate.h in Headers */,
+				7BB870F116390CC00000C242 /* PXListViewDropHighlight.h in Headers */,
+				7BB870F216390CC00000C242 /* PXListDocumentView.h in Headers */,
+				7BB870F316390CC00000C242 /* PXListView.h in Headers */,
+				7BB870F516390CC00000C242 /* PXListView+UserInteraction.h in Headers */,
+				7BB870F616390CC00000C242 /* PXListViewCell.h in Headers */,
+				7BB870F816390CC00000C242 /* SIAppCookieJar.h in Headers */,
+				7BB870F916390CC00000C242 /* SIInboxModel.h in Headers */,
+				7BB870FA16390CC00000C242 /* SIInboxDownloader.h in Headers */,
+				7BB870FB16390CC00000C242 /* SIAuthController.h in Headers */,
+				7BB870FC16390CC00000C242 /* SIWindow.h in Headers */,
+				7BB870FD16390CC00000C242 /* SIViewControllers.h in Headers */,
+				7BB870FE16390CC00000C242 /* SIListViewCell.h in Headers */,
+				7BB870FF16390CC00000C242 /* SIConstants.h in Headers */,
+				7BB8710016390CC00000C242 /* AtoZStack.h in Headers */,
+				7BB870F716390CC00000C242 /* PXListViewCell+Private.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
+		7BB870AA16390C120000C242 /* AtoZStack */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7BB870BB16390C150000C242 /* Build configuration list for PBXNativeTarget "AtoZStack" */;
+			buildPhases = (
+				7BB870A616390C120000C242 /* Sources */,
+				7BB870A716390C120000C242 /* Frameworks */,
+				7BB870A816390C120000C242 /* Headers */,
+				7BB870A916390C120000C242 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AtoZStack;
+			productName = AtoZStack;
+			productReference = 7BB870AB16390C130000C242 /* AtoZStack.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		ABAF7380149EC73F00DE0A2F /* StackInbox */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = ABAF739F149EC74000DE0A2F /* Build configuration list for PBXNativeTarget "StackInbox" */;
@@ -473,11 +665,25 @@
 			projectRoot = "";
 			targets = (
 				ABAF7380149EC73F00DE0A2F /* StackInbox */,
+				7BB870AA16390C120000C242 /* AtoZStack */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		7BB870A916390C120000C242 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7BB8710116390CF50000C242 /* SILoginViewController.xib in Resources */,
+				7BB8710216390CF50000C242 /* SIDownloadingViewController.xib in Resources */,
+				7BB8710316390CF50000C242 /* SINoInternetViewController.xib in Resources */,
+				7BB8710416390CF50000C242 /* SIInboxListViewController.xib in Resources */,
+				7BB8710516390CF50000C242 /* CellNib.xib in Resources */,
+				7BB870B616390C150000C242 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		ABAF737F149EC73F00DE0A2F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -501,6 +707,41 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		7BB870A616390C120000C242 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7BB870BE16390C8F0000C242 /* IGIsolatedCookieWebView.m in Sources */,
+				7BB870BF16390C8F0000C242 /* INAppStoreWindow.m in Sources */,
+				7BB870C016390C8F0000C242 /* GTMHTTPFetcher.m in Sources */,
+				7BB870C116390C8F0000C242 /* GTMNSString+HTML.m in Sources */,
+				7BB870C216390C8F0000C242 /* JSONKit.m in Sources */,
+				7BB870C316390C8F0000C242 /* ASIInputStream.m in Sources */,
+				7BB870C416390C8F0000C242 /* ASIFormDataRequest.m in Sources */,
+				7BB870C516390C8F0000C242 /* ASIHTTPRequest.m in Sources */,
+				7BB870C616390C8F0000C242 /* ASINetworkQueue.m in Sources */,
+				7BB870C716390C8F0000C242 /* ASIDownloadCache.m in Sources */,
+				7BB870C816390C8F0000C242 /* ASIDataCompressor.m in Sources */,
+				7BB870C916390C8F0000C242 /* ASIDataDecompressor.m in Sources */,
+				7BB870CA16390C8F0000C242 /* NSHTTPCookie+Testing.m in Sources */,
+				7BB870CB16390C8F0000C242 /* NSDate+SI.m in Sources */,
+				7BB870CC16390C8F0000C242 /* EGOCache.m in Sources */,
+				7BB870CD16390C8F0000C242 /* EGOImageLoadConnection.m in Sources */,
+				7BB870CE16390C8F0000C242 /* EGOImageLoader.m in Sources */,
+				7BB870CF16390C8F0000C242 /* EGOImageView.m in Sources */,
+				7BB870D016390C8F0000C242 /* PXListDocumentView.m in Sources */,
+				7BB870D116390C8F0000C242 /* PXListView.m in Sources */,
+				7BB870D216390C8F0000C242 /* PXListView+UserInteraction.m in Sources */,
+				7BB870D316390C8F0000C242 /* PXListViewCell.m in Sources */,
+				7BB870D416390C8F0000C242 /* SIAppCookieJar.m in Sources */,
+				7BB870D516390C8F0000C242 /* SIInboxModel.m in Sources */,
+				7BB870D616390C8F0000C242 /* SIInboxDownloader.m in Sources */,
+				7BB870D716390C8F0000C242 /* SIAuthController.m in Sources */,
+				7BB870D816390C8F0000C242 /* SIConstants.m in Sources */,
+				7BB870BA16390C150000C242 /* AtoZStack.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		ABAF737D149EC73F00DE0A2F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -547,6 +788,14 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		7BB870B416390C150000C242 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7BB870B516390C150000C242 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		ABAF738E149EC73F00DE0A2F /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -574,6 +823,50 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		7BB870BC16390C150000C242 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "AtoZStack/AtoZStack-Prefix.pch";
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				INFOPLIST_FILE = "AtoZStack/AtoZStack-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Debug;
+		};
+		7BB870BD16390C150000C242 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "AtoZStack/AtoZStack-Prefix.pch";
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				INFOPLIST_FILE = "AtoZStack/AtoZStack-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Release;
+		};
 		ABAF739D149EC74000DE0A2F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -676,6 +969,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		7BB870BB16390C150000C242 /* Build configuration list for PBXNativeTarget "AtoZStack" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7BB870BC16390C150000C242 /* Debug */,
+				7BB870BD16390C150000C242 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		ABAF737B149EC73F00DE0A2F /* Build configuration list for PBXProject "StackInbox" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

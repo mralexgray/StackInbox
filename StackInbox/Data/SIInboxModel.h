@@ -27,10 +27,11 @@ typedef NSString* SIInboxItemType;
 @property (strong) NSS *siteName;
 @property (strong) SIInboxItemType type;
 @property (assign) BOOL isAPIUnread;
-- (NSNumber *)creationTINumber;
-- (NSURL *)siteIconURL;
-- (NSURL *)linkURL;
-- (void)setUnread;
-- (void)setRead;
-+(SIInboxModel *)inboxItemUsingDictionary:(NSDictionary *)dict;
+
+- (NSNumber*) creationTINumber;
+- (NSURL*)	  siteIconURL;
+- (NSURL*)	  linkURL;
+- (void)	  setUnread;
+- (void)	  setRead;
++ (SIInboxModel*) inboxItemUsingDictionary: (NSD*)dict;
 @end
