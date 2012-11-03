@@ -7,13 +7,21 @@
 //
 
 #import "PXListViewCell.h"
-#import "PXListViewCell+Private.h"
+//#import "PXListViewCell+Private.h"
 
 #import <iso646.h>
 
 #import "PXListView.h"
-#import "PXListView+Private.h"
+//#import "PXListView+Private.h"
 #import "PXListView+UserInteraction.h"
+
+
+@interface PXListViewCell ()
+
+@property (readwrite, copy) NSS *reusableIdentifier;
+@property (readwrite, assign) NSUInteger row;
+
+@end
 
 #pragma mark -
 

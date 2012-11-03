@@ -34,7 +34,7 @@ static PXIsDragStartResult PXIsDragStart( NSEvent *startEvent, NSTimeInterval th
 		[pool release];
 		pool = [[NSAutoreleasePool alloc] init];
 		
-		NSEvent*	currEvent = [NSApp nextEventMatchingMask: NSLeftMouseUpMask | NSRightMouseUpMask | NSOtherMouseUpMask
+		NSEvent* currEvent = [NSApp nextEventMatchingMask: NSLeftMouseUpMask | NSRightMouseUpMask | NSOtherMouseUpMask
 								 | NSLeftMouseDraggedMask | NSRightMouseDraggedMask | NSOtherMouseDraggedMask
 												untilDate: expireTime inMode: NSEventTrackingRunLoopMode dequeue: YES];
 		if( currEvent )
@@ -75,8 +75,6 @@ static PXIsDragStartResult PXIsDragStart( NSEvent *startEvent, NSTimeInterval th
 
 
 @implementation PXListView (UserInteraction)
-
-#pragma mark -
 #pragma mark NSResponder
 
 - (BOOL)canBecomeKeyView

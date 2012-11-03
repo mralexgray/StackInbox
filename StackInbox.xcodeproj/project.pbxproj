@@ -66,7 +66,6 @@
 		7BB870F316390CC00000C242 /* PXListView.h in Headers */ = {isa = PBXBuildFile; fileRef = ABAF73A4149ED01000DE0A2F /* PXListView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BB870F516390CC00000C242 /* PXListView+UserInteraction.h in Headers */ = {isa = PBXBuildFile; fileRef = ABAF73A7149ED01000DE0A2F /* PXListView+UserInteraction.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BB870F616390CC00000C242 /* PXListViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = ABAF73A9149ED01100DE0A2F /* PXListViewCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7BB870F716390CC00000C242 /* PXListViewCell+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = ABAF73AB149ED01100DE0A2F /* PXListViewCell+Private.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BB870F816390CC00000C242 /* SIAppCookieJar.h in Headers */ = {isa = PBXBuildFile; fileRef = ABFEB3BD14A9FBB300C3A0A5 /* SIAppCookieJar.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BB870F916390CC00000C242 /* SIInboxModel.h in Headers */ = {isa = PBXBuildFile; fileRef = ABAF73BA149ED98200DE0A2F /* SIInboxModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BB870FA16390CC00000C242 /* SIInboxDownloader.h in Headers */ = {isa = PBXBuildFile; fileRef = ABE31B0D149F77E300299D4D /* SIInboxDownloader.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -203,12 +202,10 @@
 		ABAF73A3149ED01000DE0A2F /* PXListDocumentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXListDocumentView.m; sourceTree = "<group>"; };
 		ABAF73A4149ED01000DE0A2F /* PXListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXListView.h; sourceTree = "<group>"; };
 		ABAF73A5149ED01000DE0A2F /* PXListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXListView.m; sourceTree = "<group>"; };
-		ABAF73A6149ED01000DE0A2F /* PXListViewCell+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PXListViewCell+Private.h"; sourceTree = "<group>"; };
 		ABAF73A7149ED01000DE0A2F /* PXListView+UserInteraction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PXListView+UserInteraction.h"; sourceTree = "<group>"; };
 		ABAF73A8149ED01000DE0A2F /* PXListView+UserInteraction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PXListView+UserInteraction.m"; sourceTree = "<group>"; };
 		ABAF73A9149ED01100DE0A2F /* PXListViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXListViewCell.h; sourceTree = "<group>"; };
 		ABAF73AA149ED01100DE0A2F /* PXListViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXListViewCell.m; sourceTree = "<group>"; };
-		ABAF73AB149ED01100DE0A2F /* PXListViewCell+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PXListViewCell+Private.h"; sourceTree = "<group>"; };
 		ABAF73AC149ED01100DE0A2F /* PXListViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXListViewDelegate.h; sourceTree = "<group>"; };
 		ABAF73AD149ED01100DE0A2F /* PXListViewDropHighlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXListViewDropHighlight.h; sourceTree = "<group>"; };
 		ABAF73B2149ED26C00DE0A2F /* CellNib.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CellNib.xib; sourceTree = "<group>"; };
@@ -512,12 +509,10 @@
 				ABAF73A3149ED01000DE0A2F /* PXListDocumentView.m */,
 				ABAF73A4149ED01000DE0A2F /* PXListView.h */,
 				ABAF73A5149ED01000DE0A2F /* PXListView.m */,
-				ABAF73A6149ED01000DE0A2F /* PXListViewCell+Private.h */,
 				ABAF73A7149ED01000DE0A2F /* PXListView+UserInteraction.h */,
 				ABAF73A8149ED01000DE0A2F /* PXListView+UserInteraction.m */,
 				ABAF73A9149ED01100DE0A2F /* PXListViewCell.h */,
 				ABAF73AA149ED01100DE0A2F /* PXListViewCell.m */,
-				ABAF73AB149ED01100DE0A2F /* PXListViewCell+Private.h */,
 			);
 			name = PXListView;
 			path = External/PXListView;
@@ -562,7 +557,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7BB870F716390CC00000C242 /* PXListViewCell+Private.h in Headers */,
 				7BB870D916390CBF0000C242 /* IGIsolatedCookieWebView.h in Headers */,
 				7BB870DA16390CBF0000C242 /* INAppStoreWindow.h in Headers */,
 				7BB870DB16390CBF0000C242 /* CKSingleton.h in Headers */,
@@ -601,7 +595,6 @@
 				7BB870FE16390CC00000C242 /* SIListViewCell.h in Headers */,
 				7BB870FF16390CC00000C242 /* SIConstants.h in Headers */,
 				7BB8710016390CC00000C242 /* AtoZStack.h in Headers */,
-				7BB870F716390CC00000C242 /* PXListViewCell+Private.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -929,6 +922,10 @@
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "StackInbox/StackInbox-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.6.8;
+				OTHER_CFLAGS = (
+					"-Xclang",
+					"-fobjc-runtime-has-weak",
+				);
 				OTHER_LDFLAGS = (
 					"-framework",
 					AtoZ,
@@ -956,6 +953,10 @@
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "StackInbox/StackInbox-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.6.8;
+				OTHER_CFLAGS = (
+					"-Xclang",
+					"-fobjc-runtime-has-weak",
+				);
 				OTHER_LDFLAGS = (
 					"-framework",
 					AtoZ,
@@ -976,6 +977,7 @@
 				7BB870BD16390C150000C242 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		ABAF737B149EC73F00DE0A2F /* Build configuration list for PBXProject "StackInbox" */ = {
 			isa = XCConfigurationList;

@@ -10,7 +10,7 @@
 #import "PXListView+Private.h"
 
 #import "PXListViewCell.h"
-#import "PXListViewCell+Private.h"
+//#import "PXListViewCell+Private.h"
 #import "PXListView+UserInteraction.h"
 
 NSS * const PXListViewSelectionDidChange = @"PXListViewSelectionDidChange";
