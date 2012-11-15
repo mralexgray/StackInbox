@@ -657,7 +657,6 @@ void jk_collectionClassLoadTimeInitialization(void) {
 }
 
 
-#pragma mark -
 @interface JKArray : NSMutableArray <NSCopying, NSMutableCopying, NSFastEnumeration> {
   id		 *objects;
   NSUInteger  count, capacity, mutations;
@@ -817,7 +816,6 @@ static void _JKArrayRemoveObjectAtIndex(JKArray *array, NSUInteger objectIndex) 
 @end
 
 
-#pragma mark -
 @interface JKDictionaryEnumerator : NSEnumerator {
   id		 collection;
   NSUInteger nextObject;
@@ -870,7 +868,6 @@ static void _JKArrayRemoveObjectAtIndex(JKArray *array, NSUInteger objectIndex) 
 
 @end
 
-#pragma mark -
 @interface JKDictionary : NSMD <NSCopying, NSMutableCopying, NSFastEnumeration> {
   NSUInteger count, capacity, mutations;
   JKHashTableEntry *entry;
@@ -1106,7 +1103,6 @@ static JKHashTableEntry *_JKDictionaryHashTableEntryForKey(JKDictionary *diction
 
 
 
-#pragma mark -
 
 JK_STATIC_INLINE size_t jk_min(size_t a, size_t b) { return((a < b) ? a : b); }
 JK_STATIC_INLINE size_t jk_max(size_t a, size_t b) { return((a > b) ? a : b); }
@@ -1143,7 +1139,6 @@ static void jk_error(JKParseState *parseState, NSS *format, ...) {
   }
 }
 
-#pragma mark -
 #pragma mark Buffer and Object Stack management functions
 
 static void jk_managedBuffer_release(JKManagedBuffer *managedBuffer) {
@@ -1281,7 +1276,6 @@ static int jk_objectStack_resize(JKObjectStack *objectStack, size_t newCount) {
 }
 
 ////////////
-#pragma mark -
 #pragma mark Unicode related functions
 
 JK_STATIC_INLINE ConversionResult isValidCodePoint(UTF32 *u32CodePoint) {
@@ -1410,7 +1404,6 @@ JK_STATIC_INLINE int jk_string_add_unicodeCodePoint(JKParseState *parseState, ui
 }
 
 ////////////
-#pragma mark -
 #pragma mark Decoding / parsing / deserializing functions
 
 static int jk_parse_string(JKParseState *parseState) {
@@ -1964,7 +1957,6 @@ static id json_parse_it(JKParseState *parseState) {
 }
 
 ////////////
-#pragma mark -
 #pragma mark Object cache
 
 // This uses a Galois Linear Feedback Shift Register (LFSR) PRNG to pick which item in the cache to age. It has a period of (2^32)-1.
@@ -2068,7 +2060,6 @@ static void *jk_object_for_token(JKParseState *parseState) {
   return(parsedAtom);
 }
 
-#pragma mark -
 @implementation JSONDecoder
 
 + (id)decoder
@@ -2416,7 +2407,6 @@ exitNow:
 @end
 
 ////////////
-#pragma mark -
 #pragma mark Encoding / deserializing functions
 
 static void jk_encode_error(JKEncodeState *encodeState, NSS *format, ...) {

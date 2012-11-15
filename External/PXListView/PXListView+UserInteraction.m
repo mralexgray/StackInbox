@@ -99,7 +99,6 @@ static PXIsDragStartResult PXIsDragStart( NSEvent *startEvent, NSTimeInterval th
 	return YES;
 }
 
-#pragma mark -
 #pragma mark Keyboard Handling
 
 - (void)keyDown:(NSEvent *)theEvent
@@ -236,7 +235,6 @@ static PXIsDragStartResult PXIsDragStart( NSEvent *startEvent, NSTimeInterval th
 	}
 }
 
-#pragma mark -
 #pragma mark Drag and Drop
 
 - (BOOL)attemptDragWithMouseDown:(NSEvent*)theEvent inCell:(PXListViewCell*)theCell

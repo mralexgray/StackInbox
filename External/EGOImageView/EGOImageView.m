@@ -73,7 +73,6 @@
 	}
 }
 
-#pragma mark -
 #pragma mark Image loading
 
 - (void)cancelImageLoad {
@@ -101,7 +100,6 @@
 	}
 }
 
-#pragma mark -
 - (void)dealloc {
 	[[EGOImageLoader sharedImageLoader] removeObserver:self];
 	self.imageURL = nil;

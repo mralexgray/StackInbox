@@ -59,7 +59,6 @@ static EGOCache* __instance;
 - (void)saveCacheDictionary;
 @end
 
-#pragma mark -
 
 @implementation EGOCache
 @synthesize defaultTimeoutInterval;
@@ -137,7 +136,6 @@ static EGOCache* __instance;
 	return [[NSFileManager defaultManager] fileExistsAtPath:cachePathForKey(key)];
 }
 
-#pragma mark -
 #pragma mark Copy file methods
 
 - (void)copyFilePath: (NSS*)filePath asKey: (NSS*)key {
@@ -150,7 +148,6 @@ static EGOCache* __instance;
 	[self performSelectorOnMainThread:@selector(saveAfterDelay) withObject:nil waitUntilDone:YES];
 }																												   
 
-#pragma mark -
 #pragma mark Data methods
 
 - (void)setData:(NSData*)data forKey: (NSS*)key {
@@ -200,7 +197,6 @@ static EGOCache* __instance;
 	}
 }
 
-#pragma mark -
 #pragma mark String methods
 
 - (NSString*)stringForKey: (NSS*)key {
@@ -215,7 +211,6 @@ static EGOCache* __instance;
 	[self setData:[aString dataUsingEncoding:NSUTF8StringEncoding] forKey:key withTimeoutInterval:timeoutInterval];
 }
 
-#pragma mark -
 #pragma mark Image methds
 
 #if TARGET_OS_IPHONE
@@ -250,7 +245,6 @@ static EGOCache* __instance;
 
 #endif
 
-#pragma mark -
 #pragma mark Property List methods
 
 - (NSData*)plistForKey: (NSS*)key; {  
@@ -275,7 +269,6 @@ static EGOCache* __instance;
 	[self setData:plistData forKey:key withTimeoutInterval:timeoutInterval];
 }
 
-#pragma mark -
 #pragma mark Disk writing operations
 
 - (void)performDiskWriteOperation:(NSInvocation *)invoction {
@@ -284,7 +277,6 @@ static EGOCache* __instance;
 	[operation release];
 }
 
-#pragma mark -
 
 - (void)dealloc {
 	[diskOperationQueue release];

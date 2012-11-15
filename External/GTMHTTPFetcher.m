@@ -203,7 +203,6 @@ const NSTimeInterval kDefaultMaxUploadRetryInterval = 60.0 * 10.;
   [super dealloc];
 }
 
-#pragma mark -
 
 // Begin fetching the URL (or begin a retry fetch).  The delegate is retained
 // for the duration of the fetch connection.

@@ -80,6 +80,8 @@
 		7BB8710316390CF50000C242 /* SINoInternetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB3E89EE14E677F300CC5A80 /* SINoInternetViewController.xib */; };
 		7BB8710416390CF50000C242 /* SIInboxListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB3E89F314E6782400CC5A80 /* SIInboxListViewController.xib */; };
 		7BB8710516390CF50000C242 /* CellNib.xib in Resources */ = {isa = PBXBuildFile; fileRef = ABAF73B2149ED26C00DE0A2F /* CellNib.xib */; };
+		7BEA0E9C1652D0B000580C74 /* AtoZ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BEA0E9B1652D0B000580C74 /* AtoZ.framework */; };
+		7BEA0E9D1652D16500580C74 /* AtoZ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BEA0E9B1652D0B000580C74 /* AtoZ.framework */; };
 		AB3537AF14B6336D001D6CA5 /* Growl Registration Ticket.growlRegDict in Resources */ = {isa = PBXBuildFile; fileRef = AB3537AE14B6336D001D6CA5 /* Growl Registration Ticket.growlRegDict */; };
 		AB3537B314B63A75001D6CA5 /* Growl.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = AB3537AB14B63309001D6CA5 /* Growl.framework */; };
 		AB3537B614B63DA3001D6CA5 /* StackInbox.png in Resources */ = {isa = PBXBuildFile; fileRef = AB3537B514B63DA3001D6CA5 /* StackInbox.png */; };
@@ -163,6 +165,7 @@
 		7BB870B716390C150000C242 /* AtoZStack-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AtoZStack-Prefix.pch"; sourceTree = "<group>"; };
 		7BB870B816390C150000C242 /* AtoZStack.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.objj.h; path = AtoZStack.h; sourceTree = "<group>"; };
 		7BB870B916390C150000C242 /* AtoZStack.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AtoZStack.m; sourceTree = "<group>"; };
+		7BEA0E9B1652D0B000580C74 /* AtoZ.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AtoZ.framework; path = ../../../../../Library/Frameworks/AtoZ.framework; sourceTree = "<group>"; };
 		AB3537AB14B63309001D6CA5 /* Growl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Growl.framework; path = External/Growl.framework; sourceTree = "<group>"; };
 		AB3537AE14B6336D001D6CA5 /* Growl Registration Ticket.growlRegDict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "Growl Registration Ticket.growlRegDict"; path = "External/Growl Registration Ticket.growlRegDict"; sourceTree = "<group>"; };
 		AB3537B514B63DA3001D6CA5 /* StackInbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StackInbox.png; sourceTree = SOURCE_ROOT; };
@@ -271,6 +274,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7BEA0E9C1652D0B000580C74 /* AtoZ.framework in Frameworks */,
 				7BB870AC16390C130000C242 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -279,6 +283,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7BEA0E9D1652D16500580C74 /* AtoZ.framework in Frameworks */,
 				ABFEB3BC14A9F69100C3A0A5 /* Quartz.framework in Frameworks */,
 				ABAF746D149F745500DE0A2F /* WebKit.framework in Frameworks */,
 				AB88C39114F40A63003D0F5E /* Growl.framework in Frameworks */,
@@ -406,6 +411,7 @@
 		ABAF7376149EC73F00DE0A2F = {
 			isa = PBXGroup;
 			children = (
+				7BEA0E9B1652D0B000580C74 /* AtoZ.framework */,
 				AB3E89E514E6776B00CC5A80 /* External */,
 				ABAF738B149EC73F00DE0A2F /* StackInbox */,
 				7BB870B116390C130000C242 /* AtoZStack */,
@@ -819,8 +825,8 @@
 		7BB870BC16390C150000C242 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -828,12 +834,14 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AtoZStack/AtoZStack-Prefix.pch";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				INFOPLIST_FILE = "AtoZStack/AtoZStack-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = "";
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Debug;
@@ -841,8 +849,8 @@
 		7BB870BD16390C150000C242 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -850,12 +858,14 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AtoZStack/AtoZStack-Prefix.pch";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				INFOPLIST_FILE = "AtoZStack/AtoZStack-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = "";
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Release;

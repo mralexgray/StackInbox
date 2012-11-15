@@ -227,7 +227,6 @@ inline static NSString* keyForURL(NSURL* url, NSString* style) {
 	return [[EGOCache currentCache] hasCacheForKey:keyForURL(aURL,nil)];
 }
 
-#pragma mark -
 #pragma mark URL Connection delegate methods
 
 - (void)imageLoadConnectionDidFinishLoading:(EGOImageLoadConnection *)connection {
@@ -320,7 +319,6 @@ inline static NSString* keyForURL(NSURL* url, NSString* style) {
 }
 #endif
 
-#pragma mark -
 
 - (void)dealloc {
 	#if __EGOIL_USE_BLOCKS

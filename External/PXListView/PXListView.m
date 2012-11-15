@@ -24,7 +24,6 @@ NSS * const PXListViewSelectionDidChange = @"PXListViewSelectionDidChange";
 @synthesize verticalMotionCanBeginDrag = _verticalMotionCanBeginDrag;
 @synthesize usesLiveResize = _usesLiveResize;
 
-#pragma mark -
 #pragma mark Init/Dealloc
 
 - (id)initWithFrame:(NSRect)theFrame
@@ -82,10 +81,9 @@ NSS * const PXListViewSelectionDidChange = @"PXListViewSelectionDidChange";
 	[_visibleCells release], _visibleCells = nil;
 	[_selectedRows release], _selectedRows = nil;
 	
-	[super dealloc];
+//	[super dealloc];
 }
 
-#pragma mark -
 #pragma mark Data Handling
 
 - (id<PXListViewDelegate>)delegate
@@ -154,7 +152,6 @@ NSS * const PXListViewSelectionDidChange = @"PXListViewSelectionDidChange";
 	return _numberOfRows;
 }
 
-#pragma mark -
 #pragma mark Cell Handling
 
 - (void)enqueueCell:(PXListViewCell*)cell
@@ -349,7 +346,6 @@ NSS * const PXListViewSelectionDidChange = @"PXListViewSelectionDidChange";
 	_currentRange = visibleRange;
 }
 
-#pragma mark -
 #pragma mark Selection
 
 - (void)selectAll:(id)sender
@@ -442,7 +438,6 @@ NSS * const PXListViewSelectionDidChange = @"PXListViewSelectionDidChange";
 	}
 }
 
-#pragma mark -
 #pragma mark Layout
 
 - (NSRect)contentViewRect
@@ -553,7 +548,6 @@ NSS * const PXListViewSelectionDidChange = @"PXListViewSelectionDidChange";
 	}
 }
 
-#pragma mark -
 #pragma mark Scrolling
 
 - (void)contentViewBoundsDidChange:(NSNotification *)notification
@@ -608,7 +602,6 @@ NSS * const PXListViewSelectionDidChange = @"PXListViewSelectionDidChange";
 }
 
 
-#pragma mark -
 #pragma mark Sizing
 
 - (void)viewWillStartLiveResize
@@ -666,7 +659,6 @@ NSS * const PXListViewSelectionDidChange = @"PXListViewSelectionDidChange";
 	[self layoutCellsForResizeEvent];
 }
 
-#pragma mark -
 #pragma mark Accessibility
 
 - (NSA*) 	accessibilityAttributeNames

@@ -23,7 +23,6 @@
 
 @end
 
-#pragma mark -
 
 @implementation PXListViewCell
 
@@ -57,7 +56,6 @@
 	return cell;
 }
 
-#pragma mark -
 #pragma mark Init/Dealloc
 
 - (id)initWithReusableIdentifier: (NSS*)identifier
@@ -83,7 +81,6 @@
 
 
 
-#pragma mark -
 #pragma mark Handling Selection
 
 - (void)mouseDown:(NSEvent*)theEvent
@@ -96,7 +93,6 @@
 	return [[[self listView] selectedRows] containsIndex:[self row]];
 }
 
-#pragma mark -
 #pragma mark Drag & Drop
 
 - (void)setDropHighlight:(PXListViewDropHighlight)inState
@@ -138,7 +134,6 @@
 }
 
 
-#pragma mark -
 #pragma mark Reusing Cells
 
 - (void)prepareForReuse
@@ -154,7 +149,6 @@
 	
 }
 
-#pragma mark -
 #pragma mark Accessibility
 
 - (NSA*) 	accessibilityAttributeNames

@@ -4916,7 +4916,6 @@ static NSOperationQueue *sharedQueue = nil;
 	}
 }
 
-#pragma mark -
 #pragma mark blocks
 #if NS_BLOCKS_AVAILABLE
 - (void)setStartedBlock:(ASIBasicBlock)aStartedBlock

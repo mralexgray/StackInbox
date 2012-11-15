@@ -33,7 +33,6 @@
 #import "NSHTTPCookie+Testing.h"
 #import "SIAppCookieJar.h"
 
-#pragma mark -
 #pragma mark private resourceLoadDelegate class interface
 
 @interface IGIsolatedCookieWebViewResourceLoadDelegate : NSObject {
@@ -57,7 +56,6 @@ didReceiveResponse:(NSURLResponse *)response
 @end
 
 
-#pragma mark -
 #pragma mark main class implementation
 
 @implementation IGIsolatedCookieWebView
@@ -85,12 +83,10 @@ didReceiveResponse:(NSURLResponse *)response
 
 @end
 
-#pragma mark -
 #pragma mark private category on NSHTTPCookie to facilitate testing properties of the cookie
 
 
 
-#pragma mark -
 #pragma mark private resourceLoadDelegate class implementation
 
 @implementation IGIsolatedCookieWebViewResourceLoadDelegate

@@ -171,7 +171,6 @@ static CGImageRef createNoiseImageRef(NSUInteger width, NSUInteger height, CGF  
 @synthesize windowMenuTitle = _windowMenuTitle;
 @synthesize centerFullScreenButton = _centerFullScreenButton;
 @synthesize centerTrafficLightButtons = _centerTrafficLightButtons;
-#pragma mark -
 #pragma mark Initialization
 
 - (id)initWithContentRect:(NSRect)contentRect styleMask:(NSUI)aStyle backing:(NSBackingStoreType)bufferingType defer:(BOOL)flag
@@ -190,7 +189,6 @@ static CGImageRef createNoiseImageRef(NSUInteger width, NSUInteger height, CGF  
 	return self;
 }
 
-#pragma mark -
 #pragma mark Memory Management
 
 - (void)dealloc
@@ -203,7 +201,6 @@ static CGImageRef createNoiseImageRef(NSUInteger width, NSUInteger height, CGF  
 	#endif
 }
 
-#pragma mark -
 #pragma mark NSWindow Overrides
 
 // Disable window titles
@@ -259,7 +256,6 @@ static CGImageRef createNoiseImageRef(NSUInteger width, NSUInteger height, CGF  
 	[NSApp removeWindowsItem:self];
 }
 
-#pragma mark -
 #pragma mark Accessors
 
 - (void)setTitleBarView:(NSView *)newTitleBarView
@@ -319,7 +315,6 @@ static CGImageRef createNoiseImageRef(NSUInteger width, NSUInteger height, CGF  
 	}
 }
 
-#pragma mark -
 #pragma mark Private
 
 - (void)_doInitialWindowSetup
