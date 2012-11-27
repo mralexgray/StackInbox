@@ -4,5 +4,7 @@
 
 #ifdef __OBJC__
 	#import <Cocoa/Cocoa.h>
+	#import "SIConstants.h"
+	#import "NSDate+SI.h"
 	#import <AtoZ/AtoZ.h>
 #endif

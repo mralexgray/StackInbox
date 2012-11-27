@@ -10,14 +10,13 @@
 
 @implementation SIWindow
 @synthesize titlebarRefreshSpinner;
-- (void)keyUp:(NSEvent *)theEvent {
-	NSLog(@"%@", self.delegate);
-}
-- (void)awakeFromNib {
 
-
+- (void)keyUp:(NSEvent *)theEvent	{	NSLog(@"%@", self.delegate);	}
+- (void)awakeFromNib
+{
 	self.delegate = self;
-	self.titleBarHeight = 50;
+	self.backgroundColor = GRAY2;
+	self.titleBarHeight = 30;
 	NSProgressIndicator *refreshSpinner = [[NSProgressIndicator alloc] initWithFrame:NSMakeRect(self.titleBarView.bounds.size.width - 30, CGRectGetMidY(self.titleBarView.bounds) - 10, 20, 20)];
 	refreshSpinner.style				= NSProgressIndicatorSpinningStyle;
 	refreshSpinner.displayedWhenStopped = YES;
@@ -31,7 +30,6 @@
 	NSTextField *titleText = [[NSTextField alloc] initWithFrame:self.titleBarView.frame];
 	//NSMakeRect(0, CGRectGetMidY(self.titleBarView.bounds) -5, self.titleBarView.bounds.size.width, 15)];
 	titleText.arMASK					= NSSIZEABLE;
-
 	titleText.bezeled					= NO;
 	titleText.alignment					= NSCenterTextAlignment;
 	titleText.backgroundColor			= RED;
@@ -49,7 +47,8 @@
 	[iv setFrame:r];
 
 }
-- (NSRect)window:(NSWindow *)window willPositionSheet:(NSWindow *)sheet usingRect:(NSRect)rect {
+- (NSRect)window:(NSWindow *)window willPositionSheet:(NSWindow *)sheet usingRect:(NSRect)rect
+{
 	rect.origin.y -= 24;
 	return rect;
 }

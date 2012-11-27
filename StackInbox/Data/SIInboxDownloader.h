@@ -14,6 +14,7 @@
 
 - (void) finishedDownloadingJSON: (NSDictionary *)jsonObject;
 - (void) updateProgressWithDecimalPercent: (float)percent;
+
 @optional
 - (void) downloadNotStarted: (NSUI)seconds;
 

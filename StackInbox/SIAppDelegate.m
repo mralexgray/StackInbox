@@ -7,12 +7,13 @@
 //
 
 #import "SIAppDelegate.h"
-#import "JSONKit.h"
 
-#import "SIAppCookieJar.h"
-
-#import "SIInboxModel.h"
-#import "NSDate+SI.h"
+//#import "JSONKit.h"
+//
+//#import "SIAppCookieJar.h"
+//
+//#import "SIInboxModel.h"
+//#import "NSDate+SI.h"
 #import <Growl/growl.h>
 
 #define  MINUTES * 60
@@ -31,6 +32,7 @@
 @synthesize window = _window, prefsWindow;
 @synthesize loginViewController, downloadingViewController, noInternetViewController;
 @synthesize inboxViewController, currentViewController, downloader, authController, timer, statusItem;
+@synthesize dsURLViewController;
 
 #pragma mark - App Lifecycle
 
@@ -120,37 +122,37 @@
 	[self.window.contentView addSubview:   viewController.view];
 	[viewController 		 setIsCurrent: YES];
 }
-- (void)setupViewControllers {
-	SILoginViewController *loginVC = [[SILoginViewController alloc] init];
-	[loginVC setDelegate:self];
-	[self setLoginViewController:loginVC];
-//	[loginVC release];
+- (void)setupViewControllers
+{
+	SILoginViewController *loginVC 	= [[SILoginViewController alloc]init];
+	loginVC.delegate				= self;
+	self.loginViewController			= loginVC;
 
-	SINoInternetViewController *noInternetVC = [[SINoInternetViewController alloc] init];
-	[self setNoInternetViewController:noInternetVC];
-//	[noInternetVC release];
+	self.noInternetViewController	= [SINoInternetViewController 	new];
+	self.downloadingViewController	= [SIDownloadingViewController 	new];
+	self.inboxViewController			= [SIInboxListViewController 	new];
+	self.dsURLViewController			= [DSURLTestListViewController 	new];
 
-	SIDownloadingViewController *downloadingVC = [[SIDownloadingViewController alloc] init];
-	[self setDownloadingViewController:downloadingVC];
-//	[downloadingVC release];
-
-	SIInboxListViewController *inboxVC = [[SIInboxListViewController alloc] init];
-	[self setInboxViewController:inboxVC];
-//	[inboxVC release];
+	dsURLViewController.view.frame	= AZMakeRectFromSize([(NSView*)self.DSURLwindow.contentView frame].size);
+	dsURLViewController.view.arMASK  = NSSIZEABLE;
+//	AZLOG(dsURLViewController.view.subviews);
+	[self.DSURLwindow.contentView addSubview:   dsURLViewController.view];
+//	[viewController 		 setIsCurrent: YES];
 }
-- (void)setupDataControllers {
-	SIInboxDownloader *inboxDownloader = [[SIInboxDownloader alloc] init];
-	[inboxDownloader setDelegate:self];
-	[self setDownloader:inboxDownloader];
-//	[inboxDownloader release];
+- (void)setupDataControllers
+{
+	SIInboxDownloader *inboxD 		= [SIInboxDownloader new];
+	inboxD.delegate					= self;
+	self.downloader					= inboxD;
 
-	SIAuthController *authCont = [[SIAuthController alloc] init];
-	[authController setDelegate:self];
-	[self setAuthController:authCont];
-//	[authCont release];
+	SIAuthController *authCont 		= [SIAuthController new];
+	authController.delegate 			= self;
+	self.authController				= authCont;
 }
+
 #pragma mark - Timer
-- (void)startTimer {
+- (void)startTimer
+{
 	[self.timer invalidate];
 	self.timer = [NSTimer scheduledTimerWithTimeInterval:2 MINUTES target:self selector:@selector(timerFire) userInfo:nil repeats:YES];
 	[self.timer fire];
@@ -161,22 +163,24 @@
 
 #pragma mark - MenuItem
 
-- (void)menuItemClicked {
+- (void)menuItemClicked
+{
 	[[NSApplication sharedApplication] activateIgnoringOtherApps:YES];
 	[self.window makeKeyAndOrderFront:nil];
 }
-- (void)setIndicatorsRead {
+- (void)setIndicatorsRead
+{
 	[[NSApp dockTile] setBadgeLabel:nil];
 	NSImage *icon = [NSImage imageNamed:@"StackInbox"];
 	[icon setSize:NSMakeSize([[NSStatusBar systemStatusBar] thickness]-4, [[NSStatusBar systemStatusBar] thickness] -4 )];
 	[self.statusItem setImage:icon];
 }
-- (void)showBarItem {
+- (void)showBarItem
+{
 	self.statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:[[NSStatusBar systemStatusBar] thickness]];
-	NSImage *icon = [NSImage imageNamed:@"StackInboxRead"];
-	if ([[[NSApp dockTile] badgeLabel] isEqualToString:@"★"]) {
-		icon = [NSImage imageNamed:@"StackInboxNew"];
-	}
+	NSImage *icon = [[[NSApp dockTile] badgeLabel] isEqualToString:@"★"] ? [NSImage imageNamed:@"StackInboxNew"]
+																		  : [NSImage imageNamed:@"StackInboxRead"];
+				
 	[icon setSize:NSMakeSize([[NSStatusBar systemStatusBar] thickness]-4, [[NSStatusBar systemStatusBar] thickness] -4 )];
 	[statusItem setImage:icon];
 	[statusItem setHighlightMode:YES];
@@ -184,17 +188,11 @@
 	[statusItem setAction:@selector(menuItemClicked)];
 	
 }
-- (void)hideBarItem {
-	[[NSStatusBar systemStatusBar] removeStatusItem:self.statusItem];
-}
-- (void)observeValueForKeyPath:(NSS *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if ([keyPath isEqualToString:@"SIShowStatusItem"]) {
-		if ([[NSUserDefaults standardUserDefaults] boolForKey:@"SIShowStatusItem"]) {
-			[self showBarItem];
-		} else {
-			[self hideBarItem];
-		}
-	}
+- (void)hideBarItem {	[[NSStatusBar systemStatusBar] removeStatusItem:self.statusItem]; }
+
+- (void)observeValueForKeyPath:(NSS *)keyPath ofObject:(id)object change: (NSD*)change context:(void *)context
+{
+	if ([keyPath isEqualToString:@"SIShowStatusItem"]) 	[[NSUserDefaults standardUserDefaults] boolForKey:@"SIShowStatusItem"] ? [self showBarItem] : [self hideBarItem];
 }
 
 
@@ -207,7 +205,8 @@
 
 #pragma mark Growl
 
-- (void)growlNotificationWasClicked:(id)clickContext {
+- (void)growlNotificationWasClicked:(id)clickContext
+{
 	NSDictionary *context = clickContext;
 	NSS *link = context[@"link"];
 	NSInteger count = [context[@"count"] integerValue];
@@ -219,14 +218,15 @@
 	
 }
 
-
-
 #pragma mark Auth
-- (void)authPercentageProgressChanged:(float)percent{
+
+- (void)authPercentageProgressChanged:(float)percent
+{
 	[self.loginViewController.progressBar setIndeterminate:NO];
 	[self.loginViewController.progressBar setDoubleValue:percent];
 }
-- (void)authCompletedSuccessfully{
+- (void)authCompletedSuccessfully
+{
 	//as a user it has always bugged me when progress bars never fill up
 	[self.loginViewController.progressBar setDoubleValue:100];
 	double delayInSeconds = 2.0;
@@ -235,17 +235,11 @@
 		[self.downloader startDownloadWithAccessToken:self.authController.accessToken];
 	});
 }
-- (void)authFailed{
-	//why?
-}
+- (void)authFailed{		/* why?*/	}
 
 #pragma mark Download
 
-
-- (void)updateProgressWithDecimalPercent:(float)percent {
-	[self.downloadingViewController.progressBar setDoubleValue:percent];
-}
-
+- (void)updateProgressWithDecimalPercent:(float)percent {	[self.downloadingViewController.progressBar setDoubleValue:percent];	}
 
 - (void)newItemsFound:(NSArray *)newItems {
 	
@@ -253,7 +247,8 @@
 	[[NSApplication sharedApplication].dockTile setBadgeLabel:AZString(newItems.count)] :
 	[[NSApplication sharedApplication].dockTile setBadgeLabel:@"★"];
 
-	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"PostGrowlNotfications"]) {
+	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"PostGrowlNotfications"])
+	{
 		NSS *link = ((SIInboxModel *)newItems[0]).link;
 		NSMD *dict = [NSMD dictionary];
 		dict[@"link"] = link;
@@ -273,7 +268,8 @@
 	[self.statusItem setImage:newImage];
 }
 
-- (void)finishedDownloadingJSON:(NSDictionary *)jsonObject {
+- (void)finishedDownloadingJSON: (NSD*)jsonObject
+{
 	[self.window.titlebarRefreshSpinner stopAnimation:nil];
 	[self.window.titlebarRefreshSpinner setHidden:YES];
 	NSInteger lastDD = [[[NSUserDefaults standardUserDefaults] objectForKey:@"LastDD"] integerValue];
@@ -294,15 +290,18 @@
 		[alert runModal];
 	}
 	NSArray *items = jsonObject[@"items"];
-	NSMutableArray *newItems = [NSMutableArray array];
+	NSMA *newItems = //[items cw_mapArray:^id(SIInboxModel *dict) {
+	[NSMutableArray array];
 	for (SIInboxModel *dict in items) {
 		if ([dict.creationTINumber integerValue] > lastDD) {
 			[dict setIsUnread:YES];
+//			return dict;
 			[newItems addObject:dict];
 		}
+//		return nil;
+//	}];
 	}
 	if ([newItems count] > 0) {
-		
 		[[NSUserDefaults standardUserDefaults] setObject:((SIInboxModel *)newItems[0]).creationTINumber forKey:@"LastDD"];
 		[[NSUserDefaults standardUserDefaults] synchronize];
 		[self newItemsFound:newItems];
@@ -317,7 +316,8 @@
 }
 #pragma mark - Menu Actions
 
-- (IBAction)logout:(id)sender {
+- (IBAction)logout:(id)sender
+{
 	NSAlert *logoutAlert = [NSAlert alertWithMessageText:@"Logout?" defaultButton:@"Yes" alternateButton:@"No" otherButton:nil informativeTextWithFormat:@"Are you sure you want to log out? This will remove your details from this app, and you will have to log in again to start with the newest 30 items in your inbox. \n\n This will not log you out in Safari or anywhere else"];
 	if ([logoutAlert runModal] == NSAlertAlternateReturn) {
 		return;
@@ -331,7 +331,8 @@
 	[self switchToViewController:self.loginViewController];
 }
 
-- (IBAction)emptyCache:(id)sender {
+- (IBAction)emptyCache:(id)sender
+{
 	NSAlert *emptyAlert = [NSAlert alertWithMessageText:@"Empty Cache?" defaultButton:@"Yes" alternateButton:@"No" otherButton:nil informativeTextWithFormat:@"Are you sure you want to empty the cache? Next time the inbox is refreshed in this app you will only see the latest 30 items. It will not affect you inbox on the website."];
 	if ([emptyAlert runModal] == NSAlertAlternateReturn) {
 		return;
@@ -343,12 +344,14 @@
 	}
 }
 
-- (IBAction)markAllRead:(id)sender {
+- (IBAction)markAllRead:(id)sender
+{
 	[self setIndicatorsRead];
 	[self.inboxViewController.itemsToList makeObjectsPerformSelector:@selector(setRead)];
 	[self.inboxViewController.listView reloadData];
 }
-- (IBAction)reportBug:(id)sender {
+- (IBAction)reportBug:(id)sender
+{
 	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://stackapps.com/questions/2872"]];//TODO link to app
 }
 - (IBAction)login:(id)sender {	[self.authController startAuth]; }

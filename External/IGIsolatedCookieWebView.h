@@ -33,9 +33,7 @@
 #import <WebKit/WebKit.h>
 
 
-@interface IGIsolatedCookieWebView : WebView {
-
-}
+@interface IGIsolatedCookieWebView : WebView
 
 - (void)injectCookie:(NSHTTPCookie *)cookie;
 

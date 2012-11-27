@@ -1,60 +1,47 @@
-//
 //  SIListViewCell.m
-//  StackInbox
-//
 //  Created by Jonathan Bailey on 19/12/2011.
-//  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
-//
 
-#import "SIListViewCell.h"
+#import "SIViewControllers.h"   //#import "SIListViewCell.h"
 
 @implementation SIListViewCell
-@synthesize detailTextLabel,	 timeField, textLabel, imageView, backgroundColor;
+@synthesize detailTextLabel,	 timeField, textLabel, imageView;
 
-- (void)setBackgroundColor:(NSColor *)new_value {
-	backgroundColor = new_value ? backgroundColor : new_value;
-	[self setNeedsDisplay:NO];
+- (NSC*) backgroundColor	{	return [self.imageView.image quantize][0];	}
+
+- (void)prepareForReuse 	{	[super prepareForReuse];		/* [self setBackgroundColor:nil]; */ }
+
+- (void)drawRect:(NSRect)dirtyRect
+{
+	[self isSelected] ? ^{
+		[self.backgroundColor set];
+		[textLabel setAssociatedValue:[textLabel.textColor hexString]  forKey:@"oldColor" policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
+		textLabel.textColor = self.backgroundColor.contrastingForegroundColor;
+	}() : ^{
+		textLabel.textColor = [NSC colorFromHexRGB:[textLabel associatedValueForKey:@"oldColor"]];
+		[[self.backgroundColor alpha:.2] set];
+    }();
+
+    //Draw the border and background
+	[[NSBezierPath bezierPathWithRect:self.bounds] fill];//RoundedRect:[self bounds] xRadius:6.0 yRadius:6.0];
+	[[NSBezierPath bezierPathWithRect:AZRectBy(dirtyRect.size.width, 3)] fillWithColor:BLACK];
 }
 
-- (void)prepareForReuse {	[self setBackgroundColor:nil];	[super prepareForReuse];	}
-
-- (void)drawRect:(NSRect)dirtyRect {
+@end
 
 //	if (self.backgroundColor != nil) {	[self.backgroundColor setFill];  	NSRectFill(dirtyRect);	}
-//	else {
-//		[[NSColor colorWithDeviceRed:.9 green:.9 blue:.9 alpha:1.0] setFill];
-//		NSRectFill(dirtyRect);
-//	}
+//	else {		[[NSColor colorWithDeviceRed:.9 green:.9 blue:.9 alpha:1.0] setFill];
+//				NSRectFill(dirtyRect);					}
 //	NSBezierPath *path = [NSBezierPath bezierPath];
 //	[path moveToPoint:NSMakePoint(0, 0)];
 //	[path lineToPoint:NSMakePoint(self.frame.size.width, 0)];
-//	[path setLineWidth:1];
-//	[[NSColor grayColor] setStroke];
-//	[path stroke];
+//	[path setLineWidth:1];	[[NSColor grayColor] setStroke];	[path stroke];
 
 //	if ([self isSelected]) 				NSRectFillWithColor(dirtyRect, [RANDOMCOLOR alpha:.5]);
 //	[super drawRect:dirtyRect];
 
-	if([self isSelected]) {
-		[[NSColor selectedControlColor] set];
-	}
-	else {
-		[[NSColor whiteColor] set];
-    }
-
-    //Draw the border and background
-	NSBezierPath *roundedRect = [NSBezierPath bezierPathWithRoundedRect:[self bounds] xRadius:6.0 yRadius:6.0];
-	[roundedRect fill];
-}
-
-//- (void)dealloc {
-//	[textLabel release];
-//	textLabel = nil;
-//	[imageView release];
-//	imageView = nil;
-//	[detailTextLabel release];
-//	detailTextLabel = nil;
-//	[super dealloc];
+//- (void)setBackgroundColor:(NSColor *)backgroundColor
+//{
+//	_backgroundColor = backgroundColor ?: _backgroundColor;
+//	[self setNeedsDisplay:YES];
 //}
 
-@end

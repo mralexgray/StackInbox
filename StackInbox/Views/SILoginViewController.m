@@ -9,42 +9,31 @@
 #import "SIViewControllers.h"
 
 @implementation SILoginViewController
-@synthesize loginState;
-@synthesize loginButton;
-@synthesize progressBar;
-@synthesize delegate;
+@synthesize loginState, loginButton, progressBar, delegate;
 
 - (id)initWithNibName:(NSS *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-	self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-	if (self) {
-		
-	}
-	
+	if (!(self = [super initWithNibName:nibNameOrNil bundle:[NSBundle frameworkBundleNamed:@"AtoZStack"]])) return nil;
 	return self;
 }
-- (void)switchToLoggingInState:(BOOL)loggingIn {
-	[self setLoginState:loggingIn];
-	if (loggingIn) {
-		[loginButton setEnabled:NO];
-		[loginButton setTitle:@"Logging in..."];
-		[progressBar setIndeterminate:YES];
-		[progressBar startAnimation:nil];
-	} else {
-		[loginButton setEnabled:YES];
-		[loginButton setTitle:@"Login"];
-		[progressBar setDoubleValue:0];
-		[progressBar setIndeterminate:NO];
-	}
+
+- (void)switchToLoggingInState:(BOOL)loggingIn
+{
+	[self setLoginState:	 		loggingIn];
+	[loginButton setEnabled: 		loggingIn ? NO : YES];
+	[loginButton setTitle:			loggingIn ? @"Logging in..." : @"Login"];
+	[progressBar setIndeterminate:	loggingIn ? YES : NO];
+	loggingIn ? [progressBar startAnimation:nil]
+			  : [progressBar setDoubleValue:0];
 }
-- (void)awakeFromNib {
-	[self switchToLoggingInState:self.loginState];
-}
-- (IBAction)login:(NSButton *)sender {
+- (void) awakeFromNib {	[self switchToLoggingInState:self.loginState];	}
+
+- (IBAction) login:(NSBUTT*)sender
+{
 	[self switchToLoggingInState:YES];
 	performDelegateSelector(@selector(loginButtonPressed))
 }
-- (void)viewControllerWillMoveFromParent {
-	[self switchToLoggingInState:NO];
-}
+
+- (void)viewControllerWillMoveFromParent { 	[self switchToLoggingInState:NO]; }
+
 @end

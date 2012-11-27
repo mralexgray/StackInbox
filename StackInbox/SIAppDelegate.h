@@ -8,17 +8,18 @@
 
 #import <Cocoa/Cocoa.h>
 #import <Growl/growl.h>
+#import <AtoZStack/AtoZStack.h>
 
 //#import "SILoginViewController.h"
 //#import "SIDownloadingViewController.h"
 //#import "SINoInternetViewController.h"
 //#import "SIInboxListViewController.h"
-#import "SIViewControllers.h"
-
-#import "SIInboxDownloader.h"
-#import "SIAuthController.h"
-
-#import "SIWindow.h"
+//#import "SIViewControllers.h"
+//
+//#import "SIInboxDownloader.h"
+//#import "SIAuthController.h"
+//
+//#import "SIWindow.h"
 
 
 @interface SIAppDelegate : NSObject <	NSApplicationDelegate,
@@ -28,6 +29,8 @@
 										SIAuthControllerDelegate	>
 
 @property (assign) IBOutlet   SIWindow 		*window;
+@property (assign) IBOutlet   SIWindow 		*DSURLwindow;
+
 @property (assign) IBOutlet 	  NSWindow 		*prefsWindow;
 @property (nonatomic, retain) NSTimer 		*timer;
 @property (nonatomic, retain) NSStatusItem 	*statusItem;
@@ -37,6 +40,10 @@
 @property (nonatomic, retain) SINoInternetViewController 	*noInternetViewController;
 @property (nonatomic, retain) SIInboxListViewController 		*inboxViewController;
 @property (nonatomic, assign) SIViewController 				*currentViewController;
+
+
+@property (nonatomic, retain) DSURLTestListViewController 		*dsURLViewController;
+
 
 @property (nonatomic, retain) SIInboxDownloader 			*downloader;
 @property (nonatomic, retain) SIAuthController 				*authController;

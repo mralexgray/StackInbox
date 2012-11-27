@@ -22,12 +22,8 @@
  WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
  OTHER DEALINGS IN THE SOFTWARE.
- 
  *********************************************************************************/
-
-//
 //  IGIsolatedCookieWebView.m
-//
 
 #import "IGIsolatedCookieWebView.h"
 #import "NSHTTPCookie+Testing.h"
@@ -35,109 +31,60 @@
 
 #pragma mark private resourceLoadDelegate class interface
 
-@interface IGIsolatedCookieWebViewResourceLoadDelegate : NSObject {
-
-}
+@interface IGIsolatedCookieWebViewResourceLoadDelegate : NSObject
 
 - (IGIsolatedCookieWebViewResourceLoadDelegate *)init;
 
-- (NSURLRequest *)webView:(WebView *)sender
-				 resource:(id)identifier
-		  willSendRequest:(NSURLRequest *)request
-		 redirectResponse:(NSURLResponse *)redirectResponse
-		   fromDataSource:(WebDataSource *)dataSource;
-- (void)webView:(WebView *)sender
-	   resource:(id)identifier
-didReceiveResponse:(NSURLResponse *)response
- fromDataSource:(WebDataSource *)dataSource;
+- (NSURLREQ*)webView: (WebView*)sender resource: (id)identifier	              willSendRequest: (NSURLREQ*)request
+		                       redirectResponse: (NSURLRES*)redirectResponse   fromDataSource: (WebDataSource*)dataSource;
 
-- (NSArray *)getCookieArrayForRequest:(NSURLRequest *)request;
+- (void)webView:(WebView *)sender	   resource:(id)identifier	   		   didReceiveResponse: (NSURLREQ*)response
+																	           fromDataSource: (WebDataSource*)dataSource;
+- (NSA*) getCookieArrayForRequest: (NSURLREQ*)request;
 
 @end
-
 
 #pragma mark main class implementation
 
 @implementation IGIsolatedCookieWebView
 
-- (id)initWithFrame:(NSRect)frame {
-	self = [super initWithFrame:frame];
-	if (self) {
-		// Initialization code here.
-		[self awakeFromNib];
-	}
-	return self;
-}
+- (id)initWithFrame: (NSR)frame { if (!(self = [super initWithFrame:frame])) return nil;	[self awakeFromNib];	return self;	}
 
-- (void)awakeFromNib
-{
-//	NSLog(@"=== awakeFromNib ===");
-	IGIsolatedCookieWebViewResourceLoadDelegate *resourceLoadDelegate = [[IGIsolatedCookieWebViewResourceLoadDelegate alloc] init];
-	[self setResourceLoadDelegate:resourceLoadDelegate];
-}
+- (void)awakeFromNib		   	{ [self setResourceLoadDelegate:[[IGIsolatedCookieWebViewResourceLoadDelegate alloc] init]];	}
 
-- (void)injectCookie:(NSHTTPCookie *)cookie
-{
-	[[SIAppCookieJar sharedSIAppCookieJar] setCookie:cookie];
-}
+- (void)injectCookie: (NSHTTPCookie*)cookie	{	[[SIAppCookieJar sharedSIAppCookieJar] setCookie:cookie];						}
 
 @end
 
 #pragma mark private category on NSHTTPCookie to facilitate testing properties of the cookie
 
-
-
 #pragma mark private resourceLoadDelegate class implementation
 
 @implementation IGIsolatedCookieWebViewResourceLoadDelegate
 
-- (IGIsolatedCookieWebViewResourceLoadDelegate *)init
-{
-	self = [super init];
-	if (self) {
-		
-	}
-	return self;
-}
+//- (IGIsolatedCookieWebViewResourceLoadDelegate *)init {	self = [super init]; if (self) {	} return self; } //		NSLog(@"%d %@",[(NSHTTPURLResponse *)response statusCode],[[response URL] absoluteURL]);
 
 - (void)pullCookiesFromResponse:(NSURLResponse *)response
 {
-	if ([response respondsToSelector:@selector(allHeaderFields)]) {
-		NSDictionary *allHeaders = [(NSHTTPURLResponse *)response allHeaderFields];
-		NSArray *cookies = [[NSHTTPCookie cookiesWithResponseHeaderFields:allHeaders
-																  forURL:[response URL]] copy];
-		for (NSHTTPCookie *aCookie in cookies) {
-			[[SIAppCookieJar sharedSIAppCookieJar] setCookie:aCookie];
-		}
-//		NSLog(@"%d %@",[(NSHTTPURLResponse *)response statusCode],[[response URL] absoluteURL]);
-	}
+	[response respondsToSelector:@selector(allHeaderFields)] ?
+	[[[NSHTTPCookie cookiesWithResponseHeaderFields:[(NSHTTPURLResponse *)response allHeaderFields] forURL:[response URL]] copy]each:^(NSHTTPCookie *aCookie) {
+			[[SIAppCookieJar sharedSIAppCookieJar] setCookie:aCookie];  }] : nil;
 }
 
-- (NSURLRequest *)webView:(WebView *)sender
-				 resource:(id)identifier
-		  willSendRequest:(NSURLRequest *)request
-		 redirectResponse:(NSURLResponse *)redirectResponse
-		   fromDataSource:(WebDataSource *)dataSource
+- (NSURLRequest *)webView:(WebView *)sender resource:(id)identifier willSendRequest:(NSURLREQ*)request redirectResponse:(NSURLRES*)redirectResponse fromDataSource:(WebDataSource *)dataSource
 {
 	if (redirectResponse) [self pullCookiesFromResponse:redirectResponse];
-	NSMutableURLRequest *newRequest = [NSMutableURLRequest requestWithURL:[request URL]
-															  cachePolicy:[request cachePolicy]
-														  timeoutInterval:[request timeoutInterval]];
+	NSMutableURLRequest *newRequest = [NSMutableURLRequest requestWithURL:[request URL] cachePolicy:[request cachePolicy] timeoutInterval:[request timeoutInterval]];
 	[newRequest setAllHTTPHeaderFields:[request allHTTPHeaderFields]];
-	if ([request HTTPBodyStream]) {
-		[newRequest setHTTPBodyStream:[request HTTPBodyStream]];
-	} else {
-		[newRequest setHTTPBody:[request HTTPBody]];
-	}
-	[newRequest setHTTPMethod:[request HTTPMethod]];
-	[newRequest setHTTPShouldHandleCookies:NO];
-	[newRequest setMainDocumentURL:[request mainDocumentURL]];
-	NSArray *newCookies = [self getCookieArrayForRequest:request];
-	if (newCookies
-		&& ([newCookies count] > 0)) {
-//		NSLog(@"cookies being sent to %@: %@",
-//			  [[request URL] absoluteURL],
-//			  [NSHTTPCookie requestHeaderFieldsWithCookies:newCookies]);
+	[request HTTPBodyStream]	 ?
+		[newRequest       setHTTPBodyStream:[request HTTPBodyStream]]:
+		[newRequest    			      setHTTPBody:[request HTTPBody]];
+	[newRequest 		          setHTTPMethod:[request HTTPMethod]];
+	[newRequest  			           setHTTPShouldHandleCookies:NO];
+	[newRequest         setMainDocumentURL:[request mainDocumentURL]];
+	NSArray *newCookies 	= [self getCookieArrayForRequest:request];
+	if (newCookies	&& ([newCookies count] > 0)) {
+//		NSLog(@"cookies being sent to %@: %@",	[[request URL] absoluteURL],	[NSHTTPCookie requestHeaderFieldsWithCookies:newCookies]);
 		NSMD *newAllHeaders = [NSMD dictionaryWithDictionary:[request allHTTPHeaderFields]];
 		[newAllHeaders addEntriesFromDictionary:[NSHTTPCookie requestHeaderFieldsWithCookies:newCookies]];
 		[newRequest setAllHTTPHeaderFields:[NSDictionary dictionaryWithDictionary:newAllHeaders]];
@@ -145,24 +92,14 @@ didReceiveResponse:(NSURLResponse *)response
 	return newRequest;
 }
 
-- (void)webView:(WebView *)sender
-	   resource:(id)identifier
-didReceiveResponse:(NSURLResponse *)response
- fromDataSource:(WebDataSource *)dataSource
+- (void)webView:(WebView *)sender	resource:(id)identifier	didReceiveResponse:(NSURLRES*)response	fromDataSource:(WebDataSource *)dataSource
 {
 	[self pullCookiesFromResponse:response];
 }
 
-- (NSArray *)getCookieArrayForRequest:(NSURLRequest *)request
+- (NSA*)getCookieArrayForRequest:(NSURLRequest *)request
 {
-	NSMutableArray *cookiesToSend = [NSMutableArray arrayWithCapacity:0];
-	for (NSHTTPCookie *aCookie in [[SIAppCookieJar sharedSIAppCookieJar] cookieStore]) {
-		if ([aCookie isForRequest:request]) {
-			[cookiesToSend addObject:aCookie];
-		}
-	}
-	return [NSArray arrayWithArray:cookiesToSend];
+	return [[[SIAppCookieJar sharedSIAppCookieJar] cookieStore] filter:^BOOL(NSHTTPCookie *aCookie) { return [aCookie isForRequest:request]; }];
 }
-
 
 @end

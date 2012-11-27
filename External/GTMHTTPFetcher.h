@@ -13,9 +13,7 @@
  * limitations under the License.
  */
 
-//
 //  GTMHTTPFetcher.h
-//
 
 // This is essentially a wrapper around NSURLConnection for POSTs and GETs.
 // If setPostData: is called, then POST is assumed.
@@ -23,23 +21,19 @@
 // When would you use this instead of NSURLConnection?
 //
 // - When you just want the result from a GET, POST, or PUT
-// - When you want the "standard" behavior for connections (redirection handling
-//   an so on)
+// - When you want the "standard" behavior for connections (redirection handling an so on)
 // - When you want automatic retry on failures
 // - When you want to avoid cookie collisions with Safari and other applications
-// - When you are fetching resources with ETags and want to avoid the overhead
-//   of repeated fetches of unchanged data
+// - When you are fetching resources with ETags and want to avoid the overhead of repeated fetches of unchanged data
 // - When you need to set a credential for the http operation
 //
 // This is assumed to be a one-shot fetch request; don't reuse the object
 // for a second fetch.
 //
-// The fetcher may be created auto-released, in which case it will release
-// itself after the fetch completion callback.  The fetcher is implicitly
+// The fetcher may be created auto-released, in which case it will release itself after the fetch completion callback.  The fetcher is implicitly
 // retained as long as a connection is pending.
 //
-// But if you may need to cancel the fetcher, retain it and have the delegate
-// release the fetcher in the callbacks.
+// But if you may need to cancel the fetcher, retain it and have the delegate release the fetcher in the callbacks.
 //
 // Sample usage:
 //
@@ -52,9 +46,8 @@
 //  [myFetcher beginFetchWithDelegate:self
 //				  didFinishSelector:@selector(myFetcher:finishedWithData:error:)];
 //
-//  Upon fetch completion, the callback selector is invoked; it should have
-//  this signature (you can use any callback method name you want so long as
-//  the signature matches this):
+//  Upon fetch completion, the callback selector is invoked; it should have this signature (you can use any callback method name
+//	you want so long as	the signature matches this):
 //
 //  - (void)myFetcher:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)retrievedData error:(NSError *)error;
 //
@@ -69,72 +62,53 @@
 //  }];
 
 //
-// NOTE:  Fetches may retrieve data from the server even though the server
-//		returned an error.  The failure selector is called when the server
-//		status is >= 300, with an NSError having domain
-//		kGTMHTTPFetcherStatusDomain and code set to the server status.
+// NOTE:  	Fetches may retrieve data from the server even though the server returned an error.
+//		  	The failure selector is called when the server status is >= 300, with an NSError having domain
+//			kGTMHTTPFetcherStatusDomain and code set to the server status.
+//			Status codes are at <http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html>
 //
-//		Status codes are at <http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html>
+// 	Downloading to disk:
 //
+// 	To have downloaded data saved directly to disk, specify either a path for the downloadPath property, or a file handle
+//	for the downloadFileHandle property. When downloading to disk, callbacks will be passed a nil for the NSData* arguments.
 //
-// Downloading to disk:
+//	HTTP methods and headers:
 //
-// To have downloaded data saved directly to disk, specify either a path for the
-// downloadPath property, or a file handle for the downloadFileHandle property.
-// When downloading to disk, callbacks will be passed a nil for the NSData*
-// arguments.
+//	Alternative HTTP methods, like PUT, and custom headers can be specified by creating the fetcher with an appropriate NSMutableURLRequest
 //
+// 	Proxies:
 //
-// HTTP methods and headers:
-//
-// Alternative HTTP methods, like PUT, and custom headers can be specified by
-// creating the fetcher with an appropriate NSMutableURLRequest
-//
-//
-// Proxies:
-//
-// Proxy handling is invisible so long as the system has a valid credential in
-// the keychain, which is normally true (else most NSURL-based apps would have
-// difficulty.)  But when there is a proxy authetication error, the the fetcher
-// will call the failedWithError: method with the NSURLChallenge in the error's
-// userInfo. The error method can get the challenge info like this:
+// 	Proxy handling is invisible so long as the system has a valid credential in the keychain, which is normally true
+//	(else most NSURL-based apps would have difficulty.)  But when there is a proxy authetication error, the the fetcher
+//	will call the failedWithError: method with the NSURLChallenge in the error's userInfo. The error method can get the challenge info like this:
 //
 //  NSURLAuthenticationChallenge *challenge
 //	 = [[error userInfo] objectForKey:kGTMHTTPFetcherErrorChallengeKey];
 //  BOOL isProxyChallenge = [[challenge protectionSpace] isProxy];
 //
-// If a proxy error occurs, you can ask the user for the proxy username/password
-// and call fetcher's setProxyCredential: to provide those for the
-// next attempt to fetch.
+//	If a proxy error occurs, you can ask the user for the proxy username/password and call fetcher's setProxyCredential: to provide those for the
+//	next attempt to fetch.
 //
+// 	Cookies:
 //
-// Cookies:
+//	There are three supported mechanisms for remembering cookies between fetches.
 //
-// There are three supported mechanisms for remembering cookies between fetches.
+//	By default, GTMHTTPFetcher uses a mutable array held statically to track cookies for all instantiated fetchers.
+//	This avoids server cookies being set by servers for the application from interfering with Safari cookie settings,
+// 	and vice versa.  The fetcher cookies are lost when the application quits.
 //
-// By default, GTMHTTPFetcher uses a mutable array held statically to track
-// cookies for all instantiated fetchers. This avoids server cookies being set
-// by servers for the application from interfering with Safari cookie settings,
-// and vice versa.  The fetcher cookies are lost when the application quits.
+//	To rely instead on WebKit's global NSHTTPCookieStorage, call setCookieStorageMethod: with kGTMHTTPFetcherCookieStorageMethodSystemDefault.
 //
-// To rely instead on WebKit's global NSHTTPCookieStorage, call
-// setCookieStorageMethod: with kGTMHTTPFetcherCookieStorageMethodSystemDefault.
+// 	If the fetcher is created from a GTMHTTPFetcherService object then the cookie storage mechanism is set to use the cookie storage in the
+// 	service object rather than the static storage.
 //
-// If the fetcher is created from a GTMHTTPFetcherService object
-// then the cookie storage mechanism is set to use the cookie storage in the
-// service object rather than the static storage.
+// 	Fetching for periodic checks:
 //
+// 	The fetcher object tracks ETag headers from responses and provide an "If-None-Match" header. This allows the server to save
+// 	bandwidth by providing a status message instead of repeated response data.
 //
-// Fetching for periodic checks:
-//
-// The fetcher object tracks ETag headers from responses and
-// provide an "If-None-Match" header. This allows the server to save
-// bandwidth by providing a status message instead of repeated response
-// data.
-//
-// To get this behavior, create the fetcher from an GTMHTTPFetcherService object
-// and look for a fetch callback error with code 304
-// (kGTMHTTPFetcherStatusNotModified) like this:
+// 	To get this behavior, create the fetcher from an GTMHTTPFetcherService object and look for a fetch callback error with code 304
+//  (kGTMHTTPFetcherStatusNotModified) like this:
 //
 // - (void)myFetcher:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)data error:(NSError *)error {
 //	if ([error code] == kGTMHTTPFetcherStatusNotModified) {
@@ -144,22 +118,17 @@
 //	}
 // }
 //
+// 	Monitoring received data
 //
-// Monitoring received data
-//
-// The optional received data selector can be set with setReceivedDataSelector:
-// and should have the signature
+// 	The optional received data selector can be set with setReceivedDataSelector: and should have the signature
 //
 //  - (void)myFetcher:(GTMHTTPFetcher *)fetcher receivedData:(NSData *)dataReceivedSoFar;
 //
-// The number bytes received so far is available as [fetcher downloadedLength].
-// This number may go down if a redirect causes the download to begin again from
-// a new server.
+// 	The number bytes received so far is available as [fetcher downloadedLength].
+//	This number may go down if a redirect causes the download to begin again from a new server.
 //
-// If supplied by the server, the anticipated total download size is available
-// as [[myFetcher response] expectedContentLength] (and may be -1 for unknown
-// download sizes.)
-//
+// 	If supplied by the server, the anticipated total download size is available as [[myFetcher response] expectedContentLength]
+//	(and may be -1 for unknown download sizes.)
 //
 // Automatic retrying of fetches
 //
@@ -249,7 +218,6 @@
 #endif
 
 // notifications
-//
 // fetch started and stopped, and fetch retry delay started and stopped
 _EXTERN NSString* const kGTMHTTPFetcherStartedNotification		   _INITIALIZE_AS(@"kGTMHTTPFetcherStartedNotification");
 _EXTERN NSString* const kGTMHTTPFetcherStoppedNotification		   _INITIALIZE_AS(@"kGTMHTTPFetcherStoppedNotification");
@@ -269,8 +237,7 @@ enum {
   kGTMHTTPFetcherErrorFileHandleException = -4,
   kGTMHTTPFetcherErrorBackgroundExpiration = -6,
 
-  // The code kGTMHTTPFetcherErrorAuthorizationFailed (-5) has been removed;
-  // look for status 401 instead.
+  // The code kGTMHTTPFetcherErrorAuthorizationFailed (-5) has been removed; look for status 401 instead.
 
   kGTMHTTPFetcherStatusNotModified = 304,
   kGTMHTTPFetcherStatusBadRequest = 400,
@@ -292,32 +259,25 @@ void GTMAssertSelectorNilOrImplementedWithArgs(id obj, SEL sel, ...);
 @class GTMHTTPFetcher;
 
 @protocol GTMCookieStorageProtocol <NSObject>
-// This protocol allows us to call into the service without requiring
-// GTMCookieStorage sources in this project
-//
-// The public interface for cookie handling is the GTMCookieStorage class,
-// accessible from a fetcher service object's fetchHistory or from the fetcher's
-// +staticCookieStorage method.
+// 	This protocol allows us to call into the service without requiring GTMCookieStorage sources in this project
+// 	The public interface for cookie handling is the GTMCookieStorage class, accessible from a fetcher service object's fetchHistory
+//	or from the fetcher's +staticCookieStorage method.
 - (NSArray *)cookiesForURL:(NSURL *)theURL;
 - (void)setCookies:(NSArray *)newCookies;
 @end
 
 @protocol GTMHTTPFetchHistoryProtocol <NSObject>
-// This protocol allows us to call the fetch history object without requiring
-// GTMHTTPFetchHistory sources in this project
+// This protocol allows us to call the fetch history object without requiring GTMHTTPFetchHistory sources in this project
 - (void)updateRequest:(NSMutableURLRequest *)request isHTTPGet:(BOOL)isHTTPGet;
 - (BOOL)shouldCacheETaggedData;
 - (NSData *)cachedDataForRequest:(NSURLRequest *)request;
 - (id <GTMCookieStorageProtocol>)cookieStorage;
-- (void)updateFetchHistoryWithRequest:(NSURLRequest *)request
-							 response:(NSURLResponse *)response
-					   downloadedData:(NSData *)downloadedData;
-- (void)removeCachedDataForRequest:(NSURLRequest *)request;
+- (void)updateFetchHistoryWithRequest:(NSURLREQ*)request	 response:(NSURLRES*)response downloadedData:(NSData*)downloadedData;
+- (void)removeCachedDataForRequest:(NSURLREQ*)request;
 @end
 
 @protocol GTMHTTPFetcherServiceProtocol <NSObject>
-// This protocol allows us to call into the service without requiring
-// GTMHTTPFetcherService sources in this project
+// This protocol allows us to call into the service without requiring GTMHTTPFetcherService sources in this project
 - (BOOL)fetcherShouldBeginFetching:(GTMHTTPFetcher *)fetcher;
 - (void)fetcherDidStop:(GTMHTTPFetcher *)fetcher;
 
@@ -327,8 +287,7 @@ void GTMAssertSelectorNilOrImplementedWithArgs(id obj, SEL sel, ...);
 
 @protocol GTMFetcherAuthorizationProtocol <NSObject>
 @required
-// This protocol allows us to call the authorizer without requiring its sources
-// in this project
+// This protocol allows us to call the authorizer without requiring its sources in this project
 - (void)authorizeRequest:(NSMutableURLRequest *)request
 				delegate:(id)delegate
 	   didFinishSelector:(SEL)sel;
@@ -347,9 +306,7 @@ void GTMAssertSelectorNilOrImplementedWithArgs(id obj, SEL sel, ...);
 - (BOOL)primeForRefresh;
 @end
 
-// GTMHTTPFetcher objects are used for async retrieval of an http get or post
-//
-// See additional comments at the beginning of this file
+// GTMHTTPFetcher objects are used for async retrieval of an http get or post  // See additional comments at the beginning of this file
 @interface GTMHTTPFetcher : NSObject {
  @protected
   NSMutableURLRequest *request_;
@@ -483,17 +440,12 @@ void GTMAssertSelectorNilOrImplementedWithArgs(id obj, SEL sel, ...);
 // The delegate is retained during the connection
 @property (retain) id delegate;
 
-// On iOS 4 and later, the fetch may optionally continue while the app is in the
-// background until finished or stopped by OS expiration
-//
+// On iOS 4 and later, the fetch may optionally continue while the app is in the background until finished or stopped by OS expiration
 // The default value is NO
-//
-// For Mac OS X, background fetches are always supported, and this property
-// is ignored
+// For Mac OS X, background fetches are always supported, and this property is ignored
 @property (assign) BOOL shouldFetchInBackground;
 
-// The delegate's optional sentData selector may be used to monitor upload
-// progress. It should have a signature like:
+// The delegate's optional sentData selector may be used to monitor upload progress. It should have a signature like:
 //  - (void)myFetcher:(GTMHTTPFetcher *)fetcher
 //			  didSendBytes:(NSInteger)bytesSent
 //			totalBytesSent:(NSInteger)totalBytesSent
@@ -504,34 +456,29 @@ void GTMAssertSelectorNilOrImplementedWithArgs(id obj, SEL sel, ...);
 
 @property (assign) SEL sentDataSelector;
 
-// The delegate's optional receivedData selector may be used to monitor download
-// progress. It should have a signature like:
+// The delegate's optional receivedData selector may be used to monitor download progress. It should have a signature like:
 //  - (void)myFetcher:(GTMHTTPFetcher *)fetcher
 //	   receivedData:(NSData *)dataReceivedSoFar;
 //
 // The dataReceived argument will be nil when downloading to a file handle.
 //
-// Applications should not use this method to accumulate the received data;
-// the callback method or block supplied to the beginFetch call will have
-// the complete NSData received.
+// 	Applications should not use this method to accumulate the received data;
+//	the callback method or block supplied to the beginFetch call will have the complete NSData received.
 @property (assign) SEL receivedDataSelector;
 
 #if NS_BLOCKS_AVAILABLE
 // The full interface to the block is provided rather than just a typedef for
-// its parameter list in order to get more useful code completion in the Xcode
-// editor
+// its parameter list in order to get more useful code completion in the Xcode editor
 @property (copy) void (^sentDataBlock)(NSInteger bytesSent, NSInteger totalBytesSent, NSInteger bytesExpectedToSend);
 
 // The dataReceived argument will be nil when downloading to a file handle
 @property (copy) void (^receivedDataBlock)(NSData *dataReceivedSoFar);
 #endif
 
-// retrying; see comments at the top of the file.  Calling
-// setRetryEnabled(YES) resets the min and max retry intervals.
+// retrying; see comments at the top of the file.  Calling setRetryEnabled(YES) resets the min and max retry intervals.
 @property (assign, getter=isRetryEnabled) BOOL retryEnabled;
 
 // Retry selector or block is optional for retries.
-//
 // If present, it should have the signature:
 //   -(BOOL)fetcher:(GTMHTTPFetcher *)fetcher willRetry:(BOOL)suggestedWillRetry forError:(NSError *)error
 // and return YES to cause a retry.  See comments at the top of this file.
@@ -541,20 +488,15 @@ void GTMAssertSelectorNilOrImplementedWithArgs(id obj, SEL sel, ...);
 @property (copy) BOOL (^retryBlock)(BOOL suggestedWillRetry, NSError *error);
 #endif
 
-// Retry intervals must be strictly less than maxRetryInterval, else
-// they will be limited to maxRetryInterval and no further retries will
-// be attempted.  Setting maxRetryInterval to 0.0 will reset it to the
-// default value, 600 seconds.
-
+// Retry intervals must be strictly less than maxRetryInterval, else they will be limited to maxRetryInterval and no further retries will
+// be attempted.  Setting maxRetryInterval to 0.0 will reset it to the default value, 600 seconds.
 @property (assign) NSTimeInterval maxRetryInterval;
 
-// Starting retry interval.  Setting minRetryInterval to 0.0 will reset it
-// to a random value between 1.0 and 2.0 seconds.  Clients should normally not
-// call this except for unit testing.
+// 	Starting retry interval.  Setting minRetryInterval to 0.0 will reset it to a random value between 1.0 and 2.0 seconds.
+//  Clients should normally not call this except for unit testing.
 @property (assign) NSTimeInterval minRetryInterval;
 
-// Multiplier used to increase the interval between retries, typically 2.0.
-// Clients should not need to call this.
+// Multiplier used to increase the interval between retries, typically 2.0.  Clients should not need to call this.
 @property (assign) double retryFactor;
 
 // Number of retries attempted
@@ -565,14 +507,11 @@ void GTMAssertSelectorNilOrImplementedWithArgs(id obj, SEL sel, ...);
 
 // Begin fetching the request
 //
-// The delegate can optionally implement the finished selectors or pass NULL
-// for it.
+// The delegate can optionally implement the finished selectors or pass NULL for it.
 //
-// Returns YES if the fetch is initiated.  The delegate is retained between
-// the beginFetch call until after the finish callback.
+// Returns YES if the fetch is initiated.  The delegate is retained between the beginFetch call until after the finish callback.
 //
-// An error is passed to the callback for server statuses 300 or
-// higher, with the status stored as the error object's code.
+// An error is passed to the callback for server statuses 300 or higher, with the status stored as the error object's code.
 //
 // finishedSEL has a signature like:
 //   - (void)fetcher:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)data error:(NSError *)error;
@@ -584,7 +523,6 @@ void GTMAssertSelectorNilOrImplementedWithArgs(id obj, SEL sel, ...);
 #if NS_BLOCKS_AVAILABLE
 - (BOOL)beginFetchWithCompletionHandler:(void (^)(NSData *data, NSError *error))handler;
 #endif
-
 
 // Returns YES if this is in the process of fetching a URL
 - (BOOL)isFetching;
@@ -608,24 +546,20 @@ void GTMAssertSelectorNilOrImplementedWithArgs(id obj, SEL sel, ...);
 @property (readonly, retain) NSData *downloadedData;
 
 // Path in which to non-atomically create a file for storing the downloaded data
-//
-// The path must be set before fetching begins.  The download file handle
-// will be created for the path, and can be used to monitor progress. If a file
-// already exists at the path, it will be overwritten.
+
+//	The path must be set before fetching begins.  The download file handle will be created for the path, and can be used to monitor progress.
+//	If a file already exists at the path, it will be overwritten.
 @property (copy) NSS *downloadPath;
 
-// If downloadFileHandle is set, data received is immediately appended to
-// the file handle rather than being accumulated in the downloadedData property
-//
+// If downloadFileHandle is set, data received is immediately appended to the file handle rather than being accumulated in the downloadedData property
+
 // The file handle supplied must allow writing and support seekToFileOffset:,
-// and must be set before fetching begins.  Setting a download path will
-// override the file handle property.
+// and must be set before fetching begins.  Setting a download path will override the file handle property.
 @property (retain) NSFileHandle *downloadFileHandle;
 
-// The optional fetchHistory object is used for a sequence of fetchers to
-// remember ETags, cache ETagged data, and store cookies.  Typically, this
-// is set by a GTMFetcherService object when it creates a fetcher.
-//
+// The optional fetchHistory object is used for a sequence of fetchers to remember ETags, cache ETagged data, and store cookies.
+//	Typically, this is set by a GTMFetcherService object when it creates a fetcher.
+
 // Side effect: setting fetch history implicitly calls setCookieStorageMethod:
 @property (retain) id <GTMHTTPFetchHistoryProtocol> fetchHistory;
 
@@ -648,18 +582,15 @@ void GTMAssertSelectorNilOrImplementedWithArgs(id obj, SEL sel, ...);
 // Log of request and response, if logging is enabled
 @property (copy) NSS *log;
 
-// Using the fetcher while a modal dialog is displayed requires setting the
-// run-loop modes to include NSModalPanelRunLoopMode
+// Using the fetcher while a modal dialog is displayed requires setting the run-loop modes to include NSModalPanelRunLoopMode
 @property (retain) NSArray *runLoopModes;
 
-// Users who wish to replace GTMHTTPFetcher's use of NSURLConnection
-// can do so globally here.  The replacement should be a subclass of
-// NSURLConnection.
+//	Users who wish to replace GTMHTTPFetcher's use of NSURLConnection can do so globally here.
+//	The replacement should be a subclass of NSURLConnection.
 + (Class)connectionClass;
 + (void)setConnectionClass:(Class)theClass;
 
 // Spin the run loop, discarding events, until the fetch has completed
-//
 // This is only for use in testing or in tools without a user interface.
 //
 // Synchronous fetches should never be done by shipping apps; they are

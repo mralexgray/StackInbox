@@ -3,52 +3,63 @@
 //  
 //
 //  Created by Jonathan Bailey on 11/02/2012.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
-//
 
-#import "PXListView.h"
+#import "EGOImageView.h"
+#import <AtoZ/AtoZ.h>
 
 @class SIAppDelegate;
-@interface SIViewController : NSViewController
+@interface 					 SIViewController : NSViewController
+@property (weak) 				SIAppDelegate   *parentContainer;
+@property  								 BOOL 	isCurrent;
 
-@property (unsafe_unretained) SIAppDelegate *parentContainer;
-@property (assign) BOOL 		  isCurrent;
-
-- (id)init;
-- (void)viewControllerWillMoveFromParent;
-
+- (void) viewControllerWillMoveFromParent;
+- (id)   init;
 @end
 
-@protocol SILoginViewControllerDelegate <NSObject>
-- (void)loginButtonPressed;
+@protocol       SILoginViewControllerDelegate   <NSObject>
+- (void) loginButtonPressed;
 @end
 
-@interface SILoginViewController : SIViewController
-@property (assign) BOOL loginState;
-@property (unsafe_unretained) IBOutlet NSButton *loginButton;
-@property (unsafe_unretained) IBOutlet NSProgressIndicator *progressBar;
-@property (unsafe_unretained) id<SILoginViewControllerDelegate> delegate;
-- (IBAction)login:(NSButton *)sender;
-- (void)setLoginState:(BOOL)loggingIn;
+@interface              SILoginViewController : SIViewController
+@property 	   	  						 BOOL   loginState;
+@property (weak) 		IBOutlet 	   NSBUTT   *loginButton;
+@property (weak) 		IBOutlet 	     NSPI   *progressBar;
+@property  id <SILoginViewControllerDelegate>   delegate;
+
+- (IBAction) login:			(NSBUTT*)sender;
+- (void) 	 setLoginState:	(BOOL)loggingIn;
+@end
+
+@interface 			           SIListViewCell : PXListViewCell
+@property (RONLY)		      		      NSC	*backgroundColor;
+@property (STRNG,NATOM) IBOutlet EGOImageView   *imageView;
+@property  			    IBOutlet       NSTXTF 	*timeField;
+@property (STRNG,NATOM) IBOutlet       NSTXTF 	*textLabel,
+												*detailTextLabel;
+@end
+
+@interface 		  DSURLTestListViewController : SIViewController <PXListViewDelegate>
+@property  			   	IBOutlet   PXListView   *listView;
+@property (STRNG,NATOM) 		     	  NSA   *itemsToList;
+@end
+
+@interface 			      DSURLDataSourceCell : PXListViewCell
+@property (STRNG,NATOM)	IBOutlet       NSTXTF   *textLabel;
+@property 			 	IBOutlet 	 AZASIMGV   *imageV;
+@property (STRNG) 					      NSC   *backgroundColor;
+@end
+
+@interface        SIDownloadingViewController : SIViewController
+@property  				IBOutlet         NSPI   *activity;
+@property  				IBOutlet    	 NSPI   *progressBar;
 @end
 
 
-
-@interface SIDownloadingViewController : SIViewController
-@property (unsafe_unretained) IBOutlet NSProgressIndicator *activity;
-@property (unsafe_unretained) IBOutlet NSProgressIndicator *progressBar;
-
+@interface          SIInboxListViewController : SIViewController <PXListViewDelegate>
+@property  			   IBOutlet    PXListView 	*listView;
+@property (STRNG,NATOM) 			      NSA   *itemsToList;
 @end
 
-
-
-@interface SINoInternetViewController : SIViewController
+@interface         SINoInternetViewController : SIViewController
 @end
-
-
-@interface SIInboxListViewController : SIViewController <PXListViewDelegate>
-@property (unsafe_unretained) IBOutlet   PXListView 	*listView;
-@property (nonatomic, strong) NSArray 		*itemsToList;
-@end
-
 

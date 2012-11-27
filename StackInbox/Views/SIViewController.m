@@ -1,18 +1,18 @@
-//
+
 //  SIViewController.m
-//  
-//
 //  Created by Jonathan Bailey on 11/02/2012.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
-//
 
 #import "SIViewControllers.h"
-#import "SIAppDelegate.h"
 
 @implementation SIViewController
 @synthesize 	parentContainer, isCurrent;
 
-- (id)init { return [self initWithNibName:NSStringFromClass([self class]) bundle:nil]; }
+- (id)init
+{
+    NSS* classname = NSStringFromClass([self class]);
+    if (!(self = [super initWithNibName:classname bundle:[NSBundle frameworkBundleNamed:@"AtoZStack"]])) return nil;
+	return self;
+}
 
 - (void) viewControllerWillMoveFromParent {	/* override */		}
 
