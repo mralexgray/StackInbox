@@ -62,7 +62,7 @@
 
 @implementation IGIsolatedCookieWebViewResourceLoadDelegate
 
-//- (IGIsolatedCookieWebViewResourceLoadDelegate *)init {	self = [super init]; if (self) {	} return self; } //		NSLog(@"%d %@",[(NSHTTPURLResponse *)response statusCode],[[response URL] absoluteURL]);
+- (IGIsolatedCookieWebViewResourceLoadDelegate *)init {	self = [super init]; if (self) {	} return self; } //		NSLog(@"%d %@",[(NSHTTPURLResponse *)response statusCode],[[response URL] absoluteURL]);
 
 - (void)pullCookiesFromResponse:(NSURLResponse *)response
 {
