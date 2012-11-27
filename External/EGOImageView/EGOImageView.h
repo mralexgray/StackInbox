@@ -27,25 +27,19 @@
 #import "EGOImageLoader.h"
 
 @protocol EGOImageViewDelegate;
-@interface EGOImageView : NSImageView<EGOImageLoaderObserver> {
-@private
-	NSURL* imageURL;
-	NSImage* placeholderImage;
-	id<EGOImageViewDelegate> __unsafe_unretained delegate;
-}
+@interface EGOImageView : NSImageView <EGOImageLoaderObserver>
 
-- (id)initWithPlaceholderImage:(NSImage*)anImage; // delegate:nil
-- (id)initWithPlaceholderImage:(NSImage*)anImage delegate:(id<EGOImageViewDelegate>)aDelegate;
+- (id)   initWithPlaceholderImage:(NSIMG*)anImage; // delegate:nil
+- (id)   initWithPlaceholderImage:(NSIMG*)anImage delegate:(id<EGOImageViewDelegate>)aDelegate;
+- (void) cancelImageLoad;
 
-- (void)cancelImageLoad;
-
-@property(nonatomic,strong) NSURL* imageURL;
-@property(nonatomic,strong) NSImage* placeholderImage;
-@property(nonatomic,unsafe_unretained) id<EGOImageViewDelegate> delegate;
+@property(nonatomic, strong) NSURL	*imageURL;
+@property(nonatomic, strong) NSIMG	*placeholderImage;
+@property(nonatomic, assign) id <EGOImageViewDelegate> delegate;
 @end
 
-@protocol EGOImageViewDelegate<NSObject>
+@protocol EGOImageViewDelegate <NSObject>
 @optional
-- (void)imageViewLoadedImage:(EGOImageView*)imageView;
-- (void)imageViewFailedToLoadImage:(EGOImageView*)imageView error:(NSError*)error;
+- (void) imageViewLoadedImage: 		(EGOImageView*)imageView;
+- (void) imageViewFailedToLoadImage:(EGOImageView*)imageView error:(NSError*)error;
 @end

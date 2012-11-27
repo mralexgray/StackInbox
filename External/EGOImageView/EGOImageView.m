@@ -28,23 +28,30 @@
 #import "EGOImageLoader.h"
 
 @implementation EGOImageView
+{
+@private
+	NSURL* imageURL;
+	NSImage* placeholderImage;
+	id<EGOImageViewDelegate> __unsafe_unretained delegate;
+}
 @synthesize imageURL, placeholderImage, delegate;
 
-- (id)initWithPlaceholderImage:(NSImage*)anImage {
+- (id) initWithPlaceholderImage:(NSIMG*)anImage
+{
 	return [self initWithPlaceholderImage:anImage delegate:nil];	
 }
 
-- (id)initWithPlaceholderImage:(NSImage*)anImage delegate:(id<EGOImageViewDelegate>)aDelegate {
-	if((self = [super init])) {
-		[self setImage:anImage];
-		self.placeholderImage = anImage;
-		self.delegate = aDelegate;
-	}
-	
+- (id)initWithPlaceholderImage:(NSImage*)anImage delegate:(id<EGOImageViewDelegate>)aDelegate
+{
+	if (!(self = [super init])) return nil;
+	[self setImage:anImage];
+	self.placeholderImage = anImage;
+	self.delegate = aDelegate;
 	return self;
 }
 
-- (void)setImageURL:(NSURL *)aURL {
+- (void)setImageURL:(NSURL *)aURL
+{
 	if(imageURL) {
 		[[EGOImageLoader sharedImageLoader] removeObserver:self forURL:imageURL];
 		imageURL = nil;
@@ -54,53 +61,48 @@
 		self.image = self.placeholderImage;
 		imageURL = nil;
 		return;
-	} else {
-		imageURL = aURL;
-	}
+	} else imageURL = aURL;
 
 	[[EGOImageLoader sharedImageLoader] removeObserver:self];
 	NSImage* anImage = [[EGOImageLoader sharedImageLoader] imageForURL:aURL shouldLoadWithObserver:self];
 	
-	if(anImage) {
+	if ( anImage ) {
 		self.image = anImage;
-
 		// trigger the delegate callback if the image was found in the cache
-		if([self.delegate respondsToSelector:@selector(imageViewLoadedImage:)]) {
+		if([self.delegate respondsToSelector:@selector(imageViewLoadedImage:)])
 			[self.delegate imageViewLoadedImage:self];
-		}
-	} else {
-		self.image = self.placeholderImage;
-	}
+	} else 	self.image = self.placeholderImage;
+
 }
 
 #pragma mark Image loading
 
-- (void)cancelImageLoad {
+- (void)cancelImageLoad
+{
 	[[EGOImageLoader sharedImageLoader] cancelLoadForURL:self.imageURL];
 	[[EGOImageLoader sharedImageLoader] removeObserver:self forURL:self.imageURL];
 }
 
-- (void)imageLoaderDidLoad:(NSNotification*)notification {
+- (void)imageLoaderDidLoad:(NSNotification*)notification
+{
 	if(![[notification userInfo][@"imageURL"] isEqual:self.imageURL]) return;
-
 	NSImage* anImage = [notification userInfo][@"image"];
 	self.image = anImage;
 	[self setNeedsDisplay];
 	
-	if([self.delegate respondsToSelector:@selector(imageViewLoadedImage:)]) {
+	if([self.delegate respondsToSelector:@selector(imageViewLoadedImage:)])
 		[self.delegate imageViewLoadedImage:self];
-	}	
 }
 
-- (void)imageLoaderDidFailToLoad:(NSNotification*)notification {
-	if(![[notification userInfo][@"imageURL"] isEqual:self.imageURL]) return;
-	
-	if([self.delegate respondsToSelector:@selector(imageViewFailedToLoadImage:error:)]) {
+- (void)imageLoaderDidFailToLoad:(NSNotification*)notification
+{
+	if (![[notification userInfo][@"imageURL"] isEqual:self.imageURL]) return;
+	if([self.delegate respondsToSelector:@selector(imageViewFailedToLoadImage:error:)])
 		[self.delegate imageViewFailedToLoadImage:self error:[notification userInfo][@"error"]];
-	}
 }
 
-- (void)dealloc {
+- (void)dealloc
+{
 	[[EGOImageLoader sharedImageLoader] removeObserver:self];
 	self.imageURL = nil;
 }
