@@ -14,7 +14,7 @@
 // If defined will use the specified function for debug logging
 // Otherwise use NSLog
 #ifndef ASI_DEBUG_LOG
-	#define ASI_DEBUG_LOG NSLog
+    #define ASI_DEBUG_LOG NSLog
 #endif
 
 // When set to 1 ASIHTTPRequests will print information about what a request is doing
@@ -39,5 +39,5 @@
 
 // When set to 1, ASIHTTPRequests will print information about HTTP authentication (Basic, Digest or NTLM) to the console
 #ifndef DEBUG_HTTP_AUTHENTICATION
-	#define DEBUG_HTTP_AUTHENTICATION 0
+    #define DEBUG_HTTP_AUTHENTICATION 0
 #endif

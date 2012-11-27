@@ -12,13 +12,13 @@
 
 static ASIDownloadCache *sharedCache = nil;
 
-static NSS *sessionCacheFolder = @"SessionStore";
-static NSS *permanentCacheFolder = @"PermanentStore";
+static NSString *sessionCacheFolder = @"SessionStore";
+static NSString *permanentCacheFolder = @"PermanentStore";
 static NSArray *fileExtensionsToHandleAsHTML = nil;
 
 @interface ASIDownloadCache ()
-+ (NSS *)keyForURL:(NSURL *)url;
-- (NSS *)pathToFile:(NSS *)file;
++ (NSString *)keyForURL:(NSURL *)url;
+- (NSString *)pathToFile:(NSString *)file;
 @end
 
 @implementation ASIDownloadCache
@@ -37,7 +37,7 @@ static NSArray *fileExtensionsToHandleAsHTML = nil;
 	self = [super init];
 	[self setShouldRespectCacheControlHeaders:YES];
 	[self setDefaultCachePolicy:ASIUseDefaultCachePolicy];
-	[self setAccessLock:[[NSRecursiveLock alloc] init]];
+	[self setAccessLock:[[[NSRecursiveLock alloc] init] autorelease]];
 	return self;
 }
 
@@ -47,34 +47,41 @@ static NSArray *fileExtensionsToHandleAsHTML = nil;
 		@synchronized(self) {
 			if (!sharedCache) {
 				sharedCache = [[self alloc] init];
-				[sharedCache setStoragePath:[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES)[0] stringByAppendingPathComponent:@"ASIHTTPRequestCache"]];
+				[sharedCache setStoragePath:[[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"ASIHTTPRequestCache"]];
 			}
 		}
 	}
 	return sharedCache;
 }
 
+- (void)dealloc
+{
+	[storagePath release];
+	[accessLock release];
+	[super dealloc];
+}
 
-- (NSS *)storagePath
+- (NSString *)storagePath
 {
 	[[self accessLock] lock];
-	NSS *p = storagePath;
+	NSString *p = [[storagePath retain] autorelease];
 	[[self accessLock] unlock];
 	return p;
 }
 
 
-- (void)setStoragePath:(NSS *)path
+- (void)setStoragePath:(NSString *)path
 {
 	[[self accessLock] lock];
 	[self clearCachedResponsesForStoragePolicy:ASICacheForSessionDurationCacheStoragePolicy];
-	storagePath = path;
+	[storagePath release];
+	storagePath = [path retain];
 
-	NSFileManager *fileManager = [[NSFileManager alloc] init];
+	NSFileManager *fileManager = [[[NSFileManager alloc] init] autorelease];
 
 	BOOL isDirectory = NO;
-	NSArray *directories = @[path,[path stringByAppendingPathComponent:sessionCacheFolder],[path stringByAppendingPathComponent:permanentCacheFolder]];
-	for (NSS *directory in directories) {
+	NSArray *directories = [NSArray arrayWithObjects:path,[path stringByAppendingPathComponent:sessionCacheFolder],[path stringByAppendingPathComponent:permanentCacheFolder],nil];
+	for (NSString *directory in directories) {
 		BOOL exists = [fileManager fileExistsAtPath:directory isDirectory:&isDirectory];
 		if (exists && !isDirectory) {
 			[[self accessLock] unlock];
@@ -93,8 +100,8 @@ static NSArray *fileExtensionsToHandleAsHTML = nil;
 
 - (void)updateExpiryForRequest:(ASIHTTPRequest *)request maxAge:(NSTimeInterval)maxAge
 {
-	NSS *headerPath = [self pathToStoreCachedResponseHeadersForRequest:request];
-	NSMD *cachedHeaders = [NSMD dictionaryWithContentsOfFile:headerPath];
+	NSString *headerPath = [self pathToStoreCachedResponseHeadersForRequest:request];
+	NSMutableDictionary *cachedHeaders = [NSMutableDictionary dictionaryWithContentsOfFile:headerPath];
 	if (!cachedHeaders) {
 		return;
 	}
@@ -102,7 +109,7 @@ static NSArray *fileExtensionsToHandleAsHTML = nil;
 	if (!expires) {
 		return;
 	}
-	cachedHeaders[@"X-ASIHTTPRequest-Expires"] = @([expires timeIntervalSince1970]);
+	[cachedHeaders setObject:[NSNumber numberWithDouble:[expires timeIntervalSince1970]] forKey:@"X-ASIHTTPRequest-Expires"];
 	[cachedHeaders writeToFile:headerPath atomically:NO];
 }
 
@@ -132,10 +139,10 @@ static NSArray *fileExtensionsToHandleAsHTML = nil;
 		return;
 	}
 
-	NSS *headerPath = [self pathToStoreCachedResponseHeadersForRequest:request];
-	NSS *dataPath = [self pathToStoreCachedResponseDataForRequest:request];
+	NSString *headerPath = [self pathToStoreCachedResponseHeadersForRequest:request];
+	NSString *dataPath = [self pathToStoreCachedResponseDataForRequest:request];
 
-	NSMD *responseHeaders = [NSMD dictionaryWithDictionary:[request responseHeaders]];
+	NSMutableDictionary *responseHeaders = [NSMutableDictionary dictionaryWithDictionary:[request responseHeaders]];
 	if ([request isResponseCompressed]) {
 		[responseHeaders removeObjectForKey:@"Content-Encoding"];
 	}
@@ -146,7 +153,7 @@ static NSArray *fileExtensionsToHandleAsHTML = nil;
 
 	NSDate *expires = [self expiryDateForRequest:request maxAge:maxAge];
 	if (expires) {
-		responseHeaders[@"X-ASIHTTPRequest-Expires"] = @([expires timeIntervalSince1970]);
+		[responseHeaders setObject:[NSNumber numberWithDouble:[expires timeIntervalSince1970]] forKey:@"X-ASIHTTPRequest-Expires"];
 	}
 
 	// Store the response code in a custom header so we can reuse it later
@@ -156,26 +163,27 @@ static NSArray *fileExtensionsToHandleAsHTML = nil;
 	if (statusCode == 304) {
 		statusCode = 200;
 	}
-	responseHeaders[@"X-ASIHTTPRequest-Response-Status-Code"] = @(statusCode);
+	[responseHeaders setObject:[NSNumber numberWithInt:statusCode] forKey:@"X-ASIHTTPRequest-Response-Status-Code"];
 
 	[responseHeaders writeToFile:headerPath atomically:NO];
 
 	if ([request responseData]) {
 		[[request responseData] writeToFile:dataPath atomically:NO];
-	} else if ([request downloadDestinationPath] && ![[request downloadDestinationPath] isEqualToString:dataPath]) {		
+	} else if ([request downloadDestinationPath] && ![[request downloadDestinationPath] isEqualToString:dataPath]) {        
 		NSError *error = nil;
-		NSFileManager* manager = [[NSFileManager alloc] init];
-		if ([manager fileExistsAtPath:dataPath]) {
-			[manager removeItemAtPath:dataPath error:&error];
-		}
-		[manager copyItemAtPath:[request downloadDestinationPath] toPath:dataPath error:&error];
+        NSFileManager* manager = [[NSFileManager alloc] init];
+        if ([manager fileExistsAtPath:dataPath]) {
+            [manager removeItemAtPath:dataPath error:&error];
+        }
+        [manager copyItemAtPath:[request downloadDestinationPath] toPath:dataPath error:&error];
+        [manager release];
 	}
 	[[self accessLock] unlock];
 }
 
 - (NSDictionary *)cachedResponseHeadersForURL:(NSURL *)url
 {
-	NSS *path = [self pathToCachedResponseHeadersForURL:url];
+	NSString *path = [self pathToCachedResponseHeadersForURL:url];
 	if (path) {
 		return [NSDictionary dictionaryWithContentsOfFile:path];
 	}
@@ -184,17 +192,17 @@ static NSArray *fileExtensionsToHandleAsHTML = nil;
 
 - (NSData *)cachedResponseDataForURL:(NSURL *)url
 {
-	NSS *path = [self pathToCachedResponseDataForURL:url];
+	NSString *path = [self pathToCachedResponseDataForURL:url];
 	if (path) {
 		return [NSData dataWithContentsOfFile:path];
 	}
 	return nil;
 }
 
-- (NSS *)pathToCachedResponseDataForURL:(NSURL *)url
+- (NSString *)pathToCachedResponseDataForURL:(NSURL *)url
 {
 	// Grab the file extension, if there is one. We do this so we can save the cached response with the same file extension - this is important if you want to display locally cached data in a web view 
-	NSS *extension = [[url path] pathExtension];
+	NSString *extension = [[url path] pathExtension];
 
 	// If the url doesn't have an extension, we'll add one so a webview can read it when locally cached
 	// If the url has the extension of a common web scripting language, we'll change the extension on the cached path to html for the same reason
@@ -210,12 +218,12 @@ static NSArray *fileExtensionsToHandleAsHTML = nil;
 }
 
 
-- (NSS *)pathToCachedResponseHeadersForURL:(NSURL *)url
+- (NSString *)pathToCachedResponseHeadersForURL:(NSURL *)url
 {
 	return [self pathToFile:[[[self class] keyForURL:url] stringByAppendingPathExtension:@"cachedheaders"]];
 }
 
-- (NSS *)pathToFile:(NSS *)file
+- (NSString *)pathToFile:(NSString *)file
 {
 	[[self accessLock] lock];
 	if (![self storagePath]) {
@@ -223,10 +231,10 @@ static NSArray *fileExtensionsToHandleAsHTML = nil;
 		return nil;
 	}
 
-	NSFileManager *fileManager = [[NSFileManager alloc] init];
+	NSFileManager *fileManager = [[[NSFileManager alloc] init] autorelease];
 
 	// Look in the session store
-	NSS *dataPath = [[[self storagePath] stringByAppendingPathComponent:sessionCacheFolder] stringByAppendingPathComponent:file];
+	NSString *dataPath = [[[self storagePath] stringByAppendingPathComponent:sessionCacheFolder] stringByAppendingPathComponent:file];
 	if ([fileManager fileExistsAtPath:dataPath]) {
 		[[self accessLock] unlock];
 		return dataPath;
@@ -242,7 +250,7 @@ static NSArray *fileExtensionsToHandleAsHTML = nil;
 }
 
 
-- (NSS *)pathToStoreCachedResponseDataForRequest:(ASIHTTPRequest *)request
+- (NSString *)pathToStoreCachedResponseDataForRequest:(ASIHTTPRequest *)request
 {
 	[[self accessLock] lock];
 	if (![self storagePath]) {
@@ -250,10 +258,10 @@ static NSArray *fileExtensionsToHandleAsHTML = nil;
 		return nil;
 	}
 
-	NSS *path = [[self storagePath] stringByAppendingPathComponent:([request cacheStoragePolicy] == ASICacheForSessionDurationCacheStoragePolicy ? sessionCacheFolder : permanentCacheFolder)];
+	NSString *path = [[self storagePath] stringByAppendingPathComponent:([request cacheStoragePolicy] == ASICacheForSessionDurationCacheStoragePolicy ? sessionCacheFolder : permanentCacheFolder)];
 
 	// Grab the file extension, if there is one. We do this so we can save the cached response with the same file extension - this is important if you want to display locally cached data in a web view 
-	NSS *extension = [[[request url] path] pathExtension];
+	NSString *extension = [[[request url] path] pathExtension];
 
 	// If the url doesn't have an extension, we'll add one so a webview can read it when locally cached
 	// If the url has the extension of a common web scripting language, we'll change the extension on the cached path to html for the same reason
@@ -265,14 +273,14 @@ static NSArray *fileExtensionsToHandleAsHTML = nil;
 	return path;
 }
 
-- (NSS *)pathToStoreCachedResponseHeadersForRequest:(ASIHTTPRequest *)request
+- (NSString *)pathToStoreCachedResponseHeadersForRequest:(ASIHTTPRequest *)request
 {
 	[[self accessLock] lock];
 	if (![self storagePath]) {
 		[[self accessLock] unlock];
 		return nil;
 	}
-	NSS *path = [[self storagePath] stringByAppendingPathComponent:([request cacheStoragePolicy] == ASICacheForSessionDurationCacheStoragePolicy ? sessionCacheFolder : permanentCacheFolder)];
+	NSString *path = [[self storagePath] stringByAppendingPathComponent:([request cacheStoragePolicy] == ASICacheForSessionDurationCacheStoragePolicy ? sessionCacheFolder : permanentCacheFolder)];
 	path =  [path stringByAppendingPathComponent:[[[self class] keyForURL:[request url]] stringByAppendingPathExtension:@"cachedheaders"]];
 	[[self accessLock] unlock];
 	return path;
@@ -285,9 +293,9 @@ static NSArray *fileExtensionsToHandleAsHTML = nil;
 		[[self accessLock] unlock];
 		return;
 	}
-	NSFileManager *fileManager = [[NSFileManager alloc] init];
+	NSFileManager *fileManager = [[[NSFileManager alloc] init] autorelease];
 
-	NSS *path = [self pathToCachedResponseHeadersForURL:url];
+	NSString *path = [self pathToCachedResponseHeadersForURL:url];
 	if (path) {
 		[fileManager removeItemAtPath:path error:NULL];
 	}
@@ -316,7 +324,7 @@ static NSArray *fileExtensionsToHandleAsHTML = nil;
 		[[self accessLock] unlock];
 		return NO;
 	}
-	NSS *dataPath = [self pathToCachedResponseDataForURL:[request url]];
+	NSString *dataPath = [self pathToCachedResponseDataForURL:[request url]];
 	if (!dataPath) {
 		[[self accessLock] unlock];
 		return NO;
@@ -333,9 +341,9 @@ static NSArray *fileExtensionsToHandleAsHTML = nil;
 	if ([request responseHeaders] && [request complete]) {
 
 		// If the Etag or Last-Modified date are different from the one we have, we'll have to fetch this resource again
-		NSArray *headersToCompare = @[@"Etag",@"Last-Modified"];
-		for (NSS *header in headersToCompare) {
-			if (![[request responseHeaders][header] isEqualToString:cachedHeaders[header]]) {
+		NSArray *headersToCompare = [NSArray arrayWithObjects:@"Etag",@"Last-Modified",nil];
+		for (NSString *header in headersToCompare) {
+			if (![[[request responseHeaders] objectForKey:header] isEqualToString:[cachedHeaders objectForKey:header]]) {
 				[[self accessLock] unlock];
 				return NO;
 			}
@@ -345,7 +353,7 @@ static NSArray *fileExtensionsToHandleAsHTML = nil;
 	if ([self shouldRespectCacheControlHeaders]) {
 
 		// Look for X-ASIHTTPRequest-Expires header to see if the content is out of date
-		NSNumber *expires = cachedHeaders[@"X-ASIHTTPRequest-Expires"];
+		NSNumber *expires = [cachedHeaders objectForKey:@"X-ASIHTTPRequest-Expires"];
 		if (expires) {
 			if ([[NSDate dateWithTimeIntervalSince1970:[expires doubleValue]] timeIntervalSinceNow] >= 0) {
 				[[self accessLock] unlock];
@@ -390,9 +398,9 @@ static NSArray *fileExtensionsToHandleAsHTML = nil;
 		[[self accessLock] unlock];
 		return;
 	}
-	NSS *path = [[self storagePath] stringByAppendingPathComponent:(storagePolicy == ASICacheForSessionDurationCacheStoragePolicy ? sessionCacheFolder : permanentCacheFolder)];
+	NSString *path = [[self storagePath] stringByAppendingPathComponent:(storagePolicy == ASICacheForSessionDurationCacheStoragePolicy ? sessionCacheFolder : permanentCacheFolder)];
 
-	NSFileManager *fileManager = [[NSFileManager alloc] init];
+	NSFileManager *fileManager = [[[NSFileManager alloc] init] autorelease];
 
 	BOOL isDirectory = NO;
 	BOOL exists = [fileManager fileExistsAtPath:path isDirectory:&isDirectory];
@@ -406,7 +414,7 @@ static NSArray *fileExtensionsToHandleAsHTML = nil;
 		[[self accessLock] unlock];
 		[NSException raise:@"FailedToTraverseCacheDirectory" format:@"Listing cache directory failed at path '%@'",path];	
 	}
-	for (NSS *file in cacheFiles) {
+	for (NSString *file in cacheFiles) {
 		[fileManager removeItemAtPath:[path stringByAppendingPathComponent:file] error:&error];
 		if (error) {
 			[[self accessLock] unlock];
@@ -418,13 +426,13 @@ static NSArray *fileExtensionsToHandleAsHTML = nil;
 
 + (BOOL)serverAllowsResponseCachingForRequest:(ASIHTTPRequest *)request
 {
-	NSS *cacheControl = [[request responseHeaders][@"Cache-Control"] lowercaseString];
+	NSString *cacheControl = [[[request responseHeaders] objectForKey:@"Cache-Control"] lowercaseString];
 	if (cacheControl) {
 		if ([cacheControl isEqualToString:@"no-cache"] || [cacheControl isEqualToString:@"no-store"]) {
 			return NO;
 		}
 	}
-	NSS *pragma = [[request responseHeaders][@"Pragma"] lowercaseString];
+	NSString *pragma = [[[request responseHeaders] objectForKey:@"Pragma"] lowercaseString];
 	if (pragma) {
 		if ([pragma isEqualToString:@"no-cache"]) {
 			return NO;
@@ -433,9 +441,9 @@ static NSArray *fileExtensionsToHandleAsHTML = nil;
 	return YES;
 }
 
-+ (NSS *)keyForURL:(NSURL *)url
++ (NSString *)keyForURL:(NSURL *)url
 {
-	NSS *urlString = [url absoluteString];
+	NSString *urlString = [url absoluteString];
 	if ([urlString length] == 0) {
 		return nil;
 	}
@@ -467,7 +475,7 @@ static NSArray *fileExtensionsToHandleAsHTML = nil;
 	if (!headers) {
 		return NO;
 	}
-	NSS *dataPath = [self pathToCachedResponseDataForURL:[request url]];
+	NSString *dataPath = [self pathToCachedResponseDataForURL:[request url]];
 	if (!dataPath) {
 		return NO;
 	}

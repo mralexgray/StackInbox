@@ -16,11 +16,11 @@
 
 @interface ASIInputStream : NSObject {
 	NSInputStream *stream;
-	ASIHTTPRequest *__unsafe_unretained request;
+	ASIHTTPRequest *request;
 }
-+ (id)inputStreamWithFileAtPath:(NSS *)path request:(ASIHTTPRequest *)request;
++ (id)inputStreamWithFileAtPath:(NSString *)path request:(ASIHTTPRequest *)request;
 + (id)inputStreamWithData:(NSData *)data request:(ASIHTTPRequest *)request;
 
-@property (strong, nonatomic) NSInputStream *stream;
-@property (unsafe_unretained, nonatomic) ASIHTTPRequest *request;
+@property (retain, nonatomic) NSInputStream *stream;
+@property (assign, nonatomic) ASIHTTPRequest *request;
 @end

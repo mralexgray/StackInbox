@@ -23,13 +23,13 @@
 
 // Compress the passed chunk of data
 // Passing YES for shouldFinish will finalize the deflated data - you must pass YES when you are on the last chunk of data
-- (NSData *)compressBytes:(Bytef *)bytes length:(NSUI)length error:(NSError **)err shouldFinish:(BOOL)shouldFinish;
+- (NSData *)compressBytes:(Bytef *)bytes length:(NSUInteger)length error:(NSError **)err shouldFinish:(BOOL)shouldFinish;
 
 // Convenience method - pass it some data, and you'll get deflated data back
 + (NSData *)compressData:(NSData*)uncompressedData error:(NSError **)err;
 
 // Convenience method - pass it a file containing the data to compress in sourcePath, and it will write deflated data to destinationPath
-+ (BOOL)compressDataFromFile:(NSS *)sourcePath toFile:(NSS *)destinationPath error:(NSError **)err;
++ (BOOL)compressDataFromFile:(NSString *)sourcePath toFile:(NSString *)destinationPath error:(NSError **)err;
 
 // Sets up zlib to handle the inflating. You only need to call this yourself if you aren't using the convenience constructor 'compressor'
 - (NSError *)setupStream;
