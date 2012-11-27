@@ -89,8 +89,6 @@
 		7BB8710316390CF50000C242 /* SINoInternetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB3E89EE14E677F300CC5A80 /* SINoInternetViewController.xib */; };
 		7BB8710416390CF50000C242 /* SIInboxListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB3E89F314E6782400CC5A80 /* SIInboxListViewController.xib */; };
 		7BB8710516390CF50000C242 /* CellNib.xib in Resources */ = {isa = PBXBuildFile; fileRef = ABAF73B2149ED26C00DE0A2F /* CellNib.xib */; };
-		7BEA0E9C1652D0B000580C74 /* AtoZ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BEA0E9B1652D0B000580C74 /* AtoZ.framework */; };
-		7BEA0E9D1652D16500580C74 /* AtoZ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BEA0E9B1652D0B000580C74 /* AtoZ.framework */; };
 		AB3537AF14B6336D001D6CA5 /* Growl Registration Ticket.growlRegDict in Resources */ = {isa = PBXBuildFile; fileRef = AB3537AE14B6336D001D6CA5 /* Growl Registration Ticket.growlRegDict */; };
 		AB3537B314B63A75001D6CA5 /* Growl.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = AB3537AB14B63309001D6CA5 /* Growl.framework */; };
 		AB3537B614B63DA3001D6CA5 /* StackInbox.png in Resources */ = {isa = PBXBuildFile; fileRef = AB3537B514B63DA3001D6CA5 /* StackInbox.png */; };
@@ -265,7 +263,6 @@
 				7B2E2585165F278D009BE6C8 /* WebKit.framework in Frameworks */,
 				7B2E2582165F2788009BE6C8 /* Quartz.framework in Frameworks */,
 				7B2E2583165F2788009BE6C8 /* QuartzCore.framework in Frameworks */,
-				7BEA0E9C1652D0B000580C74 /* AtoZ.framework in Frameworks */,
 				7BB870AC16390C130000C242 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -274,7 +271,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7BEA0E9D1652D16500580C74 /* AtoZ.framework in Frameworks */,
 				7B2E2590165F280A009BE6C8 /* AtoZStack.framework in Frameworks */,
 				AB88C39114F40A63003D0F5E /* Growl.framework in Frameworks */,
 				ABAF744C149F6F7000DE0A2F /* libz.dylib in Frameworks */,
@@ -708,24 +704,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				7BB870BE16390C8F0000C242 /* IGIsolatedCookieWebView.m in Sources */,
-				7BB870BF16390C8F0000C242 /* INAppStoreWindow.m in Sources */,
 				7BB870C016390C8F0000C242 /* GTMHTTPFetcher.m in Sources */,
-				7BB870C116390C8F0000C242 /* GTMNSString+HTML.m in Sources */,
 				7BB870C216390C8F0000C242 /* JSONKit.m in Sources */,
 				7BB870C316390C8F0000C242 /* ASIInputStream.m in Sources */,
 				7BB870C416390C8F0000C242 /* ASIFormDataRequest.m in Sources */,
 				7BB870C516390C8F0000C242 /* ASIHTTPRequest.m in Sources */,
 				7BB870C616390C8F0000C242 /* ASINetworkQueue.m in Sources */,
 				7BB870C716390C8F0000C242 /* ASIDownloadCache.m in Sources */,
+				7BB870CC16390C8F0000C242 /* EGOCache.m in Sources */,
 				7BB870C816390C8F0000C242 /* ASIDataCompressor.m in Sources */,
 				7BB870C916390C8F0000C242 /* ASIDataDecompressor.m in Sources */,
+				7BB870D416390C8F0000C242 /* SIAppCookieJar.m in Sources */,
+				7BB870C116390C8F0000C242 /* GTMNSString+HTML.m in Sources */,
+				7BB870BF16390C8F0000C242 /* INAppStoreWindow.m in Sources */,
 				7BB870CA16390C8F0000C242 /* NSHTTPCookie+Testing.m in Sources */,
 				7BB870CB16390C8F0000C242 /* NSDate+SI.m in Sources */,
-				7BB870CC16390C8F0000C242 /* EGOCache.m in Sources */,
 				7BB870CD16390C8F0000C242 /* EGOImageLoadConnection.m in Sources */,
 				7BB870CE16390C8F0000C242 /* EGOImageLoader.m in Sources */,
 				7BB870CF16390C8F0000C242 /* EGOImageView.m in Sources */,
-				7BB870D416390C8F0000C242 /* SIAppCookieJar.m in Sources */,
 				7BB870D516390C8F0000C242 /* SIInboxModel.m in Sources */,
 				7BB870D616390C8F0000C242 /* SIInboxDownloader.m in Sources */,
 				7BB870D716390C8F0000C242 /* SIAuthController.m in Sources */,
@@ -819,6 +815,10 @@
 				INFOPLIST_FILE = "AtoZStack/AtoZStack-Info.plist";
 				INSTALL_PATH = "@rpath";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				OTHER_LDFLAGS = (
+					"-framework",
+					AtoZ,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = "";
 				SKIP_INSTALL = YES;
@@ -847,6 +847,10 @@
 				INFOPLIST_FILE = "AtoZStack/AtoZStack-Info.plist";
 				INSTALL_PATH = "@rpath";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				OTHER_LDFLAGS = (
+					"-framework",
+					AtoZ,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = "";
 				SKIP_INSTALL = YES;
@@ -860,7 +864,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				COPY_PHASE_STRIP = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -869,14 +873,14 @@
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_VERSION = "";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = NO;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = macosx;
+				SDKROOT = "";
 			};
 			name = Debug;
 		};
@@ -887,15 +891,15 @@
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_VERSION = "";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = NO;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				SDKROOT = macosx;
+				SDKROOT = "";
 			};
 			name = Release;
 		};

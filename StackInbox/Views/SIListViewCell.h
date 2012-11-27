@@ -11,9 +11,9 @@
 
 @interface SIListViewCell : PXListViewCell
 
-@property (unsafe_unretained) 			  IBOutlet NSTextField 	*timeField;
+@property (unsafe_unretained) IBOutlet NSTextField 	*timeField;
 @property (nonatomic, strong) IBOutlet NSTextField 	*textLabel, *detailTextLabel;
 @property (nonatomic, strong) IBOutlet EGOImageView *imageView;
-@property (nonatomic, strong)		   NSColor	 	*backgroundColor;
+@property (RONLY)		      		   NSColor	 	*backgroundColor;
 
 @end
