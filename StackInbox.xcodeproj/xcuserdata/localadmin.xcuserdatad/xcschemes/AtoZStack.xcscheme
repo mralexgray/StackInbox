@@ -14,20 +14,6 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7B311950159B6D9E002134C4"
-               BuildableName = "AtoZ.framework"
-               BlueprintName = "AtoZ"
-               ReferencedContainer = "container:../../AtoZ.framework/AtoZ/AtoZ.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "7BB870AA16390C120000C242"
                BuildableName = "AtoZStack.framework"
                BlueprintName = "AtoZStack"
