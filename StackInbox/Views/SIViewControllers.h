@@ -11,9 +11,7 @@
 @interface 					 SIViewController : NSViewController
 @property (weak) 				SIAppDelegate   *parentContainer;
 @property  								 BOOL 	isCurrent;
-
 - (void) viewControllerWillMoveFromParent;
-- (id)   init;
 @end
 
 @protocol       SILoginViewControllerDelegate   <NSObject>
@@ -27,7 +25,7 @@
 @property  id <SILoginViewControllerDelegate>   delegate;
 
 - (IBAction) login:			(NSBUTT*)sender;
-- (void) 	 setLoginState:	(BOOL)loggingIn;
+//- (void) 	 setLoginState:	(BOOL)loggingIn;
 @end
 
 @interface 			           SIListViewCell : PXListViewCell
@@ -36,17 +34,6 @@
 @property  			    IBOutlet       NSTXTF 	*timeField;
 @property (STRNG,NATOM) IBOutlet       NSTXTF 	*textLabel,
 												*detailTextLabel;
-@end
-
-@interface 		  DSURLTestListViewController : SIViewController <PXListViewDelegate>
-@property  			   	IBOutlet   PXListView   *listView;
-@property (STRNG,NATOM) 		     	  NSA   *itemsToList;
-@end
-
-@interface 			      DSURLDataSourceCell : PXListViewCell
-@property (STRNG,NATOM)	IBOutlet       NSTXTF   *textLabel;
-@property 			 	IBOutlet 	 AZASIMGV   *imageV;
-@property (STRNG) 					      NSC   *backgroundColor;
 @end
 
 @interface        SIDownloadingViewController : SIViewController
@@ -63,3 +50,22 @@
 @interface         SINoInternetViewController : SIViewController
 @end
 
+
+
+
+
+
+#import "DSURLDataSource.h"
+
+@interface 		  DSURLTestListViewController : SIViewController <PXListViewDelegate>
+@property  			   	IBOutlet   PXListView   *listView;
+@property (STRNG,NATOM) 	  DSURLDataSource   *dataSource;
+@end
+
+@interface 			      DSURLDataSourceCell : PXListViewCell
+@property 				IBOutlet       NSTXTF   *textLabel;
+//@property 			 	IBOutlet 	 AZASIMGV   *imageV;
+@property 			 	IBOutlet 	     NSIV   *imageV;
+@property (STRNG) 					    NSURL   *url;
+@property (STRNG) 					      NSC   *backgroundColor;
+@end

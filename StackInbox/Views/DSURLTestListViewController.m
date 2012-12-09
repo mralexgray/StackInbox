@@ -7,35 +7,116 @@
 //
 
 #import "SIViewControllers.h"
-//#import "SIInboxListViewController.h"
-//#import "SIListViewCell.h"
 #import "DSURLDataSource.h"
 
 
 
-@implementation DSURLDataSourceCell
-@synthesize  textLabel, backgroundColor;
-//detailTextLabel,	 timeField, , imageView;
+@implementation DSURLTestListViewController
+@synthesize listView;
 
-//- (void)setBackgroundColor:(NSColor*)backgroundColor
-//{
+- (id)initWithNibName:(NSS*)nibNameOrNil bundle:(NSB*)nibBundleOrNil
+{
+	return (!(self = [super initWithNibName:nibNameOrNil bundle:[NSB frameworkBundleNamed:@"AtoZStack"]])) ? nil : self;
+}
+
+- (void)awakeFromNib
+{
+	listView.pBCN 		= YES;
+	listView.delegate 	= self;
+    _dataSource =  DSURLDataSource.new;
+	[self.listView reloadData];
+	//	[self.listView observeFrameChangeUsingBlock:^{
+	//		if (self.listView.contentView.bounds.origin.y < 10) [[NSApplication sharedApplication].dockTile setBadgeLabel:nil];
+	//	}];
+	//	[AZNOTCENTER addObserver:self selector:@selector(boundsDidChange:) name:NSViewBoundsDidChangeNotification object:nil];
+}
+
+//- (void)boundsDidChange:(NSNotification *)note { }
+
+
+- (NSUI)numberOfRowsInListView:(PXListView *)aListView
+{
+	return _dataSource.domains.count;
+}
+
+- (PXListViewCell *)listView:(PXListView *)aListView cellForRow:(NSUI)row
+{
+	DSURLDataSourceCell *cell = (DSURLDataSourceCell *)[aListView dequeueCellWithReusableIdentifier:@"CellID"] ?:
+	[DSURLDataSourceCell cellLoadedFromNibNamed:@"DSURLCellNib" reusableIdentifier:@"CellID"];
+
+    NSURL *url = [NSURL URLWithString:$(@"http://%@",self.dataSource.domains[row])];
+
+	[AZURLSnapshot takeSnapshotOfWebPageAtURL:url completionBlock:^(NSImage *i) {
+			cell.imageV.image = i;
+	}];
+
+	cell.textLabel.stringValue = [NSString stringWithFormat:@"%ld. %@", row + 1, [url absoluteString]];
+//	NSS *urrrrl = [[NSIMG monoIcons][row]saveToWeb];
+//	cell.imageV.URL = urrrrl;
+	return cell;
+}
+//	if (!url) return nil;
+//	AZLOG(url);
+//	NSLog(@"cell: %@ for row: %ld", cell, row);
+//	cell.backgroundColor = RANDOMCOLOR;
+// [AZFavIconManager iconForURL:url downloadHandler:^(NSImage *icon) {
+//        // This also ensures that the table view returns the cell as now it still has to be returned.
+//        if (icon) {
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                NSUInteger columnIndex = [_tableView.tableColumns indexOfObject:tableColumn];
+//                NSTableCellView *tableCell = [_tableView viewAtColumn:columnIndex row:row makeIfNecessary:NO];
+//                cell.image = icon;
+//				[listView reloadData];
+//				[listView reloadRowAtIndex:row];
+//	});	}	}];
+//	NSS *item 		= self.itemsToList[row];
+//	NSS *str 			= item.title;
+//	str	 					= item.type == SIInboxItemTypeComment ? [NSString stringWithFormat:@"comment on %@", item.title] :
+//	item.type == SIInboxItemTypeNewAnswer ? [NSString stringWithFormat:@"new answer on %@", item.title] : str;
+//	cell.textLabel.stringValue 		 = str;
+//	cell.imageView.image =  			 = item.siteIconURL;
+//	cell.detailTextLabel.stringValue = [item.body stringByAppendingString:@"..."];
+//	cell.timeField.stringValue		 = [NSDate highestSignificantComponentStringFromDate:item.creationDate toDate:[NSDate date]];
+//	cell.backgroundColor = item.isUnread ? [NSColor colorWithDeviceRed:0.739 green:0.900 blue:0.000 alpha:1.000] : cell.backgroundColor;
+
+- (CGFloat)listView:(PXListView *)aListView heightOfRow:(NSUI)row {
+	return 65;
+}
+
+- (void)listViewSelectionDidChange:(NSNotification *)aNotification
+{
+	//	SIInboxModel *item = [self.itemsToList objectAtIndex:(NSUI)self.listView.selectedRow];
+	//	NSLog(@"Clicked on model: %@", [item propertiesPlease]);
+	//	[[NSWorkspace sharedWorkspace] openURL:item.linkURL];
+	//	[item setRead];
+	//	[self.listView setSelectedRow:]
+	//	[self.listView reloadData];
+	//	if([[NSUserDefaults standardUserDefaults] boolForKey:@"KeepInboxWhenItemOpened"]) {
+	//		[NSApp activateIgnoringOtherApps:YES];
+	//	}
+
+}
+
+@end
+
+
+@implementation DSURLDataSourceCell
+@synthesize  textLabel, backgroundColor, url, imageV;
+//- (void)setBackgroundColor:(NSColor*)backgroundColor {
 //	_backgroundColor = backgroundColor ?: _backgroundColor;
 //	[self setNeedsDisplay:YES];
 //}
 
-//- (void) setImage:(NSIMG*)image
-//{
+//- (void) setImage:(NSIMG*)image	{
 //	image = image;
 //	backgroundColor = [image quantize][0];
 //}
-//- (NSC*) backgroundColor
-//{
+//- (NSC*) backgroundColor { return/* image ? [image quantize][0] :*/ [NSC checkerboardWithFirstColor:BLACK secondColor:WHITE squareWidth:15];	}
 
-//	return/* image ? [image quantize][0] :*/ [NSC checkerboardWithFirstColor:BLACK secondColor:WHITE squareWidth:15];
-//}
-
-- (void)prepareForReuse {
-	self.imageV.image = nil;
+- (void)prepareForReuse
+{
+	self.imageV.image 	 = nil;
+	self.url   			 = nil;
 	self.backgroundColor = nil;
 	[super prepareForReuse];
 }
@@ -78,91 +159,4 @@
 
 @end
 
-
-@implementation DSURLTestListViewController
-@synthesize listView, itemsToList;
-
-- (id)initWithNibName:(NSS *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-	if (!(self = [super initWithNibName:nibNameOrNil bundle:[NSBundle frameworkBundleNamed:@"AtoZStack"]])) return nil;
-	return self;
-}
-
-- (void)awakeFromNib
-{
-	listView.pBCN 		= YES;
-	listView.delegate 	= self;
-    itemsToList =  LogAndReturn(   [[DSURLDataSource domains] map:^id(NSString* domain) {
-	   return [NSURL URLWithString:[@"http://" stringByAppendingString:domain] ];
-    }]);
-
-	[self.listView reloadData];
-//	[self.listView observeFrameChangeUsingBlock:^{
-//		if (self.listView.contentView.bounds.origin.y < 10) [[NSApplication sharedApplication].dockTile setBadgeLabel:nil];
-//	}];
-//	[AZNOTCENTER addObserver:self selector:@selector(boundsDidChange:) name:NSViewBoundsDidChangeNotification object:nil];
-}
-
-//- (void)boundsDidChange:(NSNotification *)note { }
-
-
-- (NSUI)numberOfRowsInListView:(PXListView *)aListView
-{
-	return itemsToList.count;
-}
-
-- (PXListViewCell *)listView:(PXListView *)aListView cellForRow:(NSUI)row
-{
-	DSURLDataSourceCell *cell = (DSURLDataSourceCell *)[aListView dequeueCellWithReusableIdentifier:@"CellID"] ?:
-					    [DSURLDataSourceCell cellLoadedFromNibNamed:@"DSURLCellNib" reusableIdentifier:@"CellID"];
-
-    NSURL *url = itemsToList[row];// normal:row];
-	cell.textLabel.stringValue = [NSString stringWithFormat:@"%ld. %@", row + 1, [url absoluteString]];
-	NSS *urrrrl = [[NSIMG monoIcons][row]saveToWeb];
-	cell.imageV.URL = urrrrl;
-	return cell;
-}
-//	if (!url) return nil;
-//	AZLOG(url);
-//	NSLog(@"cell: %@ for row: %ld", cell, row);
-//	cell.backgroundColor = RANDOMCOLOR;
-// [AZFavIconManager iconForURL:url downloadHandler:^(NSImage *icon) {
-//        // This also ensures that the table view returns the cell as now it still has to be returned.
-//        if (icon) {
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                NSUInteger columnIndex = [_tableView.tableColumns indexOfObject:tableColumn];
-//                NSTableCellView *tableCell = [_tableView viewAtColumn:columnIndex row:row makeIfNecessary:NO];
-//                cell.image = icon;
-//				[listView reloadData];
-//				[listView reloadRowAtIndex:row];
-//	});	}	}];
-//	NSS *item 		= self.itemsToList[row];
-//	NSS *str 			= item.title;
-//	str	 					= item.type == SIInboxItemTypeComment ? [NSString stringWithFormat:@"comment on %@", item.title] :
-//	item.type == SIInboxItemTypeNewAnswer ? [NSString stringWithFormat:@"new answer on %@", item.title] : str;
-//	cell.textLabel.stringValue 		 = str;
-//	cell.imageView.image =  			 = item.siteIconURL;
-//	cell.detailTextLabel.stringValue = [item.body stringByAppendingString:@"..."];
-//	cell.timeField.stringValue		 = [NSDate highestSignificantComponentStringFromDate:item.creationDate toDate:[NSDate date]];
-//	cell.backgroundColor = item.isUnread ? [NSColor colorWithDeviceRed:0.739 green:0.900 blue:0.000 alpha:1.000] : cell.backgroundColor;
-
-- (CGFloat)listView:(PXListView *)aListView heightOfRow:(NSUI)row {
-	return 65;
-}
-
-- (void)listViewSelectionDidChange:(NSNotification *)aNotification
-{
-//	SIInboxModel *item = [self.itemsToList objectAtIndex:(NSUI)self.listView.selectedRow];
-//	NSLog(@"Clicked on model: %@", [item propertiesPlease]);
-//	[[NSWorkspace sharedWorkspace] openURL:item.linkURL];
-//	[item setRead];
-//	[self.listView setSelectedRow:]
-//	[self.listView reloadData];
-//	if([[NSUserDefaults standardUserDefaults] boolForKey:@"KeepInboxWhenItemOpened"]) {
-//		[NSApp activateIgnoringOtherApps:YES];
-//	}
-
-}
-
-@end
 

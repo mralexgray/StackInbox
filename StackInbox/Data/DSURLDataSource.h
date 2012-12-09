@@ -10,7 +10,8 @@
 
 @interface DSURLDataSource : NSObject
 
-+ (NSArray*)domains;
-+ (NSArray*)domainsToSkip;
+@property (nonatomic, strong) NSA* domains;
+//+ (NSArray*)domains;
+//+ (NSArray*)domainsToSkip;
 
 @end

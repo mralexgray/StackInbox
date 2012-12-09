@@ -2302,8 +2302,7 @@ static id _JKParseUTF8String(JKParseState *parseState, BOOL mutableCollections, 
  
  Autorelease objects are used in case things don't go smoothly.  By having them autoreleased, we effectively guarantee that our
  requirement to -release the object is always met, not matter what goes wrong.  The downside is having a an object or two in
- autorelease limbo, but we've done our best to minimize that impact, so it all balances out.
- */
+ autorelease limbo, but we've done our best to minimize that impact, so it all balances out.	*/
 
 @implementation NSString (JSONKitDeserializing)
 

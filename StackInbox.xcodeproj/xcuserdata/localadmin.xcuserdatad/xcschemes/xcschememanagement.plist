@@ -7,12 +7,12 @@
 		<key>AtoZStack.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>50</integer>
+			<integer>54</integer>
 		</dict>
 		<key>StackInbox.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>49</integer>
+			<integer>53</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>

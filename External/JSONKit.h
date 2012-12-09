@@ -111,8 +111,7 @@ typedef NSUInteger JKFlags;
   JKParseOptionUnicodeNewlines : Allow Unicode recommended (?:\r\n|[\n\v\f\r\x85\p{Zl}\p{Zp}]) newlines.
   JKParseOptionLooseUnicode	: Normally the decoder will stop with an error at any malformed Unicode.
 								 This option allows JSON with malformed Unicode to be parsed without reporting an error.
-								 Any malformed Unicode is replaced with \uFFFD, or "REPLACEMENT CHARACTER".
- */
+								 Any malformed Unicode is replaced with \uFFFD, or "REPLACEMENT CHARACTER".	*/
 
 enum {
   JKParseOptionNone					 = 0,
