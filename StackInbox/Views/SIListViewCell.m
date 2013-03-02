@@ -14,7 +14,7 @@
 {
 	self.selected ? ^{
 		[self.backgroundColor set];
-		[textLabel setAssociatedValue:[textLabel.textColor hexString]  forKey:@"oldColor" policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
+//		[textLabel setAssociatedValue:[textLabel.textColor hexString]  forKey:@"oldColor" policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
 		textLabel.textColor = self.backgroundColor.contrastingForegroundColor;
 	}() : ^{
 		textLabel.textColor = [NSC colorFromHexRGB:[textLabel associatedValueForKey:@"oldColor"]];
