@@ -128,10 +128,10 @@
 	loginVC.delegate				= self;
 	self.loginViewController			= loginVC;
 
-	self.noInternetViewController	= [SINoInternetViewController 	new];
+	self.noInternetViewController		= [SINoInternetViewController 	new];
 	self.downloadingViewController	= [SIDownloadingViewController 	new];
-	self.inboxViewController			= [SIInboxListViewController 	new];
-	self.dsURLViewController			= [DSURLTestListViewController 	new];
+	self.inboxViewController					= [SIInboxListViewController 	new];
+	self.dsURLViewController					= [DSURLTestListViewController 	new];
 
 	dsURLViewController.view.frame	= AZMakeRectFromSize([(NSView*)self.DSURLwindow.contentView frame].size);
 	dsURLViewController.view.arMASK  = NSSIZEABLE;

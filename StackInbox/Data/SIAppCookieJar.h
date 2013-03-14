@@ -14,7 +14,7 @@
 
 @property (nonatomic, retain) NSMutableArray *cookieStore;
 
-//- (id) 				initSingleton; 				// <= add these to the interface
+- (id) 				initSingleton; 				// <= add these to the interface
 + (SIAppCookieJar*) sharedSIAppCookieJar;  		// <= where Foo is the class name
 - (NSS *) 		pathForCookieJar;
 

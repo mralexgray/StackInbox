@@ -23,15 +23,15 @@
 
 
 @interface SIAppDelegate : NSObject <	NSApplicationDelegate,
-										SIInboxDownloaderDelegate,
-										GrowlApplicationBridgeDelegate,
-										SILoginViewControllerDelegate,
-										SIAuthControllerDelegate	>
+																					SIInboxDownloaderDelegate,
+																					 		GrowlApplicationBridgeDelegate,
+																									SILoginViewControllerDelegate,
+																												SIAuthControllerDelegate	>
 
 @property (assign) IBOutlet   SIWindow 		*window;
 @property (assign) IBOutlet   SIWindow 		*DSURLwindow;
+@property (assign) IBOutlet 	  NSW 				*prefsWindow;
 
-@property (assign) IBOutlet 	  NSWindow 		*prefsWindow;
 @property (nonatomic, retain) NSTimer 		*timer;
 @property (nonatomic, retain) NSStatusItem 	*statusItem;
 

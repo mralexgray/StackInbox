@@ -19,7 +19,7 @@
 //    [result replaceObjectAtIndex:[result indexOfObject:@"360buy.com"] withObject:@"www.360buy.com"]; //Redirects with javascript
 //    [result replaceObjectAtIndex:[result indexOfObject:@"amazonaws.com"] withObject:@"aws.amazon.com"];
 //    return result;
-}
+
 
 
 // URL Absolute string

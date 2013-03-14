@@ -33,7 +33,7 @@
 - (NSS *) pathForCookieJar
 {
 	NSFileManager *fileManager = [NSFileManager defaultManager];
-	NSS *folder = [@"~/Library/Application Support/StackInbox/" stringByExpandingTildeInPath];
+	NSS *folder = [[NSBundle applicationSupportFolder]withPath:@"vageen"];		//AZPROCNAME [@"~/Library/Application Support/StackInbox/" stringByExpandingTildeInPath];
 	if ([fileManager fileExistsAtPath: folder] == NO)
 		[fileManager createDirectoryAtPath:folder withIntermediateDirectories:YES attributes:nil error:nil];
 	return [folder stringByAppendingPathComponent: @"cookies"];
