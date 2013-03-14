@@ -114,13 +114,6 @@
 			remoteGlobalIDString = 7BB870AA16390C120000C242;
 			remoteInfo = AtoZStack;
 		};
-		7B636620165F97C1008F3D27 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7B636618165F97C0008F3D27 /* Reader Notifier.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8D1107320486CEB800E47090;
-			remoteInfo = "Reader Notifier Reloaded";
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -151,7 +144,6 @@
 		7B448AED165F858800988DBC /* DSURLTestListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DSURLTestListViewController.m; sourceTree = "<group>"; };
 		7B448AEF165F862600988DBC /* DSURLTestListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DSURLTestListViewController.xib; sourceTree = "<group>"; };
 		7B448AF1165F86C600988DBC /* DSURLCellNib.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DSURLCellNib.xib; sourceTree = "<group>"; };
-		7B636618165F97C0008F3D27 /* Reader Notifier.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "Reader Notifier.xcodeproj"; path = "../readernotifier/Reader Notifier.xcodeproj"; sourceTree = "<group>"; };
 		7B636624165F9CE1008F3D27 /* SIReputationModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIReputationModel.m; sourceTree = "<group>"; };
 		7BB870AB16390C130000C242 /* AtoZStack.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AtoZStack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BB870AE16390C130000C242 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -282,14 +274,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		7B636619165F97C0008F3D27 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				7B636621165F97C1008F3D27 /* Reader Notifier Reloaded.app */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		7BB870A01638C0760000C242 /* XIBs */ = {
 			isa = PBXGroup;
 			children = (
@@ -416,7 +400,6 @@
 		ABAF7376149EC73F00DE0A2F = {
 			isa = PBXGroup;
 			children = (
-				7B636618165F97C0008F3D27 /* Reader Notifier.xcodeproj */,
 				ABAF738B149EC73F00DE0A2F /* StackInbox */,
 				7BB870B116390C130000C242 /* AtoZStack */,
 				ABAF7384149EC73F00DE0A2F /* Frameworks */,
@@ -641,12 +624,6 @@
 			mainGroup = ABAF7376149EC73F00DE0A2F;
 			productRefGroup = ABAF7382149EC73F00DE0A2F /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 7B636619165F97C0008F3D27 /* Products */;
-					ProjectRef = 7B636618165F97C0008F3D27 /* Reader Notifier.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				ABAF7380149EC73F00DE0A2F /* StackInbox */,
@@ -654,16 +631,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		7B636621165F97C1008F3D27 /* Reader Notifier Reloaded.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = "Reader Notifier Reloaded.app";
-			remoteRef = 7B636620165F97C1008F3D27 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		7BB870A916390C120000C242 /* Resources */ = {
